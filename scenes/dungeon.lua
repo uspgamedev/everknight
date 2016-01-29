@@ -22,14 +22,14 @@ end
 function dungeon.draw ()
   local g = love.graphics
   g.push()
-  g.scale(32, 32)
+  g.scale(64, 64)
   for i,row in ipairs(map) do
     for j,tile in ipairs(row) do
       g.push()
       g.setColor(255, 255, 255)
-      g.translate(j, i)
+      g.translate(j-1, i-1)
       if tile == 'FLOOR' then
-        g.setColor(200, 100, 180)
+        g.setColor(20, 100, 180)
         g.rectangle('fill', .1, .1, .8, .8)
       end
       g.pop()

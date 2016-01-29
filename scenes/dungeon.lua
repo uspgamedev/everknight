@@ -3,7 +3,7 @@ local player = require 'player'
 
 local dungeon = {}
 
-local W, H = 16, 12
+local W, H = 16, 10
 
 local map
 
@@ -49,7 +49,7 @@ function dungeon.draw ()
   local g = love.graphics
   g.push()
   g.scale(64, 64)
-  g.translate(-1, -1)
+  g.translate(-1, 1)
   for i,row in ipairs(map) do
     for j,tile in ipairs(row) do
       g.push()
@@ -57,9 +57,9 @@ function dungeon.draw ()
       g.translate(j, i)
       if tile == 'WALL' then
         g.setColor(80, 150, 100)
-        g.rectangle('fill', 0, -.5, 1, 1)
+        g.rectangle('fill', 0, -.75, 1, 1)
         g.setColor(60, 120, 80)
-        g.rectangle('fill', 0, .5, 1, 1)
+        g.rectangle('fill', 0, .25, 1, 1)
       elseif tile == 'DOOR' then
         g.setColor(20, 90, 40)
         g.rectangle('fill', 0, -.5, 1, 1)

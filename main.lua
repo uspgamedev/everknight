@@ -5,16 +5,21 @@ vec2 = require 'lux.geom.Vector'
 
 
 function love.load()
-  --scene = scenes.title
-  scene = scenes.dungeon
-  scene.load()
+  curscene = scenes.title
+  -- curscene = scenes.dungeon
+  curscene.load()
 end
 
 function love.update(dt)
-  scene.update(dt)
+  retscene = curscene.update(dt)
+  -- print(retscene)
+  if retscene and scenes[retscene] then
+    curscene = scenes[retscene]
+    curscene.load()
+  end
 end
 
 function love.draw()
-  scene.draw()
+  curscene.draw()
 end
 

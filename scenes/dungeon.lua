@@ -12,7 +12,11 @@ local map
 local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
 local roomnumber = 1
-
+local playerstartingpos = {}
+playerstartingpos['W'] = {2, H/2}
+playerstartingpos['E'] = {W-1, H/2}
+playerstartingpos['N'] = {W/2, 2}
+playerstartingpos['S'] = {W/2, H-1}
 
 local function updateroom()
     for i=1,H do
@@ -67,20 +71,20 @@ function dungeon.load ()
   --   end
   -- end
   player.clear()
-  player.setpos(vec2:new{2,2})
+  player.setpos(vec2:new{2,H/2})
 end
 
 function dungeon.update (dt)
   player.update(dt)
   local playerpos = player.getpos()
   if playerpos[1] < 0 or playerpos[2] < 0 or
-    playerpos[1] > H or playerpos[2] > W then
+    playerpos[1] > W or playerpos[2] > H then
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then
       roomnumber = 1
     end
     updateroom()
-    player.setpos(vec2:new{2,2})
+    player.setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
   end
 end
 

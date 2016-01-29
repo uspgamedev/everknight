@@ -7,12 +7,22 @@ local map
 
 -- local rooms = require "rooms"
 
+local roomexits = {'E','S','W','N','N','E'}
+local roomentries = {'W','W','N','E','E','S'}
+local roomnumber = 1
+
 function dungeon.load ()
   map = {}
   for i=1,H do
     map[i] = {}
     for j=1,W do
-      if --love.math.random() > .9 or
+      if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+         (roomexits[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+         (roomexits[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+         (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+        map[i][j] = 'FLOOR'
+      elseif
+       --love.math.random() > .9 or
        i == 1 or j == 1 or i == H or j == W then
         map[i][j] = 'WALL'
       else

@@ -17,6 +17,14 @@ function love.update(dt)
   end
 end
 
+for name,handler in pairs(love.handlers) do
+  if name ~= 'quit' then
+    love[name] = function (...)
+      return curscene[name] (...)
+    end
+  end
+end
+
 function love.draw()
   curscene.draw()
 end

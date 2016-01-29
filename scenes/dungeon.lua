@@ -24,10 +24,12 @@ local function updateroom()
          (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
         map[i][j] = 'FLOOR'
       elseif (roomentries[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
-             (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+             (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) then
+        map[i][j] = 'DOOR'
+      elseif
              (roomentries[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
              (roomentries[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
-        map[i][j] = 'DOOR'
+        map[i][j] = 'HDOOR'
       elseif
        --love.math.random() > .9 or
        i == 1 or j == 1 or i == H or j == W then

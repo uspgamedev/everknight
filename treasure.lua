@@ -11,6 +11,7 @@ end
 
 function treasure.load(blinglevel, W, H)
   pos = vec2:new{W/2, H/2}
+  tobedeleted = false
 end
 
 function treasure.getpos()

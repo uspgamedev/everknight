@@ -87,7 +87,17 @@ function dungeon.update ()
   ----
   --CHECK COLLISION HERE
   ----
-  -- e chama obj.oncollision plz
+  -- e chama obj.oncollide plz
+  for _,obj in ipairs(activeobjects) do
+    local j, i = playerpos:unpack()
+    local objx, objy = obj.getpos():unpack()
+    if math.floor(i) == 
+      math.floor(objy) and 
+      math.floor(j) == 
+      math.floor (objx) then
+      obj.oncollide()
+    end
+  end
 
   for i,obj in ipairs(activeobjects) do
     todelete[i] = obj.update()

@@ -23,6 +23,11 @@ function dungeon.load ()
          (roomexits[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
          (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
         map[i][j] = 'FLOOR'
+      elseif (roomentries[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+             (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+             (roomentries[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+             (roomentries[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+        map[i][j] = 'DOOR'
       elseif
        --love.math.random() > .9 or
        i == 1 or j == 1 or i == H or j == W then
@@ -54,6 +59,11 @@ function dungeon.draw ()
         g.setColor(80, 150, 100)
         g.rectangle('fill', 0, -.5, 1, 1)
         g.setColor(60, 120, 80)
+        g.rectangle('fill', 0, .5, 1, 1)
+      elseif tile == 'DOOR' then
+        g.setColor(20, 90, 40)
+        g.rectangle('fill', 0, -.5, 1, 1)
+        g.setColor(0, 60, 20)
         g.rectangle('fill', 0, .5, 1, 1)
       elseif tile == 'FLOOR' then
         g.setColor(20, 100, 180)

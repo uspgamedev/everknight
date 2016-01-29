@@ -82,6 +82,28 @@ function dungeon.update (dt)
   end
 end
 
+-- Converts HSL to RGB. (input and output range: 0 - 255)
+local function HSL(h, s, l, a)
+  if s<=0 then return l,l,l,a end
+  h, s, l = h/256*6, s/255, l/255
+  local c = (1-math.abs(2*l-1))*s
+  local x = (1-math.abs(h%2-1))*c
+  local m,r,g,b = (l-.5*c), 0,0,0
+  if h < 1     then r,g,b = c,x,0
+  elseif h < 2 then r,g,b = x,c,0
+  elseif h < 3 then r,g,b = 0,c,x
+  elseif h < 4 then r,g,b = 0,x,c
+  elseif h < 5 then r,g,b = x,0,c
+  else              r,g,b = c,0,x
+  end return (r+m)*255,(g+m)*255,(b+m)*255,a
+end
+
+local function COLOR (ds, dl)
+  ds = ds or 0
+  dl = dl or 0
+  return HSL(150, 30+ds, 30+dl, 255)
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -93,17 +115,19 @@ function dungeon.draw ()
       g.setColor(255, 255, 255)
       g.translate(j, i)
       if tile == 'WALL' then
-        g.setColor(80, 150, 100)
+        g.setColor(COLOR(80, -5))
         g.rectangle('fill', 0, -.75, 1, 1)
-        g.setColor(60, 120, 80)
-        g.rectangle('fill', 0, .25, 1, 1)
+        g.setColor(COLOR(80, -10))
+        g.rectangle('fill', 0, .25, 1, .75)
       elseif tile == 'DOOR' then
-        g.setColor(20, 90, 40)
-        g.rectangle('fill', 0, -.5, 1, 1)
-        g.setColor(0, 60, 20)
-        g.rectangle('fill', 0, .5, 1, 1)
+        g.setColor(COLOR())
+        g.rectangle('fill', 0, 0, 1, 1)
+        g.setColor(COLOR(-15, -5))
+        g.rectangle('fill', .25, -1.25, .5, 1)
+        g.setColor(COLOR(-15, -10))
+        g.rectangle('fill', .25, -.25, .5, 1.25)
       elseif tile == 'FLOOR' then
-        g.setColor(20, 100, 180)
+        g.setColor(COLOR())
         g.rectangle('fill', 0, 0, 1, 1)
       end
       g.pop()

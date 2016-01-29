@@ -7,12 +7,15 @@ local W, H = 16, 12
 
 local map
 
+-- local rooms = require "rooms"
+
 function dungeon.load ()
   map = {}
   for i=1,H do
     map[i] = {}
     for j=1,W do
-      if love.math.random() > .9 then
+      if --love.math.random() > .9 or
+       i == 1 or j == 1 or i == H or j == W then
         map[i][j] = 'WALL'
       else
         map[i][j] = 'FLOOR'

@@ -1,19 +1,27 @@
 
 local scenes = require 'scene'
 
-vec2 = require 'lux.geom.Vector'
+FRAME = 1/60
 
+vec2 = require 'lux.geom.Vector'
 
 function love.load()
   curscene = scenes.title
   curscene.load()
 end
 
-function love.update(dt)
-  retscene = curscene.update(dt)
-  if retscene and scenes[retscene] then
-    curscene = scenes[retscene]
-    curscene.load()
+do
+  local lag = 0
+  function love.update (dt)
+    lag = lag + dt
+    while lag >= FRAME do
+      retscene = curscene.update()
+      if retscene and scenes[retscene] then
+        curscene = scenes[retscene]
+        curscene.load()
+      end
+      lag = lag - FRAME
+    end
   end
 end
 

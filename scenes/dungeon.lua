@@ -87,8 +87,8 @@ function dungeon.load ()
   player.setpos(vec2:new{2,H/2})
 end
 
-function dungeon.update (dt)
-  player.update(dt)
+function dungeon.update ()
+  player.update()
   local playerpos = player.getpos()
 
   for _,obj in ipairs(activeobjects) do
@@ -158,6 +158,13 @@ function dungeon.draw ()
         g.rectangle('fill', .25, -1.25, .5, 1)
         g.setColor(COLOR(-15, -10))
         g.rectangle('fill', .25, -.25, .5, 1.25)
+      elseif tile == 'HDOOR' then
+        g.setColor(COLOR())
+        g.rectangle('fill', 0, 0, 1, 1)
+        g.setColor(COLOR(-15, -5))
+        g.rectangle('fill', 0, -1, 1, .5)
+        g.setColor(COLOR(-15, -10))
+        g.rectangle('fill', 0, -.50, 1, 1.25)
       elseif tile == 'FLOOR' then
         g.setColor(COLOR())
         g.rectangle('fill', 0, 0, 1, 1)

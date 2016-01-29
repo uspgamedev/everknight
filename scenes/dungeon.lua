@@ -27,7 +27,7 @@ function dungeon.load ()
 end
 
 function dungeon.update (dt)
-  
+  player.update(dt)
 end
 
 function dungeon.draw ()

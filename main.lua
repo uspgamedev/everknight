@@ -20,7 +20,7 @@ end
 for name,handler in pairs(love.handlers) do
   if name ~= 'quit' then
     love[name] = function (...)
-      return curscene[name] (...)
+      return (curscene[name] or function () end) (...)
     end
   end
 end

@@ -10,7 +10,11 @@ function dungeon.load ()
   for i=1,H do
     map[i] = {}
     for j=1,W do
-      map[i][j] = 'FLOOR'
+      if love.math.random() > .9 then
+        map[i][j] = 'WALL'
+      else
+        map[i][j] = 'FLOOR'
+      end
     end
   end
 end
@@ -28,9 +32,14 @@ function dungeon.draw ()
       g.push()
       g.setColor(255, 255, 255)
       g.translate(j-1, i-1)
-      if tile == 'FLOOR' then
+      if tile == 'WALL' then
+        g.setColor(80, 150, 100)
+        g.rectangle('fill', 0, -.5, 1, 1)
+        g.setColor(60, 120, 80)
+        g.rectangle('fill', 0, .5, 1, 1)
+      elseif tile == 'FLOOR' then
         g.setColor(20, 100, 180)
-        g.rectangle('fill', .1, .1, .8, .8)
+        g.rectangle('fill', 0, 0, 1, 1)
       end
       g.pop()
     end

@@ -61,34 +61,19 @@ end
 function dungeon.load ()
   map = {}
   updateroom()
-  -- for i=1,H do
-  --   map[i] = {}
-  --   for j=1,W do
-  --     if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
-  --        (roomexits[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
-  --        (roomexits[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
-  --        (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
-  --       map[i][j] = 'FLOOR'
-  --     elseif (roomentries[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
-  --            (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
-  --            (roomentries[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
-  --            (roomentries[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
-  --       map[i][j] = 'DOOR'
-  --     elseif
-  --      --love.math.random() > .9 or
-  --      i == 1 or j == 1 or i == H or j == W then
-  --       map[i][j] = 'WALL'
-  --     else
-  --       map[i][j] = 'FLOOR'
-  --     end
-  --   end
-  -- end
   player.clear()
   player.setpos(vec2:new{2,H/2})
 end
 
 function dungeon.update ()
   player.update()
+  do -- check collision
+    local pos = player.getpos() + FRAME*player.getmove()
+    local j, i = pos:unpack()
+    if map[math.floor(i)][math.floor(j)] == 'FLOOR' then
+      player.setpos(pos)
+    end
+  end
   local playerpos = player.getpos()
 
   for _,obj in ipairs(activeobjects) do
@@ -176,7 +161,7 @@ function dungeon.draw ()
     g.push()
     g.translate(player.getpos():unpack())
     g.setColor(150, 100, 80)
-    g.circle('fill', .5, .5, .4, 16)
+    g.circle('fill', 0, 0, .4, 16)
     g.pop()
   end
   g.pop()

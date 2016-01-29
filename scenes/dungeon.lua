@@ -70,19 +70,19 @@ function dungeon.update ()
   do -- check collision
     local pos = player.getpos() + FRAME*player.getmove()
     local j, i = pos:unpack()
-    if map[math.floor(i)][math.floor(j)] == 'FLOOR' then
+    if not map[math.floor(i)] or not map[math.floor(i)][math.floor(j)] or map[math.floor(i)][math.floor(j)] == 'FLOOR' then
       player.setpos(pos)
     end
   end
   local playerpos = player.getpos()
 
   for _,obj in ipairs(activeobjects) do
-    obj.update(dt)
+    obj.update(FRAME)
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 0 or playerpos[2] < 0 or
-    playerpos[1] > W or playerpos[2] > H then
+    playerpos[1] > W + 1 or playerpos[2] > H + 1 then
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then
       roomnumber = 1

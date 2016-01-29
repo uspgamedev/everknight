@@ -74,8 +74,8 @@ function dungeon.load ()
   player.setpos(vec2:new{2,H/2})
 end
 
-function dungeon.update (dt)
-  player.update(dt)
+function dungeon.update ()
+  player.update()
   local playerpos = player.getpos()
   if playerpos[1] < 0 or playerpos[2] < 0 or
     playerpos[1] > W or playerpos[2] > H then

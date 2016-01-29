@@ -24,14 +24,14 @@ function player.setpos (set)
   pos = set:clone()
 end
 
-function player.update (dt)
+function player.update ()
   local spd = vec2:new{}
   for key,dir in pairs(DIRS) do
     if love.keyboard.isDown(key) then
       spd = spd + dir
     end
   end
-  pos = pos + SPD*spd*dt
+  pos = pos + SPD*spd*FRAME
 end
 
 return player

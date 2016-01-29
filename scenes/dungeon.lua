@@ -9,13 +9,13 @@ local map
 
 -- local rooms = require "rooms"
 
-local roomexits = {'E','S','W','N','N','E'}
+local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
 local roomnumber = 1
 
-function dungeon.load ()
-  map = {}
-  for i=1,H do
+
+local function updateroom()
+    for i=1,H do
     map[i] = {}
     for j=1,W do
       if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
@@ -37,12 +37,49 @@ function dungeon.load ()
       end
     end
   end
+end
+
+function dungeon.load ()
+  map = {}
+  updateroom()
+  -- for i=1,H do
+  --   map[i] = {}
+  --   for j=1,W do
+  --     if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+  --        (roomexits[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+  --        (roomexits[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+  --        (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+  --       map[i][j] = 'FLOOR'
+  --     elseif (roomentries[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+  --            (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+  --            (roomentries[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+  --            (roomentries[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+  --       map[i][j] = 'DOOR'
+  --     elseif
+  --      --love.math.random() > .9 or
+  --      i == 1 or j == 1 or i == H or j == W then
+  --       map[i][j] = 'WALL'
+  --     else
+  --       map[i][j] = 'FLOOR'
+  --     end
+  --   end
+  -- end
   player.clear()
   player.setpos(vec2:new{2,2})
 end
 
 function dungeon.update (dt)
   player.update(dt)
+  local playerpos = player.getpos()
+  if playerpos[1] < 0 or playerpos[2] < 0 or
+    playerpos[1] > H or playerpos[2] > W then
+    roomnumber = roomnumber + 1
+    if roomnumber > #roomexits then
+      roomnumber = 1
+    end
+    updateroom()
+    player.setpos(vec2:new{2,2})
+  end
 end
 
 function dungeon.draw ()

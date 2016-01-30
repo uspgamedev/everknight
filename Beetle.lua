@@ -16,7 +16,7 @@ function Beetle:instance(obj, power)
       self:setmoving(true)
       if dircooldown <= 0 then
         self:setangle(love.math.random(0,3)*math.pi/2)
-        movedur = love.math.random(20,30)
+        movedur = love.math.random(10,20)
       end
     elseif movedur > 0 then
       self:setmoving(false)

@@ -67,7 +67,7 @@ function Character:instance (obj, spd)
   function obj:takedamage(power, from)
     if not invincible then
       local oldhealth = self:gethealth()
-      self.damage = self.damage + 1
+      self.damage = self.damage + power
       invincible = 1
       self:ondamage(power, from, oldhealth)
     end

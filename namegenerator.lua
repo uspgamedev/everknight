@@ -40,6 +40,20 @@ local prefixes = {
   "Pizza Making",
   "undefined",
   "Exploding",
+  "Memetic",
+  "Mistaken",
+  "Narcissistic",
+  "Nihilistic",
+  "Condescending",
+  "Fearmongering",
+  "Elvish",
+  "Orcish",
+  "Dwarven",
+  "Angelic",
+  "Demonic",
+  "h4xXx0r",
+  "Shifty Looking",
+  "Yodeling",
 }
 
 local suffixes = {
@@ -78,6 +92,14 @@ local suffixes = {
   "Chocolate",
   "Explosions",
   "Pizza",
+  "Memes",
+  "Spoilers",
+  "Angels",
+  "Demons",
+  "Elves",
+  "Orcs",
+  "Dwarfs",
+  "Yodeling",
 }
 
 function generator.generate(weaponname, blinglevel)

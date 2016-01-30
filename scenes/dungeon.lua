@@ -95,38 +95,71 @@ local function COLOR (ds, dl)
   return HSL(150, 30+ds, 30+dl, 255)
 end
 
+local function drawfloor (g)
+  g.setColor(COLOR())
+  g.rectangle('fill', 0, 0, 1, 1)
+end
+
+local function drawwall (g)
+  g.setColor(COLOR(80, -5))
+  g.rectangle('fill', 0, -.75, 1, 1)
+  g.setColor(COLOR(80, -10))
+  g.rectangle('fill', 0, .25, 1, .75)
+end
+
+local function drawhdoor (g)
+  g.setColor(COLOR())
+  g.rectangle('fill', 0, 0, 1, 1)
+  g.setColor(COLOR(-15, -5))
+  g.rectangle('fill', 0, -1, 1, .5)
+  g.setColor(COLOR(-15, -10))
+  g.rectangle('fill', 0, -.50, 1, 1.25)
+end
+
+local function drawdoor (g)
+  g.setColor(COLOR())
+  g.rectangle('fill', 0, 0, 1, 1)
+  g.setColor(COLOR(-15, -5))
+  g.rectangle('fill', .25, -1.25, .5, 1)
+  g.setColor(COLOR(-15, -10))
+  g.rectangle('fill', .25, -.25, .5, 1.25)
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
   g.scale(64, 64)
   g.translate(-1, 1)
+  -- Draw floor
   for i,row in ipairs(map) do
     for j,tile in ipairs(row) do
       g.push()
-      g.setColor(255, 255, 255)
+      g.translate(j, i)
+      drawfloor(g)
+      g.pop()
+    end
+  end
+  -- Draw upper walls
+  for j,tile in ipairs(map[1]) do
+    g.push()
+    g.translate(j, 1)
+    if tile == 'WALL' then
+      drawwall(g)
+    elseif tile == 'HDOOR' then
+      drawhdoor(g)
+    end
+    g.pop()
+  end
+  -- Draw left and right walls
+  for i,row in ipairs(map) do
+    for _,j in ipairs {1,W} do
+      g.push()
+      local tile = row[j]
       g.translate(j, i)
       if tile == 'WALL' then
-        g.setColor(COLOR(80, -5))
-        g.rectangle('fill', 0, -.75, 1, 1)
-        g.setColor(COLOR(80, -10))
-        g.rectangle('fill', 0, .25, 1, .75)
+        drawwall(g)
       elseif tile == 'DOOR' then
-        g.setColor(COLOR())
-        g.rectangle('fill', 0, 0, 1, 1)
-        g.setColor(COLOR(-15, -5))
-        g.rectangle('fill', .25, -1.25, .5, 1)
-        g.setColor(COLOR(-15, -10))
-        g.rectangle('fill', .25, -.25, .5, 1.25)
-      elseif tile == 'HDOOR' then
-        g.setColor(COLOR())
-        g.rectangle('fill', 0, 0, 1, 1)
-        g.setColor(COLOR(-15, -5))
-        g.rectangle('fill', 0, -1, 1, .5)
-        g.setColor(COLOR(-15, -10))
-        g.rectangle('fill', 0, -.50, 1, 1.25)
-      elseif tile == 'FLOOR' then
-        g.setColor(COLOR())
-        g.rectangle('fill', 0, 0, 1, 1)
+        drawdoor(g)
       end
       g.pop()
     end
@@ -136,6 +169,17 @@ function dungeon.draw ()
     g.translate(player.getpos():unpack())
     g.setColor(150, 100, 80)
     g.circle('fill', 0, 0, .4, 16)
+    g.pop()
+  end
+  -- Draw lower walls
+  for j,tile in ipairs(map[H]) do
+    g.push()
+    g.translate(j, H)
+    if tile == 'WALL' then
+      drawwall(g)
+    elseif tile == 'HDOOR' then
+      drawhdoor(g)
+    end
     g.pop()
   end
   g.pop()

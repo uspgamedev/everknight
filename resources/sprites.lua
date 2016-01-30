@@ -6,6 +6,11 @@ local quads = {}
 
 img:setFilter('nearest', 'nearest')
 
+sprites.floor = {
+  img = img,
+  quad = love.graphics.newQuad(0, 64, 64, 64, img:getDimensions())
+}
+
 sprites.hero = {
   img = img,
   quads = {

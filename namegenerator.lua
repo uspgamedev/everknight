@@ -100,6 +100,7 @@ local suffixes = {
   "Orcs",
   "Dwarfs",
   "Yodeling",
+  "Cakes",
 }
 
 function generator.generate(weaponname, blinglevel)

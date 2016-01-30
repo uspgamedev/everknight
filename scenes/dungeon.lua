@@ -6,6 +6,7 @@ local dungeon = {}
 local W, H = 16, 10
 
 local map
+local sprites
 
 blinglevel = 1
 blingfactor = 1.2
@@ -65,6 +66,7 @@ end
 
 function dungeon.load ()
   map = {}
+  sprites = require 'resources.sprites'
   updateroom()
   player.clear()
   player.setpos(vec2:new{2.5,H/2})
@@ -83,11 +85,15 @@ function dungeon.update ()
   player.update()
   do -- check collision
     local pos = player.getpos() + FRAME*player.getmove()
-    if  validpos(pos + vec2:new{.25,0}) and
-        validpos(pos + vec2:new{-.25,0}) and
-        validpos(pos + vec2:new{0,.25}) and
-        validpos(pos + vec2:new{0,-.25}) then
-      player.setpos(pos)
+    for k=1,3 do
+      if  validpos(pos + vec2:new{.4,0}) and
+          validpos(pos + vec2:new{-.4,0}) and
+          validpos(pos + vec2:new{0,.4}) and
+          validpos(pos + vec2:new{0,-.4}) then
+        player.setpos(pos)
+        break
+      end
+      pos = (pos + player.getpos())/2
     end
   end
   local playerpos = player.getpos()
@@ -213,10 +219,12 @@ function dungeon.draw ()
   drawwalls(g, 1, 1, H/2, 1)
   drawwalls(g, 1, W, H/2, 1)
   do -- draw player
+    local hero = sprites.hero
     g.push()
     g.translate(player.getpos():unpack())
-    g.setColor(150, 100, 80)
-    g.circle('fill', 0, 0, .4, 16)
+    g.scale(1/64, 1/64)
+    g.setColor(HSL(50, 20, 20, 255))
+    g.draw(hero.img, hero.quad, 0, 0, 0, 1, 1, hero.hotspot.x, hero.hotspot.y)
     g.pop()
   end
   -- Draw lower side walls

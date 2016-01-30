@@ -18,7 +18,7 @@ function shop.cheapitem.load(_, W, H)
 end
 
 function shop.expensiveitem.load(_, W, H)
-  shop.expensiveitem.price = math.floor(money * 1.5 + math.random(10, 500))
+  shop.expensiveitem.price = math.floor(money * 1.5 + love.math.random(10, 500))
   expensiveitempos = vec2:new{2*W/3, H/2}
 end
 
@@ -40,7 +40,7 @@ end
 
 function shop.cheapitem.update()
   if tobedeleted then 
-    weaponname = namegen(baseweapons[math.random(#baseweapons)], blinglevel)
+    weaponname = namegen(baseweapons[love.math.random(#baseweapons)], blinglevel)
     blinglevel = blinglevel * blingfactor
     money = money - shop.cheapitem.price
   end

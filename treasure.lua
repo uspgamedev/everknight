@@ -21,7 +21,7 @@ end
 
 function treasure.update()
   if tobedeleted then
-    weaponname = namegen(baseweapons[math.random(#baseweapons)], blinglevel)
+    weaponname = namegen(baseweapons[love.math.random(#baseweapons)], blinglevel)
     blinglevel = blinglevel * blingfactor
   end
   return tobedeleted

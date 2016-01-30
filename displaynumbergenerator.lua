@@ -36,7 +36,7 @@ local function new(number, pos)
   local displaynumber = {}
   displaynumber.pos = vec2:new(pos)
   displaynumber.value = number
-  displaynumber.power = math.floor(number/100 + 1)
+  displaynumber.power = math.floor(number/500 + 1)
   displaynumber.timetolive = timetolivetable[ math.min(displaynumber.power, #timetolivetable) ]
   -- print(displaynumber.timetolive)
   displaynumber.update = update

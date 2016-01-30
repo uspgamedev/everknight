@@ -119,7 +119,7 @@ function dungeon.update ()
 
   for i = #activeobjects,1,-1 do
     if todelete[i] then
-      activeobjects[i] = nil
+      table.remove(activeobjects, i)
     end
   end
 
@@ -132,7 +132,7 @@ function dungeon.update ()
       blinglevel = blinglevel * blingfactor
     end
     for i = #activeobjects,1,-1 do
-      activeobjects[i] = nil
+      table.remove(activeobjects, i)
     end
     for _,obj in ipairs(roomobjects[roomnumber]) do
       table.insert(activeobjects, obj)

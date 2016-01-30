@@ -13,8 +13,16 @@ local fontsize = {
 }
 
 local function update(displaynumber)
+  if not displaynumber.hugepower then
+    displaynumber.pos[2] = displaynumber.pos[2] - FRAME * 0.8
+  else 
+    displaynumber.blinkdt = displaynumber.blinkdt - FRAME
+    if displaynumber.blinkdt <= 0 then
+      displaynumber.blinkdt = 0.1
+      displaynumber.color, displaynumber.backupcolor = displaynumber.backupcolor, displaynumber.color
+    end
+  end
   displaynumber.timetolive = displaynumber.timetolive - FRAME
-  displaynumber.pos[2] = displaynumber.pos[2] - FRAME * 0.8
   -- print("yo", displaynumber.timetolive)
   return displaynumber.timetolive <= 0
 end
@@ -39,6 +47,11 @@ local function new(number, pos, color)
   displaynumber.value = number
   displaynumber.color = color
   displaynumber.power = math.max( math.floor(number/500) + 1, 1)
+  if number > 50000 then
+    displaynumber.hugepower = true
+    displaynumber.backupcolor = {255,255,255}
+    displaynumber.blinkdt = 0.1
+  end
   print (displaynumber.power)
   displaynumber.timetolive = timetolivetable[ math.min(displaynumber.power, #timetolivetable) ]
   print (displaynumber.timetolive)

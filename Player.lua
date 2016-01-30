@@ -15,6 +15,13 @@ local invincible
 
 -- local damage = 0
 
+local shakedur = {
+  0.2,
+  0.4,
+  0.8,
+  1.5,
+}
+
 Player:inherit(require 'Character')
 
 local function toangle(v)
@@ -34,11 +41,14 @@ function Player:instance (obj)
   function obj:takedamage (power, pos)
     -- print("yo")
     if not invincible then
+      local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
       print("ouch")
       -- print("")
       obj.damage = obj.damage + 1
       -- damage = damage + 1
       invincible = 1
+      screenshake.intensity = blinglevel
+      screenshake.duration = shakedur[shakebling]
     end
     self:addpush((self:getpos() - pos):normalized() * 20)
   end

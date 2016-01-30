@@ -115,6 +115,13 @@ function dungeon.load ()
   sprites = require 'resources.sprites'
   roomnumber = 1
   updateroom()
+  screenshake = {
+    intensity = 0,
+    duration = 0,
+    curshake = 0,
+    trx = 0,
+    try = 0,
+  }
   player = Player()
   player:load()
   player:setpos(vec2:new{2.5,H/2})
@@ -203,8 +210,8 @@ function dungeon.update ()
 
   if screenshake.curshake <= 0 and screenshake.duration > 0 then
     screenshake.curshake = 0.05
-    screenshake.try = 2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16
-    screenshake.trx = 2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16
+    screenshake.try = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
+    screenshake.trx = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
   end
 
   todelete = {}

@@ -26,6 +26,11 @@ local function toangle(v)
   return math.atan2(v[2], v[1])
 end
 
+local WPN_OFFSET = {
+  left = vec2:new{-.5,-.25},
+  right = vec2:new{.5,-.25},
+}
+
 function Player:instance (obj)
 
   self:super(obj, 3)
@@ -36,6 +41,7 @@ function Player:instance (obj)
   local tick = 0
   local atkdelay = 0
   local attacking = 0
+  local effects = {}
 
   function obj:load ()
     self.health = 10
@@ -72,7 +78,15 @@ function Player:instance (obj)
   function obj:setweapon (set, bling)
     love.audio.play(SOUNDS.get)
     weapon = set
-    wpnlevel = math.floor(blinglevel)
+    wpnlevel = math.floor(bling)
+    print("weapon level", wpnlevel)
+    for _,p in ipairs(effects) do
+      p[2]:stop()
+    end
+    effects = {}
+    if wpnlevel >= 2 then
+      -- nothing
+    end
   end
 
   function obj:onupdate ()
@@ -103,6 +117,9 @@ function Player:instance (obj)
     end
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
+    for _,p in ipairs(effects) do
+      p[1] = self:getpos() + WPN_OFFSET[self:facedir()]
+    end
   end
 
   function obj:attacking ()

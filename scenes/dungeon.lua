@@ -60,26 +60,6 @@ baseweapons = {
 -----
 ---PARTCTICLESESZ!
 -----
-local numparticles = 10
-particles = {}
-standbyparticles = {}
-
-local function resetparticles()
-  if numparticles then
-    --DO STUFF
-    for i =1,numparticles do
-      local tmpp = love.graphics.newParticleSystem(sprites.particle1, 10)
-      table.insert(standbyparticles, tmpp)
-    end
-    numparticles = nil --sujo
-  else
-    for i = #particles,1,-1 do
-      particles[i][2]:stop()
-      table.insert(standbyparticles, particles[i][2])
-      table.remove(particles, i)
-    end
-  end
-end
 
 namegenerator = require "namegenerator"
 namegen = namegenerator.generate
@@ -185,7 +165,10 @@ function dungeon.load ()
   }
   displaynumbers = {}
   money = 10
-  resetparticles()
+  EFFECTS.reset()
+  player = Player()
+  player:load()
+  player:setpos(vec2:new{2.5,H/2})
   weaponname = "Sord"
 end
 
@@ -251,21 +234,7 @@ function dungeon.update ()
   end
 
 
-  ---particles
-  todelete = {}
-  for i,v in ipairs(particles) do
-    -- print("YO BRO")
-    todelete[i] = not v[2]:isActive()
-    v[2]:update(FRAME)
-  end
-
-  for i = #particles,1,-1 do
-    if todelete[i] then
-      table.insert(standbyparticles, particles[i][2])
-      table.remove(particles, i)
-    end
-  end
-
+  EFFECTS.update()
 
   ---objects
   todelete = {}
@@ -313,7 +282,7 @@ function dungeon.update ()
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
-    resetparticles()
+    EFFECTS.reset()
     -- if #roommonsters[roomnumber] > 0 and
     --   #activeobjects == 0 then
     --   blinglevel = blinglevel * blingfactor
@@ -420,21 +389,6 @@ local function drawnum(g)
   end
 end
 
----PARCTITCLES
-function drawparticles(g)
-  -- print("AEHO")
-  for i,v in ipairs(particles) do
-    g.push()
-    -- print(unpack(v[1]))
-    g.translate(unpack(v[1]))
-    g.setColor(v[3])
-    g.scale(1/64, 1/64)
-    g.draw(v[2], 0, 0)
-    g.pop()
-    -- print("PRACTICLE -> ",i,v)
-  end
-end
-
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -482,7 +436,7 @@ function dungeon.draw ()
   end
 
   --PARTICLESES
-  drawparticles(g)
+  EFFECTS.draw(g)
   
   -- Draw lower side walls
   drawwalls(g, H/2+1, 1, H/2, 1)

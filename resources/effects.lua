@@ -1,11 +1,11 @@
 
 local sprites = require 'resources.sprites'
 
-local numparticles = 10
-local particles = {}
+local numparticles = 16
+local effects = {}
 local standbyparticles = {}
 
-local function particles.reset()
+function effects.reset()
   if numparticles then
     --DO STUFF
     for i =1,numparticles do
@@ -14,29 +14,43 @@ local function particles.reset()
     end
     numparticles = nil --sujo
   else
-    for i = #particles,1,-1 do
-      if particles[i][2]:getEmitterLifetime() >= 0 then
-        particles[i][2]:stop()
+    for i = #effects,1,-1 do
+      local particle = effects[i].particle
+      if particle:getEmitterLifetime() >= 0 then
+        particle:stop()
       end
     end
   end
 end
 
-function particles.update ()
+function effects.update ()
   local todelete = {}
-  for i,v in ipairs(particles) do
-    todelete[i] = not v[2]:isActive()
-    v[2]:update(FRAME)
+  for i,v in ipairs(effects) do
+    local p = v.particle
+    todelete[i] = not p:isActive()
+    p:update(FRAME)
   end
-  for i = #particles,1,-1 do
+  for i = #effects,1,-1 do
     if todelete[i] then
-      table.insert(standbyparticles, particles[i][2])
-      table.remove(particles, i)
+      table.insert(standbyparticles, effects[i].particles)
+      table.remove(effects, i)
     end
   end
 end
 
 local factories = {}
+
+function effects.new (which)
+  local i, p = next(standbyparticles)
+  if p then
+    table.remove(standbyparticles, i)
+    factories[which] (p)
+    p:start()
+    local ef = {particle = p, pos = vec2:new{}}
+    table.insert(effects, ef)
+    return ef
+  end
+end
 
 function factories.blood (p)
   p:reset()
@@ -70,5 +84,16 @@ function factories.sparkle (p)
   p:start()
 end
 
-return particles
+function effects.draw (g)
+  for i,v in ipairs(effects) do
+    g.push()
+    g.translate(unpack(v.pos))
+    g.setColor(255, 255, 255, 255)
+    g.scale(1/64, 1/64)
+    g.draw(v.particle, 0, 0)
+    g.pop()
+  end
+end
+
+return effects
 

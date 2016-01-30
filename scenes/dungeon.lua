@@ -119,7 +119,7 @@ function dungeon.update ()
 
   for i = #activeobjects,1,-1 do
     if todelete[i] then
-      activeobjects[i] = nil
+      table.remove(activeobjects, i)
     end
   end
 

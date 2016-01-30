@@ -318,7 +318,7 @@ end
 
 local function drawfloor (g)
   local floor = sprites.floor
-  g.setColor(COLOR(10, 50))
+  g.setColor(COLOR(10, -10))
   g.scale(1/64, 1/64)
   g.draw(floor.img, floor.quad, 0, 0)
 end

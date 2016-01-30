@@ -84,6 +84,7 @@ local function updateroom()
   for i = 2,#monster do
     local newmonster = monster[1](monster[i])
     newmonster:setpos(vec2:new{W/2 + i/2, 2 + 6*love.math.random()})
+    newmonster:load()
     table.insert(activeobjects, newmonster)
   end
 end
@@ -94,6 +95,7 @@ function dungeon.load ()
   roomnumber = 1
   updateroom()
   player = Player()
+  player:load()
   player:setpos(vec2:new{2.5,H/2})
 end
 
@@ -169,7 +171,7 @@ function dungeon.update ()
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
-  if playerpos[1] < 0 or playerpos[2] < 0 or
+  if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then

@@ -55,7 +55,7 @@ function shop.cheapitem:draw (g)
   g.rectangle('fill', 0, 0, 1, 1)
   g.push()
   g.scale(1/64, 1/64)
-  g.print(shop.cheapitem.price, 0, 64)
+  g.print("$ "..shop.cheapitem.price, 0, 64)
   g.pop()
 end
 
@@ -64,7 +64,7 @@ function shop.expensiveitem:draw (g)
   g.rectangle('fill', 0, 0, 1, 1)
   g.push()
   g.scale(1/64, 1/64)
-  g.print(shop.expensiveitem.price, 0, 64)
+  g.print("$ "..shop.expensiveitem.price, 0, 64)
   g.pop()
 end
 

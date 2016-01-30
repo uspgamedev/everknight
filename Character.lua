@@ -37,8 +37,16 @@ function Character:instance (obj, spd)
     moving = set
   end
 
+  function obj:getangle ()
+    return angle
+  end
+
   function obj:setangle (set)
     angle = set
+  end
+
+  function obj:facedir ()
+    return (math.abs(angle) <= math.pi/2) and 'right' or 'left'
   end
 
   function obj:addpush (add)

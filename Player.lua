@@ -63,13 +63,18 @@ function Player:instance (obj)
     else
       counter = 0
     end
-    self:setangle(toangle(sum))
+    if sum*sum > 0 then
+      self:setangle(toangle(sum))
+    else
+      self:setangle(self:facedir() == 'right' and 0 or math.pi)
+    end
   end
 
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
     g.setColor(HSL(20, 80, 80 + (invincible and 50 or 0), 255))
-    g.draw(sprite.img, sprite.quads[i], 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
+    local sx = (self:facedir() == 'right') and 1 or -1
+    g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 
 end

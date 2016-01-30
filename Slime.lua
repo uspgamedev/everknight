@@ -22,8 +22,9 @@ function Slime:instance (obj, power)
     --self:takedamage(1, player:getpos())
   end
 
+  local takedamage = obj.takedamage
   function obj:takedamage(amount, pos)
-    self.damage = self.damage + 1
+    takedamage(self)
     self:addpush((self:getpos() - pos):normalized() * 20)
   end
 

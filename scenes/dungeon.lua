@@ -14,6 +14,7 @@ blingfactor = 1.5
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
+local Beetle   = require 'Beetle'
 money = 0
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
@@ -51,7 +52,7 @@ roommonsters = {
   {},
   {Slime, 1, 1, 1, 1, 2, 2},
   {},
-  {},
+  {Beetle, 3, 3, 3, 5},
   {},
   {},
 }

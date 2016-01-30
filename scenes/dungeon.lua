@@ -45,7 +45,29 @@ baseweapons = {
   "Mace",
 }
 
+-----
+---PARTCTICLESESZ!
+-----
+local numparticles = 10
 particles = {}
+standbyparticles = {}
+
+local function resetparticles()
+  if numparticles then
+    --DO STUFF
+    for i =1,numparticles do
+      local tmpp = love.graphics.newParticleSystem(sprites.particle1, 10)
+      table.insert(standbyparticles, tmpp)
+    end
+    numparticles = nil --sujo
+  else
+    for i = #particles,1,-1 do
+      particles[i][2]:stop()
+      table.insert(standbyparticles, particles[i][2])
+      table.remove(particles, i)
+    end
+  end
+end
 
 namegenerator = require "namegenerator"
 namegen = namegenerator.generate
@@ -73,6 +95,7 @@ numgenerator = require "displaynumbergenerator"
 newnum = numgenerator.new
 
 local activeobjects = {}
+
 
 local function updateroom()
   if roomnumber == 1 then
@@ -137,6 +160,7 @@ function dungeon.load ()
     trx = 0,
     try = 0,
   }
+  resetparticles()
   player = Player()
   player:load()
   player:setpos(vec2:new{2.5,H/2})
@@ -215,6 +239,7 @@ function dungeon.update ()
 
   for i = #particles,1,-1 do
     if todelete[i] then
+      table.insert(standbyparticles, particles[i][2])
       table.remove(particles, i)
     end
   end
@@ -266,6 +291,7 @@ function dungeon.update ()
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
+    resetparticles()
     -- if #roommonsters[roomnumber] > 0 and
     --   #activeobjects == 0 then
     --   blinglevel = blinglevel * blingfactor

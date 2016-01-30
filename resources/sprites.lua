@@ -91,6 +91,11 @@ sprites.beetle = {
   hotspot = vec2:new{32, 56}
 }
 
+
+sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
+sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
+sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
+
 sprites.chicken = {
   img = img,
   quad = newQuad(7*64, 64, 64, 64, img:getDimensions()),
@@ -102,6 +107,7 @@ sprites.chest = {
   quad = newQuad(6*64, 64, 64, 64, img:getDimensions()),
   hotspot = vec2:new{32, 48}
 }
+
 
 return sprites
 

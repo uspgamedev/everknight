@@ -28,6 +28,10 @@ function Character:instance (obj, spd)
     angle = set
   end
 
+  function obj:load ()
+    -- behaviour
+  end
+
   function obj:update ()
     -- behaviour
   end

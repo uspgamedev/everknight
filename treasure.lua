@@ -1,3 +1,4 @@
+
 local treasure = {}
 
 local tobedeleted = false
@@ -24,3 +25,4 @@ function treasure.update()
 end
 
 return treasure
+

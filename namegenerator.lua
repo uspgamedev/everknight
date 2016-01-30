@@ -111,11 +111,11 @@ function generator.generate(weaponname, blinglevel)
     blingleft = blingleft/2
   end
   -- print (weaponname)
-  local name = prefixes[math.random(#prefixes)].." "..weaponname.." Of "..suffixes[math.random(#suffixes)]
+  local name = prefixes[love.math.random(#prefixes)].." "..weaponname.." Of "..suffixes[love.math.random(#suffixes)]
   -- print(name)
   if iterations > 1 then
     for i = 2,iterations do
-      name = prefixes[math.random(#prefixes)].." "..name.." And "..suffixes[math.random(#suffixes)]
+      name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
     end
   end
   return name

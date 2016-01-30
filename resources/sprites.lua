@@ -103,5 +103,9 @@ sprites.boss = {
   hotspot = vec2:new{64, 128}
 }
 
+sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
+sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
+sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
+
 return sprites
 

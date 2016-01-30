@@ -1,7 +1,7 @@
 
 local sprites = require 'resources.sprites'
 
-local numparticles = 16
+local numparticles = 32
 local effects = {}
 local standbyparticles = {}
 
@@ -87,7 +87,7 @@ end
 function effects.draw (g)
   for i,v in ipairs(effects) do
     g.push()
-    g.translate(unpack(v.pos))
+    g.translate(v.pos:unpack())
     g.setColor(255, 255, 255, 255)
     g.scale(1/64, 1/64)
     g.draw(v.particle, 0, 0)

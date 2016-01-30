@@ -80,12 +80,12 @@ function Player:instance (obj)
     weapon = set
     wpnlevel = math.floor(bling)
     print("weapon level", wpnlevel)
-    for _,p in ipairs(effects) do
-      p[2]:stop()
+    for _,e in ipairs(effects) do
+      e.particle:stop()
     end
     effects = {}
     if wpnlevel >= 2 then
-      -- nothing
+      table.insert(effects, EFFECTS.new 'sparkle')
     end
   end
 
@@ -117,8 +117,8 @@ function Player:instance (obj)
     end
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
-    for _,p in ipairs(effects) do
-      p[1] = self:getpos() + WPN_OFFSET[self:facedir()]
+    for _,e in ipairs(effects) do
+      e.pos = self:getpos() + WPN_OFFSET[self:facedir()]
     end
   end
 

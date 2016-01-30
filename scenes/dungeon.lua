@@ -14,6 +14,9 @@ blingfactor = 1.2
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
+money = 0
+local shop = require "shop"
+local healingstuff = nil --TODO: implementar
 
 local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
@@ -29,7 +32,7 @@ roomobjects = {
   {},
   {treasure},
   {},
-  {},
+  {shop.cheapitem, shop.expensiveitem},
   {},
 }
 

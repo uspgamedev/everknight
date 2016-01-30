@@ -18,10 +18,11 @@ function Slime:instance (obj, power)
 
   function obj:oncollide(player)
     player:takedamage(power, self:getpos())
-    obj:takedamage(1, player:getpos())
+    self:takedamage(1, player:getpos())
   end
 
   function obj:update ()
+    -- self.health = power
     self:setangle(math.random()*math.pi*2)
     self:setmoving(true)
     counter = math.fmod(counter + FRAME, 1)

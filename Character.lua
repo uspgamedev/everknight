@@ -89,10 +89,10 @@ function Character:instance (obj, spd)
   -----
 
   function obj:load ()
-    print("load")
-    print (self.health)
+    -- print("load")
+    -- print (self.health)
     self.health = self.health or health
-    print (self.health)
+    -- print (self.health)
     self.damage = self.damage or damage
     -- behaviour
   end

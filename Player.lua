@@ -54,10 +54,12 @@ function Player:instance (obj)
   end
 
   function obj:onhit (power, pos)
+    love.audio.play(SOUNDS.hurt)
     self:addpush((self:getpos() - pos):normalized() * 20)
   end
 
   function obj:heal()
+    love.audio.play(SOUNDS.heal)
     local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)
     obj.damage = 0
     self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
@@ -67,6 +69,7 @@ function Player:instance (obj)
   end
 
   function obj:setweapon (set)
+    love.audio.play(SOUNDS.get)
     weapon = set
   end
 
@@ -80,7 +83,11 @@ function Player:instance (obj)
       end
     end
     if self:getmoving() then
+      local countercopy = counter
       counter = math.fmod(counter + FRAME, 0.6)
+      if countercopy <= 0.3 and counter > 0.3 then
+        love.audio.play(SOUNDS.walk)
+      end
     else
       counter = 0
     end
@@ -91,6 +98,7 @@ function Player:instance (obj)
     end
     tick = math.fmod(tick + FRAME, 1)
     if love.keyboard.isDown 'z' and atkdelay <= 0 then
+      love.audio.play(SOUNDS.slash)
       attacking = 10
       atkdelay = 20
     end

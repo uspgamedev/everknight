@@ -34,6 +34,7 @@ function Monster:instance (obj, spd, kind, color, power)
     self:behaviour()
     counter = math.fmod(counter + FRAME, 1)
     if self:isdead() then
+      love.audio.play(SOUNDS.die)
       money = money + 10 * blinglevel
       blinglevel = blinglevel * miniblingfactor
       return true

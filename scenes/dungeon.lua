@@ -11,11 +11,15 @@ local sprites
 blinglevel = 1
 blingfactor = 1.2
 
+money = 0
+
 -- local rooms = require "rooms"
 
 -- local room = require "room"
 
 local treasure = require "treasure"
+local shop = require "shop"
+local healingstuff = nil --TODO: implementar
 
 local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
@@ -31,7 +35,7 @@ roomobjects = {
   {},
   {treasure},
   {},
-  {},
+  {shop.cheapitem, shop.expensiveitem},
   {},
 }
 

@@ -14,7 +14,20 @@ function Player:instance (obj)
 
   self:super(obj, 3)
 
+  function obj:takedamage ()
+    if not invincible then
+      damage = damage + 1
+      invincible = 3
+    end
+  end
+
   function obj:update ()
+    if invincible then
+      invincible = invincible - FRAME
+      if invincible <= 0 then
+        invincible = nil
+      end
+    end
     local sum = vec2:new{}
     self:setmoving(false)
     for key,dir in pairs(DIRS) do

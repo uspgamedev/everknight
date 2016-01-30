@@ -37,7 +37,7 @@ sprites.slime = {
     newQuad(0, 3*64, 64, 64, img:getDimensions()),
     newQuad(64, 3*64, 64, 64, img:getDimensions())
   },
-  hotspot = vec2:new{32, 48}
+  hotspot = vec2:new{32, 56}
 }
 
 return sprites

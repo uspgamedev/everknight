@@ -18,6 +18,6 @@ end
 function COLOR (ds, dl)
   ds = ds or 0
   dl = dl or 0
-  return HSL(150, 30+ds, 30+dl, 255)
+  return HSL(150, 30+ds, 80+dl, 255)
 end
 

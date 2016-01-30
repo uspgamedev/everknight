@@ -7,7 +7,6 @@ local dungeon = {}
 local W, H = 16, 10
 
 local map
-local player
 local sprites
 
 blinglevel = 1

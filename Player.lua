@@ -25,7 +25,7 @@ function Player:instance (obj)
 
   self:super(obj, 3)
 
-  local weapon = 'axe'
+  local weapon = 'Sword'
   local counter = 0
   local tick = 0
   local atkdelay = 0
@@ -45,6 +45,10 @@ function Player:instance (obj)
 
   function obj:heal()
     obj.damage = 0
+  end
+
+  function obj:setweapon (set)
+    weapon = set
   end
 
   function obj:update ()

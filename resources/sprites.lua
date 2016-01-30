@@ -31,11 +31,29 @@ sprites.hero = {
   hotspot = vec2:new{32, 64}
 }
 
-sprites.axe = {
+sprites.Axe = {
   img = img,
   quads = {
     newQuad(2*64, 3*64, 64, 64, img:getDimensions()),
     newQuad(3*64, 3*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 48}
+}
+
+sprites.Sword = {
+  img = img,
+  quads = {
+    newQuad(6*64, 3*64, 64, 64, img:getDimensions()),
+    newQuad(7*64, 3*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 48}
+}
+
+sprites.Mace = {
+  img = img,
+  quads = {
+    newQuad(4*64, 3*64, 64, 64, img:getDimensions()),
+    newQuad(5*64, 3*64, 64, 64, img:getDimensions())
   },
   hotspot = vec2:new{32, 48}
 }

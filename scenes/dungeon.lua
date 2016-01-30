@@ -45,6 +45,8 @@ baseweapons = {
   "Mace",
 }
 
+particles = {}
+
 namegenerator = require "namegenerator"
 namegen = namegenerator.generate
 
@@ -120,6 +122,7 @@ function dungeon.load ()
   RESET_COLOR()
   map = {}
   sprites = require 'resources.sprites'
+  blinglevel = 1
   roomnumber = 1
   updateroom()
   screenshake = {
@@ -194,6 +197,25 @@ function dungeon.update ()
       end
     end
   end
+
+
+  ---particles
+  todelete = {}
+  for i,v in ipairs(particles) do
+    -- print("YO BRO")
+    todelete[i] = not v[2]:isActive()
+    v[2]:update(FRAME)
+  end
+
+  for i = #particles,1,-1 do
+    if todelete[i] then
+      table.remove(particles, i)
+    end
+  end
+
+
+  ---objects
+  todelete = {}
 
   for i,obj in ipairs(activeobjects) do
     todelete[i] = obj:update()
@@ -334,6 +356,21 @@ local function drawnum(g)
   end
 end
 
+---PARCTITCLES
+function drawparticles(g)
+  -- print("AEHO")
+  for i,v in ipairs(particles) do
+    g.push()
+    -- print(unpack(v[1]))
+    g.translate(unpack(v[1]))
+    g.setColor(v[3])
+    g.scale(1/64, 1/64)
+    g.draw(v[2], 0, 0)
+    g.pop()
+    -- print("PRACTICLE -> ",i,v)
+  end
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -385,6 +422,9 @@ function dungeon.draw ()
 
   --draw numbers
   drawnum(g)
+
+  --PARTICLESES
+  drawparticles(g)
 
   g.pop()
   --draw hud

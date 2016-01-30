@@ -16,8 +16,8 @@ local cheapitempos, expensiveitempos
 local function makeweapon (x)
   x = x or 0
   local base = baseweapons[love.math.random(#baseweapons)]
-  weaponname = namegen(base, blinglevel)
-  return base, weaponname, math.floor(blinglevel+x)
+  local shopweaponname = namegen(base, blinglevel)
+  return base, shopweaponname, math.floor(blinglevel+x)
 end
 
 function shop.cheapitem.load(_, W, H)

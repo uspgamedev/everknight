@@ -105,17 +105,29 @@ local suffixes = {
 
 function generator.generate(weaponname, blinglevel)
   local iterations = 1
+  -- local numpref = 0
+  local numsuf = 0
   local blingleft = blinglevel/4
   while blingleft >= 1 do
     iterations = iterations + 1
     blingleft = blingleft/4
   end
+  local name = weaponname
   -- print (weaponname)
-  local name = prefixes[love.math.random(#prefixes)].." "..weaponname.." Of "..suffixes[love.math.random(#suffixes)]
+  -- local name = prefixes[love.math.random(#prefixes)].." "..weaponname.." Of "..suffixes[love.math.random(#suffixes)]
   -- print(name)
   if iterations > 1 then
-    for i = 2,iterations do
-      name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
+    for i = 1,iterations do
+      if love.math.random() > 0.5 then
+        --prefix
+        name = prefixes[love.math.random(#prefixes)].." "..name
+      elseif numsuf == 0 then
+        name = name.." Of "..suffixes[love.math.random(#suffixes)]
+        numsuf = 1
+      else 
+        name = name.." And "..suffixes[love.math.random(#suffixes)]
+      end
+      -- name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
     end
   end
   return name

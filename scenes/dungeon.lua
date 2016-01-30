@@ -24,6 +24,7 @@ screenshake = {
 local treasure = require "treasure"
 local Slime    = require 'Slime'
 local Beetle   = require 'Beetle'
+local Chicken  = require 'Chicken'
 money = 10
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
@@ -87,7 +88,7 @@ roommonsters = {
   {},
   {Beetle, 2, 2, 2, 4},
   {},
-  {},
+  {Chicken, 6},
 }
 
 displaynumbers = {}

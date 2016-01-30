@@ -1,11 +1,12 @@
 
-local player = require 'player'
+local Player = require 'Player'
 
 local dungeon = {}
 
 local W, H = 16, 10
 
 local map
+local player
 local sprites
 
 blinglevel = 1
@@ -68,8 +69,8 @@ function dungeon.load ()
   map = {}
   sprites = require 'resources.sprites'
   updateroom()
-  player.clear()
-  player.setpos(vec2:new{2.5,H/2})
+  player = Player()
+  player:setpos(vec2:new{2.5,H/2})
 end
 
 local function validpos (pos)
@@ -82,21 +83,21 @@ function dungeon.update ()
 
   local todelete = {}
 
-  player.update()
+  player:update()
   do -- check collision
-    local pos = player.getpos() + FRAME*player.getmove()
+    local pos = player:getpos() + FRAME*player:getmove()
     for k=1,3 do
       if  validpos(pos + vec2:new{.4,0}) and
           validpos(pos + vec2:new{-.4,0}) and
           validpos(pos + vec2:new{0,.4}) and
           validpos(pos + vec2:new{0,-.4}) then
-        player.setpos(pos)
+        player:setpos(pos)
         break
       end
-      pos = (pos + player.getpos())/2
+      pos = (pos + player:getpos())/2
     end
   end
-  local playerpos = player.getpos()
+  local playerpos = player:getpos()
 
   ----
   --CHECK COLLISION HERE
@@ -139,7 +140,7 @@ function dungeon.update ()
       obj.load(blingfactor, W, H)
     end
     updateroom()
-    player.setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
+    player:setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
   end
 end
 
@@ -245,7 +246,7 @@ function dungeon.draw ()
   do -- draw player
     local hero = sprites.hero
     g.push()
-    g.translate(player.getpos():unpack())
+    g.translate(player:getpos():unpack())
     g.scale(1/64, 1/64)
     g.setColor(HSL(50, 20, 20, 255))
     g.draw(hero.img, hero.quad, 0, 0, 0, 1, 1, hero.hotspot.x, hero.hotspot.y)

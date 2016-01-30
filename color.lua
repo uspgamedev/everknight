@@ -18,11 +18,11 @@ end
 local base
 
 function RESET_COLOR()
-  base = 130
+  base = 80
 end
 
 function NEXT_COLOR()
-  base = base + 20
+  base = math.fmod(base + 70, 255)
 end
 
 function COLOR (ds, dl, dh)

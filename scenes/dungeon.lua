@@ -141,10 +141,10 @@ local function moveobj (obj)
   if not obj.getmove then return end
   local pos = obj:getpos() + FRAME*obj:getmove()
   for k=1,3 do
-    if  validpos(pos + vec2:new{.4,0}) and
-        validpos(pos + vec2:new{-.4,0}) and
-        validpos(pos + vec2:new{0,.4}) and
-        validpos(pos + vec2:new{0,-.4}) then
+    if  validpos(pos + vec2:new{.3,.3}) and
+        validpos(pos + vec2:new{-.3,.3}) and
+        validpos(pos + vec2:new{.3,-.3}) and
+        validpos(pos + vec2:new{-.3,-.3}) then
       obj:setpos(pos)
       break
     end

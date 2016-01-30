@@ -441,6 +441,10 @@ function dungeon.draw ()
     player:draw(g)
     g.pop()
   end
+
+  --PARTICLESES
+  drawparticles(g)
+  
   -- Draw lower side walls
   drawwalls(g, H/2+1, 1, H/2, 1)
   drawwalls(g, H/2+1, W, H/2, 1)
@@ -450,8 +454,6 @@ function dungeon.draw ()
   --draw numbers
   drawnum(g)
 
-  --PARTICLESES
-  drawparticles(g)
 
   g.pop()
   --draw hud

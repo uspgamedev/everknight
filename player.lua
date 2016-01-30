@@ -11,11 +11,12 @@ local DIRS = {
 local pos
 local angle
 local spd
+local moving
 
 function player.clear ()
   pos = vec2:new{}
   angle = 0
-  spd = 0
+  spd = 2
 end
 
 function player.getpos ()
@@ -27,12 +28,12 @@ function player.setpos (set)
 end
 
 function player.getmove ()
-  return spd*vec2:new{ math.cos(angle), math.sin(angle) }
+  return (moving and spd or 0)*vec2:new{ math.cos(angle), math.sin(angle) }
 end
 
 function player.update ()
   local sum = vec2:new{}
-  local moving = false
+  moving = false
   for key,dir in pairs(DIRS) do
     if love.keyboard.isDown(key) then
       sum = sum + dir
@@ -40,7 +41,6 @@ function player.update ()
     end
   end
   angle = math.atan2(sum.y, sum.x)
-  spd = moving and 2 or 0
 end
 
 return player

@@ -153,8 +153,6 @@ function dungeon.load ()
   lastexit = 'E'
   nextexit = 'E'
   print ("YO", lastexit)
-  player = Player()
-  player:load()
   updateroom()
   screenshake = {
     intensity = 0,

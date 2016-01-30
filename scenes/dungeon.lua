@@ -296,7 +296,7 @@ end
 
 local function drawnum(g)
   for _, num in ipairs(displaynumbers) do
-    print("NUM")
+    -- print("NUM")
     g.push()
     g.translate(num:getpos():unpack())
     num:draw(g)

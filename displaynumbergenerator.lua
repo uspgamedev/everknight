@@ -14,6 +14,7 @@ local fontsize = {
 
 local function update(displaynumber)
   displaynumber.timetolive = displaynumber.timetolive - FRAME
+  displaynumber.pos[2] = displaynumber.pos[2] - FRAME * 0.8
   -- print("yo", displaynumber.timetolive)
   return displaynumber.timetolive <= 0
 end
@@ -23,7 +24,7 @@ local function draw(displaynumber, g)
   g.scale(1/64, 1/64)
   g.setFont(FONTS[fontsize[math.min(displaynumber.power, #fontsize)]])
   g.setColor(255, 0, 0)
-  g.print(displaynumber.value, 0, 0)
+  g.print(math.floor(displaynumber.value), 0, 0)
   g.pop()
 end
 

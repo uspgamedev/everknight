@@ -18,7 +18,7 @@ sprites.wall = {
   quads = {
     newQuad(0, 0, 64, 64, img:getDimensions()),
     newQuad(64, 0, 64, 48, img:getDimensions()),
-    newQuad(64, 64, 64, 48, img:getDimensions()),
+    newQuad(64, 64, 64+16, 64, img:getDimensions()),
   }
 }
 
@@ -31,13 +31,37 @@ sprites.hero = {
   hotspot = vec2:new{32, 64}
 }
 
-sprites.axe = {
+sprites.Axe = {
   img = img,
   quads = {
     newQuad(2*64, 3*64, 64, 64, img:getDimensions()),
     newQuad(3*64, 3*64, 64, 64, img:getDimensions())
   },
   hotspot = vec2:new{32, 48}
+}
+
+sprites.Sword = {
+  img = img,
+  quads = {
+    newQuad(6*64, 3*64, 64, 64, img:getDimensions()),
+    newQuad(7*64, 3*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 48}
+}
+
+sprites.Mace = {
+  img = img,
+  quads = {
+    newQuad(4*64, 3*64, 64, 64, img:getDimensions()),
+    newQuad(5*64, 3*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 48}
+}
+
+sprites.slash = {
+  img = img,
+  quad = newQuad(2*64, 0, 128, 128, img:getDimensions()),
+  hotspot = vec2:new{84, 100}
 }
 
 sprites.slime = {

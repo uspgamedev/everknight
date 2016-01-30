@@ -7,7 +7,6 @@ local dungeon = {}
 local W, H = 16, 10
 
 local map
-local player
 local sprites
 
 blinglevel = 1
@@ -261,7 +260,7 @@ local function drawwall (g, i, j)
   g.draw(wall.img, wall.quads[2], 0, 16)
   g.draw(wall.img, wall.quads[1], 0, -48)
   if i == H and (j == 1 or j == W) then
-    g.draw(wall.img, wall.quads[3], j == 1 and 64 or 0, 16, 0, j == 1 and -1 or 1, .75)
+    g.draw(wall.img, wall.quads[3], j == 1 and 64 or 0, 0, 0, j == 1 and -1 or 1, 1)
   end
 end
 

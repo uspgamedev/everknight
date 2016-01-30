@@ -1,6 +1,7 @@
 
 -- Converts HSL to RGB. (input and output range: 0 - 255)
 function HSL(h, s, l, a)
+  h = math.fmod(h, 255)
   if s<=0 then return l,l,l,a end
   h, s, l = h/256*6, s/255, l/255
   local c = (1-math.abs(2*l-1))*s

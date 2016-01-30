@@ -11,6 +11,13 @@ local sprites
 
 blinglevel = 1
 blingfactor = 1.5
+screenshake = {
+  intensity = 0,
+  duration = 0,
+  curshake = 0,
+  trx = 0,
+  try = 0,
+}
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
@@ -113,6 +120,13 @@ function dungeon.load ()
   sprites = require 'resources.sprites'
   roomnumber = 1
   updateroom()
+  screenshake = {
+    intensity = 0,
+    duration = 0,
+    curshake = 0,
+    trx = 0,
+    try = 0,
+  }
   player = Player()
   player:load()
   player:setpos(vec2:new{2.5,H/2})
@@ -194,6 +208,15 @@ function dungeon.update ()
       table.remove(activeobjects, i)
     end
     return "gameover"
+  end
+
+  screenshake.duration = screenshake.duration - FRAME
+  screenshake.curshake = screenshake.curshake - FRAME
+
+  if screenshake.curshake <= 0 and screenshake.duration > 0 then
+    screenshake.curshake = 0.05
+    screenshake.try = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
+    screenshake.trx = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
   end
 
   todelete = {}
@@ -314,6 +337,14 @@ function dungeon.draw ()
   g.push()
   g.scale(64, 64)
   g.translate(-1, 1)
+  g.push()
+  if screenshake.duration > 0  then
+    g.scale(1/64, 1/64)
+    g.translate(screenshake.trx, screenshake.try)
+    g.scale(64, 64) 
+  else 
+    print ("ohnoes") 
+  end
   -- Draw floor
   for i,row in ipairs(map) do
     for j,tile in ipairs(row) do
@@ -350,11 +381,13 @@ function dungeon.draw ()
   -- Draw bottom walls
   drawwalls(g, H, 1, 1, W)
 
+  --draw numbers
+  drawnum(g)
+
+  g.pop()
   --draw hud
   drawhud(g)
 
-  --draw numbers
-  drawnum(g)
 
   g.pop(g)
 end

@@ -10,7 +10,7 @@ function Character:instance (obj, spd)
   local push = vec2:new{}
 
   local health = 10
-  local damage = 0
+  obj.damage = 0
 
   function obj:getpos ()
     return pos:clone()

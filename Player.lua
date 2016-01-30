@@ -81,6 +81,19 @@ function Player:instance (obj)
     attacking = math.max(attacking - 1, 0)
   end
 
+  function obj:attacking ()
+    return attacking > 0
+  end
+
+  function obj:reach (other)
+    local diff = other:getpos() - self:getpos()
+    local dist = diff:size()
+    local angle = math.atan2(diff.y, diff.x)
+    return dist < 1.5 and
+          (self:facedir() == 'right' and math.abs(angle) < math.pi/4) or
+          (self:facedir() == 'left' and math.abs(angle) > 3*math.pi/4)
+  end
+
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
     -- shadow

@@ -163,6 +163,13 @@ function dungeon.update ()
       obj.oncollide(obj, player)
     end
   end
+  if player:attacking() then
+    for _,obj in ipairs(activeobjects) do
+      if player:reach(obj) and obj.takedamage then
+        obj:takedamage(1, player:getpos())
+      end
+    end
+  end
 
   for i,obj in ipairs(activeobjects) do
     todelete[i] = obj:update()

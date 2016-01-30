@@ -19,7 +19,12 @@ function Slime:instance (obj, power)
 
   function obj:oncollide(player)
     player:takedamage(power, self:getpos())
-    self:takedamage(1, player:getpos())
+    --self:takedamage(1, player:getpos())
+  end
+
+  function obj:takedamage(amount, pos)
+    self.damage = self.damage + 1
+    self:addpush((self:getpos() - pos):normalized() * 20)
   end
 
   function obj:update ()

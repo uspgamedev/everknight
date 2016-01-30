@@ -9,6 +9,7 @@ function Slime:instance (obj, power)
 
   local sprite = require 'resources.sprites' .slime
   local counter = 0
+  local dircooldown = 0
 
   obj.health = power
 
@@ -22,7 +23,11 @@ function Slime:instance (obj, power)
   end
 
   function obj:update ()
-    self:setangle(math.random()*math.pi*2)
+    dircooldown = dircooldown - FRAME
+    if dircooldown <= 0 then
+      self:setangle(love.math.random()*math.pi*2)
+      dircooldown = -math.log(1-love.math.random())/2
+    end
     self:setmoving(true)
     counter = math.fmod(counter + FRAME, 1)
     if self:isdead() then

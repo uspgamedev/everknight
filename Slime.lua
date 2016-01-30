@@ -22,11 +22,13 @@ function Slime:instance (obj, power)
   end
 
   function obj:update ()
-    -- self.health = power
     self:setangle(math.random()*math.pi*2)
     self:setmoving(true)
     counter = math.fmod(counter + FRAME, 1)
-    return self:isdead()
+    if self:isdead() then
+      money = money + 10 * blinglevel
+      return true
+    end
   end
 
   function obj:draw (g)

@@ -178,19 +178,13 @@ function dungeon.update ()
       roomnumber = 1
       blinglevel = blinglevel * blingfactor
     end
+    if #roommonsters[roomnumber] > 0 and
+      #activeobjects == 0 then
+      blinglevel = blinglevel * blingfactor
+    end
     for i = #activeobjects,1,-1 do
       table.remove(activeobjects, i)
     end
-    -- for _,obj in ipairs(roomobjects[roomnumber]) do
-    --   table.insert(activeobjects, obj)
-    --   obj.load(blingfactor, W, H)
-    -- end
-    -- local monster = roommonsters[roomnumber]
-    -- for i = 2,#monster do
-    --   local newmonster = monster[1](monster[i])
-    --   newmonster:setpos(vec2:new{W/2 + i/2, 2 + 6*love.math.random()})
-    --   table.insert(activeobjects, newmonster)
-    -- end
     updateroom()
     player:setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
   end

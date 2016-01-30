@@ -66,6 +66,7 @@ function factories.blood (p)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(.2)
   p:start()
+  return 'alpha'
 end
 
 function factories.bleeding (p)

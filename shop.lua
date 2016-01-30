@@ -53,11 +53,19 @@ end
 function shop.cheapitem:draw (g)
   g.setColor(200, 200, 200, 255)
   g.rectangle('fill', 0, 0, 1, 1)
+  g.push()
+  g.scale(1/64, 1/64)
+  g.print(shop.cheapitem.price, 0, 64)
+  g.pop()
 end
 
 function shop.expensiveitem:draw (g)
   g.setColor(200, 200, 250, 255)
   g.rectangle('fill', 0, 0, 1, 1)
+  g.push()
+  g.scale(1/64, 1/64)
+  g.print(shop.expensiveitem.price, 0, 64)
+  g.pop()
 end
 
 return shop

@@ -14,6 +14,10 @@ function Slime:instance (obj, power)
     return power
   end
 
+  function obj:oncollide(player)
+    player.takedamage()
+  end
+
   function obj:update ()
     self:setangle(math.random()*math.pi*2)
     self:setmoving(true)

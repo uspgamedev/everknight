@@ -119,7 +119,7 @@ function dungeon.update ()
       math.floor(objy) and 
       math.floor(j) == 
       math.floor (objx) then
-      obj.oncollide()
+      obj.oncollide(obj, player)
     end
   end
 

@@ -8,6 +8,8 @@ local DIRS = {
   right = vec2:new{1,0}
 }
 
+local damage = 0
+
 Player:inherit(require 'Character')
 
 function Player:instance (obj)

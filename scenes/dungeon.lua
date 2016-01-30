@@ -166,7 +166,9 @@ function dungeon.load ()
   displaynumbers = {}
   money = 10
   EFFECTS.reset()
-  player = Player()
+  if not player then
+    player = Player()
+  end
   player:load()
   player:setpos(vec2:new{2.5,H/2})
   weaponname = "Sord"

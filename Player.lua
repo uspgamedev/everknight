@@ -47,6 +47,11 @@ function Player:instance (obj)
     self.health = 10
     self.damage = 0
     self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    for _,e in ipairs(effects) do
+      e.particle:stop()
+      print('particle state', e.particle:isActive())
+    end
+    effects = {}
   end
 
   function obj:ondamage (power, pos, healthbefore)
@@ -79,7 +84,6 @@ function Player:instance (obj)
     love.audio.play(SOUNDS.get)
     weapon = set
     wpnlevel = math.floor(bling)
-    print("weapon level", wpnlevel)
     for _,e in ipairs(effects) do
       e.particle:stop()
     end
@@ -118,7 +122,7 @@ function Player:instance (obj)
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
     for _,e in ipairs(effects) do
-      e.pos = self:getpos() + WPN_OFFSET[self:facedir()]
+      e.pos = self:getpos() + WPN_OFFSET[self:facedir()] + vec2:new{0,-.2}
     end
   end
 

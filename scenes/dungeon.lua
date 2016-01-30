@@ -28,6 +28,17 @@ playerstartingpos['E'] = {W-1.5, H/2}
 playerstartingpos['N'] = {W/2, 2.5}
 playerstartingpos['S'] = {W/2, H-1.5}
 
+weaponname = "Sord"
+
+baseweapons = {
+  "Sword",
+  "Axe",
+  "Mace",
+}
+
+namegenerator = require "namegenerator"
+namegen = namegenerator.generate
+
 roomobjects = {
   {healstuff},
   {},
@@ -170,17 +181,19 @@ function dungeon.update ()
     return "gameover"
   end
 
+  money = math.floor(money)
+
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
-    roomnumber = roomnumber + 1
-    if roomnumber > #roomexits then
-      roomnumber = 1
-      blinglevel = blinglevel * blingfactor
-    end
     if #roommonsters[roomnumber] > 0 and
       #activeobjects == 0 then
       blinglevel = blinglevel * blingfactor
+    end
+    roomnumber = roomnumber + 1
+    if roomnumber > #roomexits then
+      roomnumber = 1
+      -- blinglevel = blinglevel * blingfactor
     end
     for i = #activeobjects,1,-1 do
       table.remove(activeobjects, i)
@@ -239,6 +252,19 @@ local function drawwalls (g, i0, j0, dh, dw)
   end
 end
 
+local function drawhud(g)
+  g.push()
+    g.translate(1, -1)
+    g.setColor(255, 255, 255)
+    g.scale(1/64, 1/64)
+    g.setFont(FONTS[2])
+    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 1.5), 0, 0)
+    g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
+    g.print("WEAPON: "..weaponname, 0, 32)
+    g.print("MONEY: "..money.."G", 0, 48)
+  g.pop()
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -279,6 +305,10 @@ function dungeon.draw ()
   drawwalls(g, H/2+1, W, H/2, 1)
   -- Draw bottom walls
   drawwalls(g, H, 1, 1, W)
+
+  --draw hud
+  drawhud(g)
+
   g.pop()
 end
 

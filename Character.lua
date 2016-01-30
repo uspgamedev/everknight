@@ -8,8 +8,8 @@ function Character:instance (obj, spd)
   local angle = 0
   local moving = false
 
-  obj.health = 10
-  obj.damage = 0
+  local health = 10
+  local damage = 0
 
   function obj:getpos ()
     return pos:clone()
@@ -38,20 +38,23 @@ function Character:instance (obj, spd)
   -----
 
   function obj:gethealth()
-    return obj.health - obj.damage
+    return self.health - self.damage
   end
   
   function obj:takedamage()
-    obj.damage = obj.damage + 1
+    self.damage = self.damage + 1
   end
 
   function obj:isdead()
-    return obj.damage >= obj.health
+    return self.damage >= self.health
   end
 
   -----
 
   function obj:load ()
+    print("load")
+    self.health = health
+    self.damage = damage
     -- behaviour
   end
 

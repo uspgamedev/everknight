@@ -84,6 +84,7 @@ local function updateroom()
   for i = 2,#monster do
     local newmonster = monster[1](monster[i])
     newmonster:setpos(vec2:new{W/2 + i/2, 2 + 6*love.math.random()})
+    newmonster:load()
     table.insert(activeobjects, newmonster)
   end
 end
@@ -94,6 +95,7 @@ function dungeon.load ()
   roomnumber = 1
   updateroom()
   player = Player()
+  player:load()
   player:setpos(vec2:new{2.5,H/2})
 end
 

@@ -22,6 +22,22 @@ sprites.wall = {
   }
 }
 
+sprites.hdoor = {
+  img = img,
+  quads = {
+    newQuad(4*64, 4*64, 64, 128, img:getDimensions()),
+    newQuad(5*64, 4*64, 64, 128, img:getDimensions())
+  }
+}
+
+sprites.vdoor = {
+  img = img,
+  quads = {
+    newQuad(6*64, 4*64, 64, 128, img:getDimensions()),
+    newQuad(6*64, 5*64, 64, 128, img:getDimensions())
+  }
+}
+
 sprites.torch = {
   img = img,
   quads = {

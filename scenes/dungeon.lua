@@ -332,18 +332,18 @@ local function drawwall (g, i, j)
   end
 end
 
-local function drawhdoor (g)
+local function drawhdoor (g, i, j)
+  local door = sprites.hdoor
+  g.scale(1/64, 1/64)
   g.setColor(COLOR(-15, -5))
-  g.rectangle('fill', 0, -1, 1, .5)
-  g.setColor(COLOR(-15, -10))
-  g.rectangle('fill', 0, -.50, 1, 1.25)
+  g.draw(door.img, door.quads[j <= W/2 and 1 or 2], 0, -64)
 end
 
-local function drawdoor (g)
+local function drawdoor (g, i, j)
+  local door = sprites.vdoor
+  g.scale(1/64, 1/64)
   g.setColor(COLOR(-15, -5))
-  g.rectangle('fill', .25, -1.25, .5, 1)
-  g.setColor(COLOR(-15, -10))
-  g.rectangle('fill', .25, -.25, .5, 1.25)
+  g.draw(door.img, door.quads[i <= H/2 and 1 or 2], 0, -64)
 end
 
 local function drawwalls (g, i0, j0, dh, dw)
@@ -355,11 +355,11 @@ local function drawwalls (g, i0, j0, dh, dw)
       if tile == 'WALL' then
         drawwall(g, i, j)
       elseif tile == 'DOOR' then
-        drawdoor(g)
+        drawdoor(g, i, j)
       elseif tile == 'TORCH' then
         drawtorch(g)
       elseif tile == 'HDOOR' then
-        drawhdoor(g)
+        drawhdoor(g, i, j)
       end
       g.pop()
     end

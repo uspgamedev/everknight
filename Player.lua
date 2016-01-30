@@ -51,6 +51,7 @@ function Player:instance (obj)
       e.particle:stop()
       print('particle state', e.particle:isActive())
     end
+    self:reset()
     effects = {}
   end
 

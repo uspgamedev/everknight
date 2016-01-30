@@ -13,6 +13,11 @@ function Character:instance (obj, spd)
   local health = 10
   obj.damage = 0
 
+  function obj:reset ()
+    push = vec2:new{}
+    invincible = 0
+  end
+
   function obj:getpos ()
     return pos:clone()
   end

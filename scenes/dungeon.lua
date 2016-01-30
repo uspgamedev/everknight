@@ -301,6 +301,16 @@ function dungeon.update ()
   end
 end
 
+function dungeon.keypressed (key)
+  if key == 'q' then
+    blinglevel = blinglevel * blingfactor
+  elseif key == 'w' then
+    local base = baseweapons[love.math.random(#baseweapons)]
+    player:setweapon(base, blinglevel)
+    weaponname = namegen(base, blinglevel)
+  end
+end
+
 
 ----
 -- DRAW

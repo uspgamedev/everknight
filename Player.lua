@@ -31,6 +31,10 @@ local WPN_OFFSET = {
   right = vec2:new{.5,-.25},
 }
 
+local LEVEL_EFFECT = {
+  'sparkle', 'flame'
+}
+
 function Player:instance (obj)
 
   self:super(obj, 3)
@@ -89,8 +93,8 @@ function Player:instance (obj)
       e.particle:stop()
     end
     effects = {}
-    if wpnlevel >= 2 then
-      local neweffect = EFFECTS.new 'sparkle'
+    if wpnlevel >= 4 then
+      local neweffect = EFFECTS.new(LEVEL_EFFECT[love.math.random(1,#LEVEL_EFFECT)]) 
       if neweffect then
         table.insert(effects, neweffect)
       end
@@ -126,7 +130,7 @@ function Player:instance (obj)
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
     for _,e in ipairs(effects) do
-      e.pos = self:getpos() + WPN_OFFSET[self:facedir()] + vec2:new{0,-.2}
+      e.pos = self:getpos() + WPN_OFFSET[self:facedir()] + vec2:new{0,-.3}
     end
   end
 

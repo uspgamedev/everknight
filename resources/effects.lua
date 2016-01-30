@@ -78,9 +78,27 @@ function factories.sparkle (p)
   p:setSizeVariation(1)
   p:setDirection(-math.pi/2)
   p:setSpread(0)
-  p:setAreaSpread('normal', 4+blinglevel, 4+blinglevel)
+  p:setAreaSpread('normal', 4, 4)
   p:setLinearAcceleration(0, -80, 0, -80)
   p:setColors(255, 255, 255, 255)
+  p:setEmitterLifetime(-1)
+  p:start()
+end
+
+function factories.flame (p)
+  p:reset()
+  p:setTexture(sprites.particle3)
+  p:setParticleLifetime(1, math.log(blinglevel)/2)
+  p:setEmissionRate(32)
+  p:setBufferSize(64)
+  p:setSizes(1+math.min(blinglevel,2), 1, .5)
+  p:setSizeVariation(.5)
+  p:setDirection(-math.pi/2)
+  p:setSpread(0)
+  p:setSpeed(64, 96)
+  p:setAreaSpread('normal', 2, 2)
+  p:setLinearAcceleration(0, -80, 0, -150)
+  p:setColors(255, 150, 100, 150, 255, 150, 100, 0)
   p:setEmitterLifetime(-1)
   p:start()
 end
@@ -88,10 +106,12 @@ end
 function effects.draw (g)
   for i,v in ipairs(effects) do
     g.push()
+    g.setBlendMode 'add'
     g.translate(v.pos:unpack())
     g.setColor(255, 255, 255, 255)
     g.scale(1/64, 1/64)
     g.draw(v.particle, 0, 0)
+    g.setBlendMode 'alpha'
     g.pop()
   end
 end

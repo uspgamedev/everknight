@@ -98,7 +98,7 @@ function factories.flame (p)
   p:setSpeed(64, 96)
   p:setAreaSpread('normal', 2, 2)
   p:setLinearAcceleration(0, -80, 0, -150)
-  p:setColors(255, 150, 100, 150, 255, 150, 100, 0)
+  p:setColors(255, 150, 100, 150, 50, 50, 50, 255, 0, 0, 0, 0)
   p:setEmitterLifetime(-1)
   p:start()
 end

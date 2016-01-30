@@ -214,8 +214,8 @@ function dungeon.update ()
 
   if screenshake.curshake <= 0 and screenshake.duration > 0 then
     screenshake.curshake = 0.05
-    screenshake.try = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
-    screenshake.trx = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
+    screenshake.try = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
+    screenshake.trx = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
   end
 
   todelete = {}

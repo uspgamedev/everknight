@@ -63,6 +63,8 @@ function Character:instance (obj, spd)
     self.damage = self.damage + 1
     local posx, posy = self.getpos():unpack()
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
+    screenshake.intensity = blinglevel
+    screenshake.duration = 1
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 

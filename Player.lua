@@ -94,6 +94,19 @@ function Player:instance (obj)
           (self:facedir() == 'left' and math.abs(angle) > 3*math.pi/4))
   end
 
+  local function truncateangle ()
+    local angle = obj:getangle()
+    if math.abs(angle) < math.pi/4 then
+      return math.pi/2
+    elseif math.abs(angle) > 3*math.pi/4 then
+      return -math.pi/2
+    elseif angle > 0 then
+      return math.pi  
+    else
+      return 0
+    end
+  end
+
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
     -- shadow
@@ -107,12 +120,17 @@ function Player:instance (obj)
     -- weapon
     local wpnsprite = sprites[weapon]
     if attacking > 0 then
-      g.draw(wpnsprite.img, wpnsprite.quads[2], sx*32, -48, 0, sx*1, 1,
-             wpnsprite.hotspot.x, wpnsprite.hotspot.y)
+      local slash = sprites.slash
+      g.translate(0, -32)
+      g.rotate(truncateangle())
       g.setColor(255, 255, 255, 255*attacking/10)
-      g.rectangle('fill', 32*sx, -48, sx*24, 64)
+      g.draw(slash.img, slash.quad, 32, -16, 0, 1, 1, slash.hotspot.x, slash.hotspot.y)
+      g.setColor(255, 255, 255, 255)
+      g.draw(wpnsprite.img, wpnsprite.quads[2], 32, -16, 0, 1, 1,
+             wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     else
       local dy = 4*math.sin(tick * 2 * math.pi)
+      g.setColor(255, 255, 255, 255)
       g.draw(wpnsprite.img, wpnsprite.quads[1], sx*32, -16 + dy, 0, 1, 1,
              wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     end

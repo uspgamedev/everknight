@@ -40,6 +40,12 @@ sprites.axe = {
   hotspot = vec2:new{32, 48}
 }
 
+sprites.slash = {
+  img = img,
+  quad = newQuad(2*64, 0, 128, 128, img:getDimensions()),
+  hotspot = vec2:new{84, 100}
+}
+
 sprites.slime = {
   img = img,
   quads = {

@@ -21,6 +21,7 @@ screenshake = {
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
+local Beetle   = require 'Beetle'
 money = 0
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
@@ -58,7 +59,7 @@ roommonsters = {
   {},
   {Slime, 1, 1, 1, 1, 2, 2},
   {},
-  {},
+  {Beetle, 3, 3, 3, 5},
   {},
   {},
 }
@@ -214,8 +215,8 @@ function dungeon.update ()
 
   if screenshake.curshake <= 0 and screenshake.duration > 0 then
     screenshake.curshake = 0.05
-    screenshake.try = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
-    screenshake.trx = math.max(math.min(2 * (love.math.random() - 0.5 ) * screenshake.intensity * screenshake.duration * 16, 64), -64)
+    screenshake.try = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
+    screenshake.trx = (2 * (love.math.random() - 0.5) ) *math.max(math.min(screenshake.intensity * 16, 64), -64) * math.min(screenshake.duration, 1)
   end
 
   todelete = {}
@@ -313,7 +314,8 @@ local function drawhud(g)
     g.setColor(255, 255, 255)
     g.scale(1/64, 1/64)
     g.setFont(FONTS[2])
-    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 1.5), 0, 0)
+    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 1.5) .. "/" ..
+            math.floor(10 * blinglevel * 1.5), 0, 0)
     g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
     g.print("WEAPON: "..weaponname, 0, 32)
     g.print("MONEY: "..money.."G", 0, 48)
@@ -340,8 +342,8 @@ function dungeon.draw ()
     g.scale(1/64, 1/64)
     g.translate(screenshake.trx, screenshake.try)
     g.scale(64, 64) 
-  else 
-    print ("ohnoes") 
+  -- else 
+    -- print ("ohnoes") 
   end
   -- Draw floor
   for i,row in ipairs(map) do

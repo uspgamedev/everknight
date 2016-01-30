@@ -89,7 +89,10 @@ function Player:instance (obj)
     end
     effects = {}
     if wpnlevel >= 2 then
-      table.insert(effects, EFFECTS.new 'sparkle')
+      local neweffect = EFFECTS.new 'sparkle'
+      if neweffect then
+        table.insert(effects, neweffect)
+      end
     end
   end
 

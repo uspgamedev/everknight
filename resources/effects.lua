@@ -85,6 +85,23 @@ function factories.sparkle (p)
   p:start()
 end
 
+function factories.shock (p)
+  p:reset()
+  p:setTexture(sprites.particle2)
+  p:setParticleLifetime(.6)
+  p:setEmissionRate(10)
+  p:setSizes(1 + math.min(blinglevel,2)*.1)
+  p:setSizeVariation(1)
+  p:setSpread(0)
+  p:setSpeed(0,0)
+  p:setRotation(0, 2*math.pi)
+  p:setAreaSpread('normal', 6, 6)
+  p:setLinearAcceleration(0, 0, 0, 0)
+  p:setColors(100, 100, 255, 200, 255, 255, 255, 0)
+  p:setEmitterLifetime(-1)
+  p:start()
+end
+
 function factories.flame (p)
   p:reset()
   p:setTexture(sprites.particle3)

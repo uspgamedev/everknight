@@ -32,7 +32,7 @@ local WPN_OFFSET = {
 }
 
 local LEVEL_EFFECT = {
-  'sparkle', 'flame'
+  'sparkle', 'flame', 'shock'
 }
 
 function Player:instance (obj)
@@ -151,6 +151,7 @@ function Player:instance (obj)
         offset = offset + effectdir[movedir()]
       else
         offset = offset + WPN_OFFSET[self:facedir()]
+                        + (weapon == 'Sword' and 0 or 1)*vec2:new{0,-.2}
       end
       e.pos = self:getpos() + offset
     end

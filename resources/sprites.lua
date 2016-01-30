@@ -22,6 +22,15 @@ sprites.wall = {
   }
 }
 
+sprites.torch = {
+  img = img,
+  quads = {
+    newQuad(3*64, 2*64, 64, 64, img:getDimensions()),
+    newQuad(4*64, 2*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{0,32}
+}
+
 sprites.hero = {
   img = img,
   quads = {

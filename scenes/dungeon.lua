@@ -103,6 +103,11 @@ local function updateroom()
     end
   end
 
+  map[2][2] = 'TORCH'
+  map[2][W-1] = 'TORCH'
+  map[H-1][2] = 'TORCH'
+  map[H-1][W-1] = 'TORCH'
+
   for _,obj in ipairs(roomobjects[roomnumber]) do
     table.insert(activeobjects, obj)
     obj.load(blingfactor, W, H)
@@ -290,6 +295,14 @@ local function drawfloor (g)
   g.draw(floor.img, floor.quad, 0, 0)
 end
 
+local function drawtorch (g, i, j)
+  local torch = sprites.torch
+  g.setColor(COLOR(60, -20))
+  g.scale(1/64, 1/64)
+  g.draw(torch.img, torch.quads[love.math.random(1,2)], 0, 0, 0, 1, 1,
+         torch.hotspot.x, torch.hotspot.y)
+end
+
 local function drawwall (g, i, j)
   local wall = sprites.wall
   g.setColor(COLOR(80, -5))
@@ -325,6 +338,8 @@ local function drawwalls (g, i0, j0, dh, dw)
         drawwall(g, i, j)
       elseif tile == 'DOOR' then
         drawdoor(g)
+      elseif tile == 'TORCH' then
+        drawtorch(g)
       elseif tile == 'HDOOR' then
         drawhdoor(g)
       end
@@ -396,6 +411,8 @@ function dungeon.draw ()
   end
   -- Draw top walls
   drawwalls(g, 1, 1, 1, W)
+  drawwalls(g, 2, 2, 1, 1)
+  drawwalls(g, 2, W-1, 1, 1)
   -- Draw upper side walls
   drawwalls(g, 1, 1, H/2, 1)
   drawwalls(g, 1, W, H/2, 1)
@@ -419,6 +436,8 @@ function dungeon.draw ()
   drawwalls(g, H/2+1, 1, H/2, 1)
   drawwalls(g, H/2+1, W, H/2, 1)
   -- Draw bottom walls
+  drawwalls(g, H-1, 2, 1, 1)
+  drawwalls(g, H-1, W-1, 1, 1)
   drawwalls(g, H, 1, 1, W)
 
   --draw numbers

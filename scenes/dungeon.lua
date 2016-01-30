@@ -88,6 +88,12 @@ local function validpos (pos)
   return not map[i] or not map[i][j] or map[i][j] == 'FLOOR'
 end
 
+
+-----
+-- UPDATE
+-----
+
+
 function dungeon.update ()
 
   local todelete = {}
@@ -158,6 +164,11 @@ function dungeon.update ()
     player:setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
   end
 end
+
+
+----
+-- DRAW
+----
 
 -- Converts HSL to RGB. (input and output range: 0 - 255)
 local function HSL(h, s, l, a)

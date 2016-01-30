@@ -1,5 +1,6 @@
 
 require 'color'
+local sprites = require 'resources.sprites'
 
 local Player = require 'lux.class' :new{}
 
@@ -24,8 +25,11 @@ function Player:instance (obj)
 
   self:super(obj, 3)
 
-  local sprite = require 'resources.sprites' .hero
+  local weapon = 'axe'
   local counter = 0
+  local tick = 0
+  local atkdelay = 0
+  local attacking = 0
 
   function obj:takedamage (power, pos)
     -- print("yo")
@@ -68,15 +72,37 @@ function Player:instance (obj)
     else
       self:setangle(self:facedir() == 'right' and 0 or math.pi)
     end
+    tick = math.fmod(tick + FRAME, 1)
+    if love.keyboard.isDown 'z' and atkdelay <= 0 then
+      attacking = 10
+      atkdelay = 20
+    end
+    atkdelay = math.max(atkdelay - 1, 0)
+    attacking = math.max(attacking - 1, 0)
   end
 
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
+    -- shadow
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 16, 4, 16)
+    -- avatar
     g.setColor(HSL(20, 80, 80 + (invincible and 50 or 0), 255))
     local sx = (self:facedir() == 'right') and 1 or -1
+    local sprite = sprites.hero
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
+    -- weapon
+    local wpnsprite = sprites[weapon]
+    if attacking > 0 then
+      g.draw(wpnsprite.img, wpnsprite.quads[2], sx*32, -48, 0, sx*1, 1,
+             wpnsprite.hotspot.x, wpnsprite.hotspot.y)
+      g.setColor(255, 255, 255, 255*attacking/10)
+      g.rectangle('fill', 32*sx, -48, sx*24, 64)
+    else
+      local dy = 4*math.sin(tick * 2 * math.pi)
+      g.draw(wpnsprite.img, wpnsprite.quads[1], sx*32, -16 + dy, 0, 1, 1,
+             wpnsprite.hotspot.x, wpnsprite.hotspot.y)
+    end
   end
 
 end

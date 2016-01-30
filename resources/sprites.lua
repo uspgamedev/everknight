@@ -31,6 +31,15 @@ sprites.hero = {
   hotspot = vec2:new{32, 64}
 }
 
+sprites.axe = {
+  img = img,
+  quads = {
+    newQuad(2*64, 3*64, 64, 64, img:getDimensions()),
+    newQuad(3*64, 3*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 48}
+}
+
 sprites.slime = {
   img = img,
   quads = {

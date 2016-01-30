@@ -89,9 +89,9 @@ function Player:instance (obj)
     local diff = other:getpos() - self:getpos()
     local dist = diff:size()
     local angle = math.atan2(diff.y, diff.x)
-    return dist < 1 and
-          (self:facedir() == 'right' and math.abs(angle) < math.pi/4) or
-          (self:facedir() == 'left' and math.abs(angle) > 3*math.pi/4)
+    return dist < 1.5 and
+          ((self:facedir() == 'right' and math.abs(angle) < math.pi/4) or
+          (self:facedir() == 'left' and math.abs(angle) > 3*math.pi/4))
   end
 
   function obj:draw (g)

@@ -32,7 +32,7 @@ function effects.update ()
   end
   for i = #effects,1,-1 do
     if todelete[i] then
-      table.insert(standbyparticles, effects[i].particles)
+      table.insert(standbyparticles, effects[i].particle)
       table.remove(effects, i)
     end
   end
@@ -42,6 +42,7 @@ local factories = {}
 
 function effects.new (which)
   local i, p = next(standbyparticles)
+  print("standby", #standbyparticles)
   if p then
     table.remove(standbyparticles, i)
     factories[which] (p)

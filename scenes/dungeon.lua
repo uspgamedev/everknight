@@ -215,11 +215,15 @@ local function drawfloor (g)
   g.draw(floor.img, floor.quad, 0, 0)
 end
 
-local function drawwall (g)
+local function drawwall (g, i, j)
   local wall = sprites.wall
   g.setColor(COLOR(80, -5))
   g.scale(1/64, 1/64)
-  g.draw(wall.img, wall.quads[2], 0, -64)
+  g.draw(wall.img, wall.quads[2], 0, 16)
+  g.draw(wall.img, wall.quads[1], 0, -48)
+  if i == H and (j == 1 or j == W) then
+    g.draw(wall.img, wall.quads[3], j == 1 and 64 or 0, 16, 0, j == 1 and -1 or 1, .75)
+  end
 end
 
 local function drawhdoor (g)
@@ -243,7 +247,7 @@ local function drawwalls (g, i0, j0, dh, dw)
       g.push()
       g.translate(j, i)
       if tile == 'WALL' then
-        drawwall(g)
+        drawwall(g, i, j)
       elseif tile == 'DOOR' then
         drawdoor(g)
       elseif tile == 'HDOOR' then

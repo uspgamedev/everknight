@@ -153,7 +153,6 @@ function dungeon.load ()
   lastexit = 'E'
   nextexit = 'E'
   print ("YO", lastexit)
-  updateroom()
   screenshake = {
     intensity = 0,
     duration = 0,
@@ -169,6 +168,7 @@ function dungeon.load ()
   end
   player:load()
   player:setpos(vec2:new{2.5,H/2})
+  updateroom()
   weaponname = "Sord"
 end
 

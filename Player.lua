@@ -50,11 +50,9 @@ function Player:instance (obj)
   function obj:load ()
     self.health = 10
     self.damage = 0
-    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
-    for _,e in ipairs(effects) do
-      e.particle:stop()
-      print('particle state', e.particle:isActive())
-    end
+    atkdelay = 0
+    attacking = 0
+    self:setweapon('Sword', 1)
     self:reset()
     effects = {}
   end

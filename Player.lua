@@ -44,9 +44,9 @@ function Player:instance (obj)
   end
 
   function obj:ondamage (power, pos, healthbefore)
-    local oldlife = math.floor(healthbefore * blinglevel * 1.5)--self.displaylife
+    local oldlife = math.floor(healthbefore * blinglevel * 15)--self.displaylife
     local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
-    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 15)
     lifediff = oldlife - self.displaylife
     local posx, posy = self.getpos():unpack()
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}))
@@ -61,9 +61,9 @@ function Player:instance (obj)
 
   function obj:heal()
     love.audio.play(SOUNDS.heal)
-    local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)
+    local oldlife = math.floor(player:gethealth() * blinglevel * 15)
     obj.damage = 0
-    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 15)
     lifediff = self.displaylife - oldlife
     local posx, posy = self.getpos():unpack()
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}, {0, 255, 0}))

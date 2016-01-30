@@ -20,13 +20,17 @@ function Monster:instance (obj, spd, kind, color, power)
     player:takedamage(power, self:getpos())
   end
 
-  local takedamage = obj.takedamage
-  function obj:takedamage(amount, pos)
-    takedamage(self)
+  function obj:ondamage (power, pos)
+    local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
+    local posx, posy = self.getpos():unpack()
+    table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
+  end
+
+  function obj:onhit(amount, pos)
     self:addpush((self:getpos() - pos):normalized() * 20)
   end
 
-  function obj:update ()
+  function obj:onupdate ()
     self:behaviour()
     counter = math.fmod(counter + FRAME, 1)
     if self:isdead() then

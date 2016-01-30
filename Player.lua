@@ -11,8 +11,6 @@ local DIRS = {
   right = vec2:new{1,0}
 }
 
-local invincible
-
 -- local damage = 0
 
 local shakedur = {
@@ -37,34 +35,26 @@ function Player:instance (obj)
   local tick = 0
   local atkdelay = 0
   local attacking = 0
+  local invincible
 
   function obj:load ()
-    -- print("load")
-    -- print (self.health)
     self.health = 10
-    -- print (self.health)
     self.damage = 0
     self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
-    -- behaviour
   end
 
-  function obj:takedamage (power, pos)
-    -- print("yo")
-    if not invincible then
-      local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)--self.displaylife
-      local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
-      print("ouch")
-      -- print("")
-      obj.damage = obj.damage + 1
-      -- damage = damage + 1
-      self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
-      lifediff = oldlife - self.displaylife
-      local posx, posy = self.getpos():unpack()
-      table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}))
-      invincible = 1
-      screenshake.intensity = blinglevel
-      screenshake.duration = shakedur[shakebling]
-    end
+  function obj:ondamage (power, pos, healthbefore)
+    local oldlife = math.floor(healthbefore * blinglevel * 1.5)--self.displaylife
+    local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    lifediff = oldlife - self.displaylife
+    local posx, posy = self.getpos():unpack()
+    table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}))
+    screenshake.intensity = blinglevel
+    screenshake.duration = shakedur[shakebling]
+  end
+
+  function obj:onhit (power, pos)
     self:addpush((self:getpos() - pos):normalized() * 20)
   end
 
@@ -81,13 +71,7 @@ function Player:instance (obj)
     weapon = set
   end
 
-  function obj:update ()
-    if invincible then
-      invincible = invincible - FRAME
-      if invincible <= 0 then
-        invincible = nil
-      end
-    end
+  function obj:onupdate ()
     local sum = vec2:new{}
     self:setmoving(false)
     for key,dir in pairs(DIRS) do

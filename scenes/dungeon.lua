@@ -103,15 +103,29 @@ local function validpos (pos)
   return not map[i] or not map[i][j] or map[i][j] == 'FLOOR'
 end
 
+local function moveobj (obj)
+  if not obj.getmove then return end
+  local pos = obj:getpos() + FRAME*obj:getmove()
+  for k=1,3 do
+    if  validpos(pos + vec2:new{.4,0}) and
+        validpos(pos + vec2:new{-.4,0}) and
+        validpos(pos + vec2:new{0,.4}) and
+        validpos(pos + vec2:new{0,-.4}) then
+      obj:setpos(pos)
+      break
+    end
+    pos = (pos + obj:getpos())/2
+  end
+end
+
+local function checkcollision (obj1, obj2)
+  local pos1, pos2 = obj1:getpos(), obj2:getpos()
+  return (pos1 - pos2):size() < .8
+end
 
 -----
 -- UPDATE
 -----
-
-local function checkcollision (obj1, obj2)
-  local pos1, pos2 = obj1:getpos(), obj2:getpos()
-  return (pos1 - pos2):size() < 1
-end
 
 function dungeon.update ()
 
@@ -132,6 +146,10 @@ function dungeon.update ()
     end
   end
   local playerpos = player:getpos()
+
+  for i,obj in ipairs(activeobjects) do
+    moveobj(obj)
+  end
 
   ----
   --CHECK COLLISION HERE

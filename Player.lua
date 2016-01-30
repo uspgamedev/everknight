@@ -26,6 +26,11 @@ local function toangle(v)
   return math.atan2(v[2], v[1])
 end
 
+local WPN_OFFSET = {
+  left = vec2:new{-.5,-.25},
+  right = vec2:new{.5,-.25},
+}
+
 function Player:instance (obj)
 
   self:super(obj, 3)
@@ -36,11 +41,17 @@ function Player:instance (obj)
   local tick = 0
   local atkdelay = 0
   local attacking = 0
+  local effects = {}
 
   function obj:load ()
     self.health = 10
     self.damage = 0
     self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    for _,e in ipairs(effects) do
+      e.particle:stop()
+      print('particle state', e.particle:isActive())
+    end
+    effects = {}
   end
 
   function obj:ondamage (power, pos, healthbefore)
@@ -72,7 +83,14 @@ function Player:instance (obj)
   function obj:setweapon (set, bling)
     love.audio.play(SOUNDS.get)
     weapon = set
-    wpnlevel = math.floor(blinglevel)
+    wpnlevel = math.floor(bling)
+    for _,e in ipairs(effects) do
+      e.particle:stop()
+    end
+    effects = {}
+    if wpnlevel >= 2 then
+      table.insert(effects, EFFECTS.new 'sparkle')
+    end
   end
 
   function obj:onupdate ()
@@ -103,6 +121,9 @@ function Player:instance (obj)
     end
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
+    for _,e in ipairs(effects) do
+      e.pos = self:getpos() + WPN_OFFSET[self:facedir()] + vec2:new{0,-.2}
+    end
   end
 
   function obj:attacking ()

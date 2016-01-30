@@ -53,7 +53,7 @@ function shop.cheapitem.update()
   if tobedeleted then 
     local base, level
     base, weaponname, level = unpack(shop.cheapitem.weapon)
-    player:setweapon(base)
+    player:setweapon(base, level)
     blinglevel = blinglevel * blingfactor
     money = money - shop.cheapitem.price
   end

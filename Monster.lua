@@ -23,7 +23,8 @@ function Monster:instance (obj, spd, kind, color, power)
   function obj:ondamage (power, pos)
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
-    PARTICLES('blood', (self:getpos()*3/4 + pos/4))
+    local ef = EFFECTS.new 'blood'
+    ef.pos = self:getpos()*3/4 + pos/4
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 

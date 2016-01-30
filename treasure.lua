@@ -23,7 +23,7 @@ end
 function treasure.update()
   if tobedeleted then
     local base = baseweapons[love.math.random(#baseweapons)]
-    player:setweapon(base)
+    player:setweapon(base, blinglevel)
     weaponname = namegen(base, blinglevel)
     blinglevel = blinglevel * blingfactor
   end

@@ -9,7 +9,7 @@ function love.load()
   curscene = scenes.title
   curscene.load()
   SOUNDS = require 'resources.sounds'
-  PARTICLES = require 'resources.particles'
+  EFFECTS = require 'resources.effects'
   FONTS = {}
   for i=1,4 do
     FONTS[i] = love.graphics.newFont('assets/LCD_Solid.ttf', 2^(2+i))

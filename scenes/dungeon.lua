@@ -319,7 +319,7 @@ end
 
 local function drawfloor (g)
   local floor = sprites.floor
-  g.setColor(COLOR(10, -10))
+  g.setColor(COLOR(10, 10, 128))
   g.scale(1/64, 1/64)
   g.draw(floor.img, floor.quad, 0, 0)
 end
@@ -336,7 +336,7 @@ local function drawwall (g, i, j)
   local wall = sprites.wall
   g.setColor(COLOR(80, -5))
   g.scale(1/64, 1/64)
-  g.draw(wall.img, wall.quads[2], 0, 16)
+  g.draw(wall.img, wall.quads[2], 0, 0)
   g.draw(wall.img, wall.quads[1], 0, -48)
   if i == H and (j == 1 or j == W) then
     g.draw(wall.img, wall.quads[3], j == 1 and 64 or 0, 0, 0, j == 1 and -1 or 1, 1)

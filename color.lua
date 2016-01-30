@@ -29,7 +29,7 @@ function COLOR (ds, dl, dh)
   ds = ds or 0
   dl = dl or 0
   dh = dh or 0
-  return HSL(base+dh, 30+ds, 80+dl, 255)
+  return HSL(base+dh, 10+ds, 120+dl, 255)
 end
 
 

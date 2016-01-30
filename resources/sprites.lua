@@ -17,7 +17,7 @@ sprites.wall = {
   img = img,
   quads = {
     newQuad(0, 0, 64, 64, img:getDimensions()),
-    newQuad(64, 0, 64, 48, img:getDimensions()),
+    newQuad(64, 0, 64, 64, img:getDimensions()),
     newQuad(64, 64, 64+16, 64, img:getDimensions()),
   }
 }

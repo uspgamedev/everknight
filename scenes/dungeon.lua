@@ -423,7 +423,7 @@ local function drawhud(g)
   drawicon(g, 'def', 2, 24)
   drawtext(g, 1, 2, 5*64, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
-  drawtext(g, 1, 15, 5*64, "%s",
+  drawtext(g, 1, 15, 10*64, "%s",
            weaponname)
   drawtext(g, 2, 15, 5*64, "%d",
            math.floor(10 * blinglevel))

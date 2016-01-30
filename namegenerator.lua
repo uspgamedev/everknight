@@ -191,7 +191,7 @@ local suffixes = {
 }
 
 local EXTRA_EFFECT = {
-  'sparkle', 'flame', 'shock', 'puffs', 'bleeding'
+  'sparkle', 'flame', 'shock', 'puffs', 'bleeding', 'vortex'
 }
 
 function generator.generate(weaponname, blinglevel)

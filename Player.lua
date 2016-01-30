@@ -151,7 +151,7 @@ function Player:instance (obj)
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 16, 4, 16)
     -- avatar
-    g.setColor(HSL(20, 80, 80 + (invincible and 50 or 0), 255))
+    g.setColor(HSL(20, 80, 80 + self:getinvincible()*100, 255))
     local sx = (self:facedir() == 'right') and 1 or -1
     local sprite = sprites.hero
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)

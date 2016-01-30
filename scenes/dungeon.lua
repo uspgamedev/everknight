@@ -24,7 +24,7 @@ screenshake = {
 local treasure = require "treasure"
 local Slime    = require 'Slime'
 local Beetle   = require 'Beetle'
-money = 0
+money = 10
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
 
@@ -160,6 +160,8 @@ function dungeon.load ()
     trx = 0,
     try = 0,
   }
+  displaynumbers = {}
+  money = 10
   resetparticles()
   player = Player()
   player:load()

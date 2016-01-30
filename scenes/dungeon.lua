@@ -108,6 +108,10 @@ end
 -- UPDATE
 -----
 
+local function checkcollision (obj1, obj2)
+  local pos1, pos2 = obj1:getpos(), obj2:getpos()
+  return (pos1 - pos2):size() < 1
+end
 
 function dungeon.update ()
 
@@ -134,12 +138,7 @@ function dungeon.update ()
   ----
   -- e chama obj.oncollide plz
   for _,obj in ipairs(activeobjects) do
-    local j, i = playerpos:unpack()
-    local objx, objy = obj.getpos():unpack()
-    if math.floor(i) == 
-      math.floor(objy) and 
-      math.floor(j) == 
-      math.floor (objx) then
+    if checkcollision(player, obj) then
       obj.oncollide(obj, player)
     end
   end

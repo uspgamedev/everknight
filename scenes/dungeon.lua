@@ -11,7 +11,7 @@ local player
 local sprites
 
 blinglevel = 1
-blingfactor = 1.2
+blingfactor = 1.5
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
@@ -56,6 +56,10 @@ roommonsters = {
   {},
   {},
 }
+
+displaynumbers = {}
+numgenerator = require "displaynumbergenerator"
+newnum = numgenerator.new
 
 local activeobjects = {}
 
@@ -181,6 +185,18 @@ function dungeon.update ()
     return "gameover"
   end
 
+  todelete = {}
+
+  for i,num in ipairs(displaynumbers) do
+    todelete[i] = num:update()
+  end
+
+  for i = #displaynumbers,1,-1 do
+    if todelete[i] then
+      table.remove(displaynumbers, i)
+    end
+  end
+
   money = math.floor(money)
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
@@ -271,6 +287,16 @@ local function drawhud(g)
   g.pop()
 end
 
+local function drawnum(g)
+  for _, num in ipairs(displaynumbers) do
+    print("NUM")
+    g.push()
+    g.translate(num:getpos():unpack())
+    num:draw(g)
+    g.pop()
+  end
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -315,7 +341,10 @@ function dungeon.draw ()
   --draw hud
   drawhud(g)
 
-  g.pop()
+  --draw numbers
+  drawnum(g)
+
+  g.pop(g)
 end
 
 return dungeon

@@ -29,6 +29,10 @@ function Player:instance (obj)
     end
   end
 
+  function obj:heal()
+    obj.damage = 0
+  end
+
   function obj:update ()
     if invincible then
       invincible = invincible - FRAME

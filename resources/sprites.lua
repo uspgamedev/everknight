@@ -73,5 +73,14 @@ sprites.slime = {
   hotspot = vec2:new{32, 56}
 }
 
+sprites.beetle = {
+  img = img,
+  quads = {
+    newQuad(4*64, 64, 64, 64, img:getDimensions()),
+    newQuad(5*64, 64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{32, 56}
+}
+
 return sprites
 

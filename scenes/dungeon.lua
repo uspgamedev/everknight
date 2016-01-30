@@ -21,6 +21,7 @@ screenshake = {
 
 local treasure = require "treasure"
 local Slime    = require 'Slime'
+local Beetle   = require 'Beetle'
 money = 0
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
@@ -58,7 +59,7 @@ roommonsters = {
   {},
   {Slime, 1, 1, 1, 1, 2, 2},
   {},
-  {},
+  {Beetle, 3, 3, 3, 5},
   {},
   {},
 }
@@ -313,7 +314,8 @@ local function drawhud(g)
     g.setColor(255, 255, 255)
     g.scale(1/64, 1/64)
     g.setFont(FONTS[2])
-    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 1.5), 0, 0)
+    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 1.5) .. "/" ..
+            math.floor(10 * blinglevel * 1.5), 0, 0)
     g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
     g.print("WEAPON: "..weaponname, 0, 32)
     g.print("MONEY: "..money.."G", 0, 48)

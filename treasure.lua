@@ -24,5 +24,10 @@ function treasure.update()
   return tobedeleted
 end
 
+function treasure:draw (g)
+  g.setColor(200, 200, 200, 255)
+  g.rectangle('fill', 0, 0, 1, 1)
+end
+
 return treasure
 

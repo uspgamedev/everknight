@@ -51,6 +51,11 @@ function Character:instance (obj, spd)
     -- behaviour
   end
 
+  function obj:draw (g)
+    g.setColor(255, 255, 255, 255)
+    g.rectangle('fill', .1, .1, .8, .8)
+  end
+
 end
 
 return Character

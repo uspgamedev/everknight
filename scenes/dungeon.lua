@@ -12,11 +12,8 @@ local sprites
 blinglevel = 1
 blingfactor = 1.2
 
--- local rooms = require "rooms"
-
--- local room = require "room"
-
 local treasure = require "treasure"
+local Slime    = require 'Slime'
 
 local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
@@ -31,6 +28,15 @@ roomobjects = {
   {},
   {},
   {treasure},
+  {},
+  {},
+  {},
+}
+
+roommonsters = {
+  {},
+  {Slime, 1, 1, 1, 1, 2, 2},
+  {},
   {},
   {},
   {},
@@ -115,7 +121,7 @@ function dungeon.update ()
   end
 
   for i,obj in ipairs(activeobjects) do
-    todelete[i] = obj.update()
+    todelete[i] = obj:update()
   end
 
   for i = #activeobjects,1,-1 do
@@ -138,6 +144,12 @@ function dungeon.update ()
     for _,obj in ipairs(roomobjects[roomnumber]) do
       table.insert(activeobjects, obj)
       obj.load(blingfactor, W, H)
+    end
+    local monster = roommonsters[roomnumber]
+    for i = 2,#monster do
+      local newmonster = monster[1](monster[i])
+      newmonster:setpos(vec2:new{W/2 + i/2, 2 + 6*love.math.random()})
+      table.insert(activeobjects, newmonster)
     end
     updateroom()
     player:setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
@@ -210,11 +222,6 @@ local function drawwalls (g, i0, j0, dh, dw)
   end
 end
 
-local function drawobject (g, color1, color2)
-  g.setColor(COLOR(color1, color2))
-  g.rectangle('fill', 0, 0, 1, 1)
-end
-
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -238,8 +245,8 @@ function dungeon.draw ()
   --draw objects
   for _,obj in ipairs(activeobjects) do
     g.push()
-    g.translate(obj.getpos():unpack())
-      drawobject(g, unpack(obj.color))
+    g.translate(obj:getpos():unpack())
+    obj:draw(g)
     g.pop()
   end
 
@@ -248,7 +255,7 @@ function dungeon.draw ()
     g.push()
     g.translate(player:getpos():unpack())
     g.scale(1/64, 1/64)
-    g.setColor(HSL(50, 20, 20, 255))
+    g.setColor(HSL(20, 80, 80, 255))
     g.draw(hero.img, hero.quad, 0, 0, 0, 1, 1, hero.hotspot.x, hero.hotspot.y)
     g.pop()
   end

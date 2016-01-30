@@ -24,6 +24,7 @@ screenshake = {
 local treasure = require "treasure"
 local Slime    = require 'Slime'
 local Beetle   = require 'Beetle'
+local Chicken  = require 'Chicken'
 money = 10
 local shop = require "shop"
 local healstuff = require "healstuff" --nil --TODO: implementar
@@ -87,7 +88,7 @@ roommonsters = {
   {},
   {Beetle, 2, 2, 2, 4},
   {},
-  {},
+  {Chicken, 6},
 }
 
 displaynumbers = {}
@@ -318,7 +319,7 @@ end
 
 local function drawfloor (g)
   local floor = sprites.floor
-  g.setColor(COLOR(10, 50))
+  g.setColor(COLOR(10, -10))
   g.scale(1/64, 1/64)
   g.draw(floor.img, floor.quad, 0, 0)
 end

@@ -69,7 +69,12 @@ function Player:instance (obj)
   end
 
   function obj:heal()
+    local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)
     obj.damage = 0
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    lifediff = self.displaylife - oldlife
+    local posx, posy = self.getpos():unpack()
+    table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}, {0, 255, 0}))
   end
 
   function obj:setweapon (set)

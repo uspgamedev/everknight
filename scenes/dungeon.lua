@@ -340,8 +340,8 @@ function dungeon.draw ()
     g.scale(1/64, 1/64)
     g.translate(screenshake.trx, screenshake.try)
     g.scale(64, 64) 
-  else 
-    print ("ohnoes") 
+  -- else 
+    -- print ("ohnoes") 
   end
   -- Draw floor
   for i,row in ipairs(map) do

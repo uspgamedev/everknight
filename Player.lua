@@ -87,9 +87,6 @@ function Player:instance (obj)
     if self:getmoving() then
       local countercopy = counter
       counter = math.fmod(counter + FRAME, 0.6)
-      if countercopy <= 0.3 and counter > 0.3 then
-        love.audio.play(SOUNDS.walk)
-      end
     else
       counter = 0
     end

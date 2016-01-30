@@ -32,3 +32,8 @@ function COLOR (ds, dl, dh)
   return HSL(base+dh, 30+ds, 80+dl, 255)
 end
 
+
+function WPNCOLOR (wpnlevel)
+  return HSL(wpnlevel*40, 40+wpnlevel*10, 100+wpnlevel*10)
+end
+

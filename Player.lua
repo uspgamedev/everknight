@@ -141,10 +141,6 @@ function Player:instance (obj)
     end
   end
 
-  local function wpncolor ()
-    return HSL(wpnlevel*40, 40+wpnlevel*10, 100+wpnlevel*10)
-  end
-
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
     -- shadow
@@ -163,12 +159,12 @@ function Player:instance (obj)
       g.rotate(truncateangle())
       g.setColor(255, 255, 255, 255*attacking/10)
       g.draw(slash.img, slash.quad, 32, -16, 0, 1, 1, slash.hotspot.x, slash.hotspot.y)
-      g.setColor(wpncolor())
+      g.setColor(WPNCOLOR(wpnlevel))
       g.draw(wpnsprite.img, wpnsprite.quads[2], 32, -16, 0, 1, 1,
              wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     else
       local dy = 4*math.sin(tick * 2 * math.pi)
-      g.setColor(wpncolor())
+      g.setColor(WPNCOLOR(wpnlevel))
       g.draw(wpnsprite.img, wpnsprite.quads[1], sx*32, -16 + dy, 0, 1, 1,
              wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     end

@@ -132,6 +132,7 @@ function dungeon.load ()
   player = Player()
   player:load()
   player:setpos(vec2:new{2.5,H/2})
+  weaponname = "Sord"
 end
 
 local function validpos (pos)

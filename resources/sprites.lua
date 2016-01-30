@@ -94,5 +94,14 @@ sprites.chest = {
   hotspot = vec2:new{32, 48}
 }
 
+sprites.boss = {
+  img = img,
+  quads = {
+    newQuad(0, 256, 128, 128, img:getDimensions()),
+    newQuad(64, 256, 128, 128, img:getDimensions())
+  },
+  hotspot = vec2:new{64, 128}
+}
+
 return sprites
 

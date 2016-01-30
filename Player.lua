@@ -35,7 +35,6 @@ function Player:instance (obj)
   local tick = 0
   local atkdelay = 0
   local attacking = 0
-  local invincible
 
   function obj:load ()
     self.health = 10

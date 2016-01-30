@@ -59,9 +59,9 @@ roomobjects = {
 
 roommonsters = {
   {},
-  {Slime, 1, 1, 1, 1, 2, 2},
+  {Slime, 1, 1, 1, 1, 3, 3},
   {},
-  {Beetle, 3, 3, 3, 5},
+  {Beetle, 2, 2, 2, 4},
   {},
   {},
 }

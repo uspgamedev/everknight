@@ -8,6 +8,7 @@ function Character:instance (obj, spd)
   local angle = 0
   local moving = false
   local push = vec2:new{}
+  local invincible
 
   local health = 10
   obj.damage = 0
@@ -45,6 +46,10 @@ function Character:instance (obj, spd)
     angle = set
   end
 
+  function obj:getinvincible ()
+    return invincible
+  end
+
   function obj:facedir ()
     return (math.abs(angle) <= math.pi/2) and 'right' or 'left'
   end
@@ -59,11 +64,22 @@ function Character:instance (obj, spd)
     return self.health - self.damage
   end
   
-  function obj:takedamage()
-    self.damage = self.damage + 1
-    local posx, posy = self.getpos():unpack()
-    local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
-    table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
+  function obj:takedamage(power, from)
+    if not invincible then
+      local oldhealth = self:gethealth()
+      self.damage = self.damage + power
+      invincible = 1
+      self:ondamage(power, from, oldhealth)
+    end
+    self:onhit(power, from)
+  end
+
+  function obj:ondamage()
+    -- abstract
+  end
+
+  function obj:onhit()
+    -- abstract
   end
 
   function obj:isdead()
@@ -82,7 +98,17 @@ function Character:instance (obj, spd)
   end
 
   function obj:update ()
-    -- behaviour
+    if invincible then
+      invincible = invincible - FRAME
+      if invincible <= 0 then
+        invincible = nil
+      end
+    end
+    return self:onupdate()
+  end
+
+  function obj:onupdate ()
+    -- abstract
   end
 
   function obj:draw (g)

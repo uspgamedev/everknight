@@ -103,6 +103,10 @@ local suffixes = {
   "Cakes",
 }
 
+local EXTRA_EFFECT = {
+  'sparkle', 'flame', 'shock'
+}
+
 function generator.generate(weaponname, blinglevel)
   local iterations = 1
   -- local numpref = 0
@@ -130,7 +134,8 @@ function generator.generate(weaponname, blinglevel)
       -- name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
     end
   end
-  return name
+  return name, EXTRA_EFFECT[love.math.random(#EXTRA_EFFECT)]
+
 end
 
 return generator

@@ -16,8 +16,8 @@ local cheapitempos, expensiveitempos
 local function makeweapon (x)
   x = x or 0
   local base = baseweapons[love.math.random(#baseweapons)]
-  local shopweaponname = namegen(base, blinglevel)
-  return base, shopweaponname, math.floor(blinglevel+x)
+  local shopweaponname, extra = namegen(base, blinglevel)
+  return base, shopweaponname, math.floor(blinglevel+x), extra
 end
 
 function shop.cheapitem.load(_, W, H)
@@ -52,8 +52,8 @@ end
 function shop.cheapitem.update()
   if tobedeleted then 
     local base, level
-    base, weaponname, level = unpack(shop.cheapitem.weapon)
-    player:setweapon(base, level)
+    base, weaponname, level, extra = unpack(shop.cheapitem.weapon)
+    player:setweapon(base, level, extra)
     blinglevel = blinglevel * blingfactor
     money = money - shop.cheapitem.price
   end

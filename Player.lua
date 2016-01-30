@@ -101,6 +101,24 @@ function Player:instance (obj)
     end
   end
 
+  local function movedir ()
+    local angle = obj:getangle()
+    if math.abs(angle) < math.pi/4 then
+      return 'right'
+    elseif math.abs(angle) > 3*math.pi/4 then
+      return 'left'
+    elseif angle > 0 then
+      return 'down'  
+    else
+      return 'up'
+    end
+  end
+
+  local effectdir = {
+    right = vec2:new{.5,.5}, left = vec2:new{-.5,-.7},
+    down = vec2:new{-.6,.5}, up = vec2:new{.6,-.6}
+  }
+
   function obj:onupdate ()
     local sum = vec2:new{}
     self:setmoving(false)
@@ -130,7 +148,13 @@ function Player:instance (obj)
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
     for _,e in ipairs(effects) do
-      e.pos = self:getpos() + WPN_OFFSET[self:facedir()] + vec2:new{0,-.3}
+      local offset = vec2:new{0,-.3}
+      if attacking > 0 then
+        offset = offset + effectdir[movedir()]
+      else
+        offset = offset + WPN_OFFSET[self:facedir()]
+      end
+      e.pos = self:getpos() + offset
     end
   end
 
@@ -157,17 +181,11 @@ function Player:instance (obj)
     end
   end
 
+  local trunc = {
+    right = math.pi/2, left = -math.pi/2, down = math.pi, up = 0
+  }
   local function truncateangle ()
-    local angle = obj:getangle()
-    if math.abs(angle) < math.pi/4 then
-      return math.pi/2
-    elseif math.abs(angle) > 3*math.pi/4 then
-      return -math.pi/2
-    elseif angle > 0 then
-      return math.pi  
-    else
-      return 0
-    end
+    return trunc[movedir()]
   end
 
   function obj:draw (g)

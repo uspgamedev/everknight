@@ -51,6 +51,7 @@ function Player:instance (obj)
   function obj:takedamage (power, pos)
     -- print("yo")
     if not invincible then
+      love.audio.play(SOUNDS.hurt)
       local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)--self.displaylife
       local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
       print("ouch")
@@ -69,6 +70,7 @@ function Player:instance (obj)
   end
 
   function obj:heal()
+    love.audio.play(SOUNDS.heal)
     local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)
     obj.damage = 0
     self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
@@ -78,6 +80,7 @@ function Player:instance (obj)
   end
 
   function obj:setweapon (set)
+    love.audio.play(SOUNDS.get)
     weapon = set
   end
 
@@ -97,7 +100,11 @@ function Player:instance (obj)
       end
     end
     if self:getmoving() then
+      local countercopy = counter
       counter = math.fmod(counter + FRAME, 0.6)
+      if countercopy <= 0.3 and counter > 0.3 then
+        love.audio.play(SOUNDS.walk)
+      end
     else
       counter = 0
     end
@@ -108,6 +115,7 @@ function Player:instance (obj)
     end
     tick = math.fmod(tick + FRAME, 1)
     if love.keyboard.isDown 'z' and atkdelay <= 0 then
+      love.audio.play(SOUNDS.slash)
       attacking = 10
       atkdelay = 20
     end

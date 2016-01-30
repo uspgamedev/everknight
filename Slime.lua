@@ -34,6 +34,7 @@ function Slime:instance (obj, power)
   function obj:draw (g)
     g.scale(1/64, 1/64)
     local i = (counter < .5) and 1 or 2
+    g.setColor(HSL(100 + (power-1)*50, 150, 150, 255))
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 

@@ -24,7 +24,7 @@ return function (which, pos)
      table.remove(standbyparticles, i)
      factories[which](p)
      p:start()
-     table.insert(particles, {pos, p, {COLOR(blinglevel, blinglevel)}})
+     table.insert(particles, {pos, p, {255, 255, 255, 255}})
    end
 end
 

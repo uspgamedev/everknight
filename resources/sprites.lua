@@ -22,6 +22,15 @@ sprites.wall = {
   }
 }
 
+sprites.torch = {
+  img = img,
+  quads = {
+    newQuad(3*64, 2*64, 64, 64, img:getDimensions()),
+    newQuad(4*64, 2*64, 64, 64, img:getDimensions())
+  },
+  hotspot = vec2:new{0,32}
+}
+
 sprites.hero = {
   img = img,
   quads = {
@@ -82,11 +91,6 @@ sprites.beetle = {
   hotspot = vec2:new{32, 56}
 }
 
-
-sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
-sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
-sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
-
 sprites.chicken = {
   img = img,
   quad = newQuad(7*64, 64, 64, 64, img:getDimensions()),
@@ -99,6 +103,18 @@ sprites.chest = {
   hotspot = vec2:new{32, 48}
 }
 
+sprites.boss = {
+  img = img,
+  quads = {
+    newQuad(0, 256, 128, 128, img:getDimensions()),
+    newQuad(64, 256, 128, 128, img:getDimensions())
+  },
+  hotspot = vec2:new{64, 128}
+}
+
+sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
+sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
+sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
 
 return sprites
 

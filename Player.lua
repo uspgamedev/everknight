@@ -97,6 +97,22 @@ function Player:instance (obj)
     end
     tick = math.fmod(tick + FRAME, 1)
     if love.keyboard.isDown 'z' and atkdelay <= 0 then
+      --PARTICLESES!!!!!!!!!!!!!11111111111111
+      do
+        local pimg = love.graphics.newImage("assets/particle_01.png")
+        print(pimg)
+        -- love.graphics.draw(pimg, 0, 0)
+        local p = love.graphics.newParticleSystem(pimg, 32)
+        p:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
+        p:setEmissionRate(50)
+        p:setSizeVariation(1)
+        p:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
+        p:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
+        p:setEmitterLifetime(1)
+        p:start()
+        local posx, posy = self.getpos():unpack()
+        table.insert(particles, {{posx, posy}, p, {COLOR(blinglevel, -blinglevel)}})
+      end
       love.audio.play(SOUNDS.slash)
       attacking = 10
       atkdelay = 20

@@ -23,27 +23,7 @@ function Monster:instance (obj, spd, kind, color, power)
   function obj:ondamage (power, pos)
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
-    do
-      local i, p = next(standbyparticles)
-      if p then
-        local sprites = require "resources.sprites"
-        table.remove(standbyparticles, i)
-        -- local pimg = love.graphics.newImage("assets/particle_01.png")
-        -- print(pimg)
-        -- -- love.graphics.draw(pimg, 0, 0)
-        -- local p = love.graphics.newParticleSystem(pimg, 32)
-        p:setTexture(sprites.particle3)
-        p:setParticleLifetime(0.5, blinglevel) -- Particles live at least 2s and at most 5s.
-        p:setEmissionRate(5)
-        p:setSizeVariation(1, blinglevel)
-        p:setLinearAcceleration(-20 * blinglevel, -20 * blinglevel, 20 * blinglevel, 20 * blinglevel) -- Random movement in all directions.
-        p:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
-        p:setEmitterLifetime(blinglevel)
-        p:start()
-        -- local posx, posy = self.getpos():unpack()
-        table.insert(particles, {{posx, posy}, p, {COLOR(blinglevel, blinglevel)}})
-      end
-    end
+    PARTICLES('blood', (self:getpos()*3/4 + pos/4))
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 

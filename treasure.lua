@@ -20,7 +20,10 @@ function treasure.getpos()
 end
 
 function treasure.update()
-  if tobedeleted then blinglevel = blinglevel * blingfactor end
+  if tobedeleted then
+    weaponname = namegen(baseweapons[math.random(#baseweapons)], blinglevel)
+    blinglevel = blinglevel * blingfactor
+  end
   return tobedeleted
 end
 

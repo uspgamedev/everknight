@@ -23,13 +23,13 @@ end
 function shop.cheapitem.load(_, W, H)
   tobedeleted = false
   shop.cheapitem.price = math.floor(money * 0.8)
-  cheapitempos = vec2:new{W/3, H/2}
+  cheapitempos = vec2:new{W/3 + 1, H/2}
   shop.cheapitem.weapon = { makeweapon() }
 end
 
 function shop.expensiveitem.load(_, W, H)
   shop.expensiveitem.price = math.floor(money * 1.5 + love.math.random(10, 500))
-  expensiveitempos = vec2:new{2*W/3, H/2}
+  expensiveitempos = vec2:new{2*W/3 + 1, H/2}
   shop.expensiveitem.weapon = { makeweapon(2) }
 end
 

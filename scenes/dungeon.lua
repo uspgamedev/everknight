@@ -425,6 +425,12 @@ local function drawhud(g)
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
   drawtext(g, 1, 15, 5*64, "%s",
            weaponname)
+  drawtext(g, 2, 15, 5*64, "%d",
+           math.floor(10 * blinglevel))
+  drawtext(g, 2, 25, 5*64, "%d",
+           math.floor(8 * blinglevel))
+  drawtext(g, 2, 2, 5*64, "%d G",
+           math.floor(money))
   --g.push()
   --  g.translate(1, -1)
   --  g.setColor(255, 255, 255)

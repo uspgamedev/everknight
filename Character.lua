@@ -7,6 +7,7 @@ function Character:instance (obj, spd)
   local pos = vec2:new{}
   local angle = 0
   local moving = false
+  local push = vec2:new{}
 
   obj.health = 10
   obj.damage = 0
@@ -20,7 +21,12 @@ function Character:instance (obj, spd)
   end
   
   function obj:getmove ()
-    return (moving and spd or 0)*vec2:new{ math.cos(angle), math.sin(angle) }
+    local move = push + (moving and spd or 0)*vec2:new{ math.cos(angle), math.sin(angle) }
+    push = push*0.8
+    if math.abs(push.x) < .1 or math.abs(push.y) < .1 then
+      push = vec2:new{}
+    end
+    return move
   end
 
   function obj:getmoving ()
@@ -33,6 +39,10 @@ function Character:instance (obj, spd)
 
   function obj:setangle (set)
     angle = set
+  end
+
+  function obj:addpush (add)
+    push = push + add
   end
 
   -----

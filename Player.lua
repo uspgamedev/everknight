@@ -16,6 +16,10 @@ local invincible
 
 Player:inherit(require 'Character')
 
+local function toangle(v)
+  return math.atan2(v[2], v[1])
+end
+
 function Player:instance (obj)
 
   self:super(obj, 3)
@@ -23,15 +27,16 @@ function Player:instance (obj)
   local sprite = require 'resources.sprites' .hero
   local counter = 0
 
-  function obj:takedamage ()
+  function obj:takedamage (power, pos)
     -- print("yo")
     if not invincible then
       print("ouch")
       -- print("")
       obj.damage = obj.damage + 1
       -- damage = damage + 1
-      invincible = 3
+      invincible = 1
     end
+    self:addpush((self:getpos() - pos):normalized() * 20)
   end
 
   function obj:heal()
@@ -58,12 +63,12 @@ function Player:instance (obj)
     else
       counter = 0
     end
-    self:setangle(math.atan2(sum.y, sum.x))
+    self:setangle(toangle(sum))
   end
 
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
-    g.setColor(HSL(20, 80, 80, 255))
+    g.setColor(HSL(20, 80, 80 + (invincible and 50 or 0), 255))
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 

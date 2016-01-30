@@ -15,7 +15,7 @@ function Slime:instance (obj, power)
   end
 
   function obj:oncollide(player)
-    player.takedamage()
+    player:takedamage(power, self:getpos())
   end
 
   function obj:update ()

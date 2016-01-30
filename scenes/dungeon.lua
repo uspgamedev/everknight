@@ -133,17 +133,7 @@ function dungeon.update ()
 
   player:update()
   do -- check collision
-    local pos = player:getpos() + FRAME*player:getmove()
-    for k=1,3 do
-      if  validpos(pos + vec2:new{.4,0}) and
-          validpos(pos + vec2:new{-.4,0}) and
-          validpos(pos + vec2:new{0,.4}) and
-          validpos(pos + vec2:new{0,-.4}) then
-        player:setpos(pos)
-        break
-      end
-      pos = (pos + player:getpos())/2
-    end
+    moveobj(player)
   end
   local playerpos = player:getpos()
 

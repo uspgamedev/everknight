@@ -23,7 +23,7 @@ local function draw(displaynumber, g)
   g.push()
   g.scale(1/64, 1/64)
   g.setFont(FONTS[fontsize[math.min(displaynumber.power, #fontsize)]])
-  g.setColor(255, 0, 0)
+  g.setColor(unpack(displaynumber.color))
   g.print(math.floor(displaynumber.value), 0, 0)
   g.pop()
 end
@@ -32,10 +32,12 @@ local function getpos(displaynumber)
   return displaynumber.pos:clone()
 end
 
-local function new(number, pos)
+local function new(number, pos, color)
   local displaynumber = {}
+  color = color or {255, 0, 0}
   displaynumber.pos = vec2:new(pos)
   displaynumber.value = number
+  displaynumber.color = color
   displaynumber.power = math.max( math.floor(number/500) + 1, 1)
   print (displaynumber.power)
   displaynumber.timetolive = timetolivetable[ math.min(displaynumber.power, #timetolivetable) ]

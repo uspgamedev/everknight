@@ -31,6 +31,7 @@ function Monster:instance (obj, spd, kind, color, power)
     counter = math.fmod(counter + FRAME, 1)
     if self:isdead() then
       money = money + 10 * blinglevel
+      blinglevel = blinglevel * miniblingfactor
       return true
     end
   end

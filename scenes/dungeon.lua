@@ -11,6 +11,8 @@ local sprites
 
 blinglevel = 1
 blingfactor = 1.5
+miniblingfactor = 1.5 ^ 0.5
+
 screenshake = {
   intensity = 0,
   duration = 0,
@@ -236,10 +238,10 @@ function dungeon.update ()
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
-    if #roommonsters[roomnumber] > 0 and
-      #activeobjects == 0 then
-      blinglevel = blinglevel * blingfactor
-    end
+    -- if #roommonsters[roomnumber] > 0 and
+    --   #activeobjects == 0 then
+    --   blinglevel = blinglevel * blingfactor
+    -- end
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then
       roomnumber = 1
@@ -342,8 +344,8 @@ function dungeon.draw ()
     g.scale(1/64, 1/64)
     g.translate(screenshake.trx, screenshake.try)
     g.scale(64, 64) 
-  else 
-    print ("ohnoes") 
+  -- else 
+    -- print ("ohnoes") 
   end
   -- Draw floor
   for i,row in ipairs(map) do

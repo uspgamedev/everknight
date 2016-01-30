@@ -47,7 +47,8 @@ function Slime:instance (obj, power)
     local i = (counter < .5) and 1 or 2
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 36, 9, 16)
-    g.setColor(HSL(100 + (power-1)*50, 150, 150, 255))
+    g.setColor(COLOR(50, 50, -40 + (power-1)*70))
+    --g.setColor(HSL(100 + (power-1)*50, 150, 150, 255))
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 

@@ -40,6 +40,17 @@ playerstartingpos['S'] = {W/2, H-1.5}
 
 weaponname = "Sord"
 
+local opposites = {
+  ['N'] = 'S',
+  ['S'] = 'N',
+  ['E'] = 'W',
+  ['W'] = 'E',
+}
+
+local nextexit, lastexit, lastentry
+
+local directions = {'N','S','E','W'}
+
 baseweapons = {
   "Sword",
   "Axe",
@@ -102,20 +113,25 @@ local function updateroom()
   if roomnumber == 1 then
     NEXT_COLOR()
   end
+  lastentry = opposites[nextexit]
+  lastexit = nextexit
+  repeat
+    nextexit = directions[love.math.random(#directions)]
+  until nextexit ~= lastentry
+  print ("lastexit, nextexit, lastentry: ", lastexit, nextexit, lastentry)
   for i=1,H do
     map[i] = {}
     for j=1,W do
-      if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
-         (roomexits[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
-         (roomexits[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
-         (roomexits[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+      if (nextexit == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+         (nextexit == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) or
+         (nextexit == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+         (nextexit == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
         map[i][j] = 'FLOOR'
-      elseif (roomentries[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
-             (roomentries[roomnumber] == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) then
+      elseif (lastentry == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
+             (lastentry == 'W' and ((i == H/2 or i == H/2+1) and j == 1)) then
         map[i][j] = 'DOOR'
-      elseif
-             (roomentries[roomnumber] == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
-             (roomentries[roomnumber] == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
+      elseif (lastentry == 'S' and ((j == W/2 or j == W/2+1) and i == H)) or
+             (lastentry == 'N' and ((j == W/2 or j == W/2+1) and i == 1)) then
         map[i][j] = 'HDOOR'
       elseif
        --love.math.random() > .9 or
@@ -145,6 +161,7 @@ local function updateroom()
     newmonster:load()
     table.insert(activeobjects, newmonster)
   end
+  player:setpos(vec2:new(playerstartingpos[lastentry]))
 end
 
 function dungeon.load ()
@@ -153,6 +170,11 @@ function dungeon.load ()
   sprites = require 'resources.sprites'
   blinglevel = 1
   roomnumber = 1
+  lastexit = 'E'
+  nextexit = 'E'
+  print ("YO", lastexit)
+  player = Player()
+  player:load()
   updateroom()
   screenshake = {
     intensity = 0,
@@ -164,9 +186,6 @@ function dungeon.load ()
   displaynumbers = {}
   money = 10
   resetparticles()
-  player = Player()
-  player:load()
-  player:setpos(vec2:new{2.5,H/2})
   weaponname = "Sord"
 end
 
@@ -308,7 +327,7 @@ function dungeon.update ()
       table.remove(activeobjects, i)
     end
     updateroom()
-    player:setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
+    -- player:setpos(vec2:new(playerstartingpos[lastentry]))
   end
 end
 

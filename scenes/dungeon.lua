@@ -9,6 +9,8 @@ local W, H = 16, 10
 local map
 local sprites
 
+local music = require "resources/music"
+
 blinglevel = 1
 blingfactor = 1.5
 miniblingfactor = 1.5 ^ 0.25
@@ -145,7 +147,19 @@ local function updateroom()
   player:setpos(vec2:new(playerstartingpos[lastentry]))
 end
 
+local function changemusic(nextmusic)
+  nextmusic = nextmusic or love.math.random(#music)
+  if nextmusic == curmusic then return end
+  music[curmusic]:stop()
+  music[nextmusic]:setLooping(true)
+  music[nextmusic]:play()
+  curmusic = nextmusic
+end
+
 function dungeon.load ()
+  curmusic = 2
+  music[curmusic]:setLooping(true)
+  music[curmusic]:play()
   RESET_COLOR()
   map = {}
   sprites = require 'resources.sprites'
@@ -254,6 +268,7 @@ function dungeon.update ()
     for i = #activeobjects,1,-1 do
       table.remove(activeobjects, i)
     end
+    music[curmusic]:stop()
     return "gameover"
   end
 
@@ -289,7 +304,11 @@ function dungeon.update ()
     --   blinglevel = blinglevel * blingfactor
     -- end
     roomnumber = roomnumber + 1
+    if roomnumber == #roomexits then
+      changemusic("boss")
+    end
     if roomnumber > #roomexits then
+      changemusic()
       roomnumber = 1
       -- blinglevel = blinglevel * blingfactor
     end

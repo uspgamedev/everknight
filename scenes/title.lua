@@ -1,7 +1,9 @@
 title = {}
 
+local change
+
 function title.load ()
-  return
+  change = nil
 end
 
 function title.draw ()
@@ -10,12 +12,16 @@ function title.draw ()
   love.graphics.print("PRESS ENTER", love.graphics.getWidth()/2, love.graphics.getHeight()/2)
 end
 
-function title.update()
-  if love.keyboard.isDown("return") then
-    -- print("asd")
-    return ("dungeon")
+function title.keypressed (key)
+  if key == "return" then
+    change = "dungeon"
   end
-  return
+end
+
+function title.update ()
+  if change then
+    return change
+  end
 end
 
 return title

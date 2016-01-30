@@ -15,9 +15,20 @@ function HSL(h, s, l, a)
   end return (r+m)*255,(g+m)*255,(b+m)*255,a
 end
 
-function COLOR (ds, dl)
+local base
+
+function RESET_COLOR()
+  base = 130
+end
+
+function NEXT_COLOR()
+  base = base + 20
+end
+
+function COLOR (ds, dl, dh)
   ds = ds or 0
   dl = dl or 0
-  return HSL(150, 30+ds, 80+dl, 255)
+  dh = dh or 0
+  return HSL(base+dh, 30+ds, 80+dl, 255)
 end
 

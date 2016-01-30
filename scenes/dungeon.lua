@@ -63,7 +63,10 @@ newnum = numgenerator.new
 local activeobjects = {}
 
 local function updateroom()
-    for i=1,H do
+  if roomnumber == 1 then
+    NEXT_COLOR()
+  end
+  for i=1,H do
     map[i] = {}
     for j=1,W do
       if (roomexits[roomnumber] == 'E' and ((i == H/2 or i == H/2+1) and j == W)) or
@@ -104,6 +107,7 @@ local function updateroom()
 end
 
 function dungeon.load ()
+  RESET_COLOR()
   map = {}
   sprites = require 'resources.sprites'
   roomnumber = 1

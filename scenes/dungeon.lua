@@ -20,10 +20,10 @@ local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
 local roomnumber = 1
 local playerstartingpos = {}
-playerstartingpos['W'] = {2, H/2}
-playerstartingpos['E'] = {W-1, H/2}
-playerstartingpos['N'] = {W/2, 2}
-playerstartingpos['S'] = {W/2, H-1}
+playerstartingpos['W'] = {2.5, H/2}
+playerstartingpos['E'] = {W-1.5, H/2}
+playerstartingpos['N'] = {W/2, 2.5}
+playerstartingpos['S'] = {W/2, H-1.5}
 
 roomobjects = {
   {},
@@ -67,7 +67,13 @@ function dungeon.load ()
   map = {}
   updateroom()
   player.clear()
-  player.setpos(vec2:new{2,H/2})
+  player.setpos(vec2:new{2.5,H/2})
+end
+
+local function validpos (pos)
+  local j, i = pos:unpack()
+  i, j = math.floor(i), math.floor(j)
+  return not map[i] or not map[i][j] or map[i][j] == 'FLOOR'
 end
 
 function dungeon.update ()
@@ -77,8 +83,10 @@ function dungeon.update ()
   player.update()
   do -- check collision
     local pos = player.getpos() + FRAME*player.getmove()
-    local j, i = pos:unpack()
-    if not map[math.floor(i)] or not map[math.floor(i)][math.floor(j)] or map[math.floor(i)][math.floor(j)] == 'FLOOR' then
+    if  validpos(pos + vec2:new{.25,0}) and
+        validpos(pos + vec2:new{-.25,0}) and
+        validpos(pos + vec2:new{0,.25}) and
+        validpos(pos + vec2:new{0,-.25}) then
       player.setpos(pos)
     end
   end

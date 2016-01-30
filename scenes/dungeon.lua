@@ -161,7 +161,7 @@ function dungeon.update ()
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
-  if playerpos[1] < 0 or playerpos[2] < 0 or
+  if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then

@@ -23,6 +23,10 @@ function Character:instance (obj, spd)
     return (moving and spd or 0)*vec2:new{ math.cos(angle), math.sin(angle) }
   end
 
+  function obj:getmoving ()
+    return moving
+  end
+
   function obj:setmoving (set)
     moving = set
   end

@@ -1,4 +1,6 @@
 
+require 'color'
+
 local Player = require 'lux.class' :new{}
 
 local DIRS = {
@@ -17,6 +19,9 @@ Player:inherit(require 'Character')
 function Player:instance (obj)
 
   self:super(obj, 3)
+
+  local sprite = require 'resources.sprites' .hero
+  local counter = 0
 
   function obj:takedamage ()
     -- print("yo")
@@ -44,7 +49,18 @@ function Player:instance (obj)
         self:setmoving(true)
       end
     end
+    if self:getmoving() then
+      counter = math.fmod(counter + FRAME, 0.6)
+    else
+      counter = 0
+    end
     self:setangle(math.atan2(sum.y, sum.x))
+  end
+
+  function obj:draw (g)
+    local i = (not self:getmoving() or counter > .3) and 1 or 2
+    g.setColor(HSL(20, 80, 80, 255))
+    g.draw(sprite.img, sprite.quads[i], 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 
 end

@@ -146,6 +146,16 @@ local prefixes = {
   "Sarcastic",
   "Ironic",
   "Kid Tested Mother Approved",
+  "Democrat",
+  "Republican",
+  "Protected By Law",
+  "Unfocused",
+  "Murderous",
+  "Bloodthirsty",
+  "Star Eyed",
+  "Fanatic",
+  "Stowing",
+  "Part-Time Worker",
 }
 
 local suffixes = {
@@ -230,6 +240,10 @@ local suffixes = {
   "Capitalism",
   "Anarchism",
   "Gadgeteering",
+  "Freedom",
+  "Sinergestic Management Solutions",
+  "Cooking",
+  "Gardening",
 }
 
 local EXTRA_EFFECT = {

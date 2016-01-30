@@ -31,11 +31,11 @@ function Player:instance (obj)
   self:super(obj, 3)
 
   local weapon = 'Sword'
+  local wpnlevel = 0
   local counter = 0
   local tick = 0
   local atkdelay = 0
   local attacking = 0
-  local invincible
 
   function obj:load ()
     self.health = 10
@@ -44,9 +44,9 @@ function Player:instance (obj)
   end
 
   function obj:ondamage (power, pos, healthbefore)
-    local oldlife = math.floor(healthbefore * blinglevel * 1.5)--self.displaylife
+    local oldlife = math.floor(healthbefore * blinglevel * 15)--self.displaylife
     local shakebling = math.min(math.floor(blinglevel/10) + 1, #shakedur)
-    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 15)
     lifediff = oldlife - self.displaylife
     local posx, posy = self.getpos():unpack()
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}))
@@ -61,17 +61,18 @@ function Player:instance (obj)
 
   function obj:heal()
     love.audio.play(SOUNDS.heal)
-    local oldlife = math.floor(player:gethealth() * blinglevel * 1.5)
+    local oldlife = math.floor(player:gethealth() * blinglevel * 15)
     obj.damage = 0
-    self.displaylife = math.floor(player:gethealth() * blinglevel * 1.5)
+    self.displaylife = math.floor(player:gethealth() * blinglevel * 15)
     lifediff = self.displaylife - oldlife
     local posx, posy = self.getpos():unpack()
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}, {0, 255, 0}))
   end
 
-  function obj:setweapon (set)
+  function obj:setweapon (set, bling)
     love.audio.play(SOUNDS.get)
     weapon = set
+    wpnlevel = math.floor(blinglevel)
   end
 
   function obj:onupdate ()
@@ -86,9 +87,6 @@ function Player:instance (obj)
     if self:getmoving() then
       local countercopy = counter
       counter = math.fmod(counter + FRAME, 0.6)
-      if countercopy <= 0.3 and counter > 0.3 then
-        love.audio.play(SOUNDS.walk)
-      end
     else
       counter = 0
     end
@@ -159,13 +157,17 @@ function Player:instance (obj)
     end
   end
 
+  local function wpncolor ()
+    return HSL(wpnlevel*40, 40+wpnlevel*10, 100+wpnlevel*10)
+  end
+
   function obj:draw (g)
     local i = (not self:getmoving() or counter > .3) and 1 or 2
     -- shadow
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 16, 4, 16)
     -- avatar
-    g.setColor(HSL(20, 80, 80 + (invincible and 50 or 0), 255))
+    g.setColor(HSL(20, 80, 80 + self:getinvincible()*100, 255))
     local sx = (self:facedir() == 'right') and 1 or -1
     local sprite = sprites.hero
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
@@ -177,12 +179,12 @@ function Player:instance (obj)
       g.rotate(truncateangle())
       g.setColor(255, 255, 255, 255*attacking/10)
       g.draw(slash.img, slash.quad, 32, -16, 0, 1, 1, slash.hotspot.x, slash.hotspot.y)
-      g.setColor(255, 255, 255, 255)
+      g.setColor(wpncolor())
       g.draw(wpnsprite.img, wpnsprite.quads[2], 32, -16, 0, 1, 1,
              wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     else
       local dy = 4*math.sin(tick * 2 * math.pi)
-      g.setColor(255, 255, 255, 255)
+      g.setColor(wpncolor())
       g.draw(wpnsprite.img, wpnsprite.quads[1], sx*32, -16 + dy, 0, 1, 1,
              wpnsprite.hotspot.x, wpnsprite.hotspot.y)
     end

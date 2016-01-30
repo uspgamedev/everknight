@@ -8,7 +8,7 @@ function Character:instance (obj, spd)
   local angle = 0
   local moving = false
   local push = vec2:new{}
-  local invincible
+  local invincible = 0
 
   local health = 10
   obj.damage = 0
@@ -65,10 +65,10 @@ function Character:instance (obj, spd)
   end
   
   function obj:takedamage(power, from)
-    if not invincible then
+    if invincible <= 0 then
       local oldhealth = self:gethealth()
       self.damage = self.damage + power
-      invincible = 1
+      invincible = 40
       self:ondamage(power, from, oldhealth)
     end
     self:onhit(power, from)
@@ -98,12 +98,7 @@ function Character:instance (obj, spd)
   end
 
   function obj:update ()
-    if invincible then
-      invincible = invincible - FRAME
-      if invincible <= 0 then
-        invincible = nil
-      end
-    end
+    invincible = math.max(invincible - 1, 0)
     return self:onupdate()
   end
 

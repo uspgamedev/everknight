@@ -203,10 +203,10 @@ local function drawfloor (g)
 end
 
 local function drawwall (g)
+  local wall = sprites.wall
   g.setColor(COLOR(80, -5))
-  g.rectangle('fill', 0, -.75, 1, 1)
-  g.setColor(COLOR(80, -10))
-  g.rectangle('fill', 0, .25, 1, .75)
+  g.scale(1/64, 1/64)
+  g.draw(wall.img, wall.quads[2], 0, -64)
 end
 
 local function drawhdoor (g)

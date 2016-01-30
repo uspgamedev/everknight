@@ -134,8 +134,6 @@ local function drawwall (g)
 end
 
 local function drawhdoor (g)
-  g.setColor(COLOR())
-  g.rectangle('fill', 0, 0, 1, 1)
   g.setColor(COLOR(-15, -5))
   g.rectangle('fill', 0, -1, 1, .5)
   g.setColor(COLOR(-15, -10))
@@ -143,12 +141,28 @@ local function drawhdoor (g)
 end
 
 local function drawdoor (g)
-  g.setColor(COLOR())
-  g.rectangle('fill', 0, 0, 1, 1)
   g.setColor(COLOR(-15, -5))
   g.rectangle('fill', .25, -1.25, .5, 1)
   g.setColor(COLOR(-15, -10))
   g.rectangle('fill', .25, -.25, .5, 1.25)
+end
+
+local function drawwalls (g, i0, j0, dh, dw)
+  for i=i0,i0+dh-1 do
+    for j=j0,j0+dw-1 do
+      local tile = map[i][j]
+      g.push()
+      g.translate(j, i)
+      if tile == 'WALL' then
+        drawwall(g)
+      elseif tile == 'DOOR' then
+        drawdoor(g)
+      elseif tile == 'HDOOR' then
+        drawhdoor(g)
+      end
+      g.pop()
+    end
+  end
 end
 
 function dungeon.draw ()
@@ -165,31 +179,11 @@ function dungeon.draw ()
       g.pop()
     end
   end
-  -- Draw upper walls
-  for j,tile in ipairs(map[1]) do
-    g.push()
-    g.translate(j, 1)
-    if tile == 'WALL' then
-      drawwall(g)
-    elseif tile == 'HDOOR' then
-      drawhdoor(g)
-    end
-    g.pop()
-  end
-  -- Draw left and right walls
-  for i,row in ipairs(map) do
-    for _,j in ipairs {1,W} do
-      g.push()
-      local tile = row[j]
-      g.translate(j, i)
-      if tile == 'WALL' then
-        drawwall(g)
-      elseif tile == 'DOOR' then
-        drawdoor(g)
-      end
-      g.pop()
-    end
-  end
+  -- Draw top walls
+  drawwalls(g, 1, 1, 1, W)
+  -- Draw upper side walls
+  drawwalls(g, 1, 1, H/2, 1)
+  drawwalls(g, 1, W, H/2, 1)
   do -- draw player
     g.push()
     g.translate(player.getpos():unpack())
@@ -197,17 +191,11 @@ function dungeon.draw ()
     g.circle('fill', 0, 0, .4, 16)
     g.pop()
   end
-  -- Draw lower walls
-  for j,tile in ipairs(map[H]) do
-    g.push()
-    g.translate(j, H)
-    if tile == 'WALL' then
-      drawwall(g)
-    elseif tile == 'HDOOR' then
-      drawhdoor(g)
-    end
-    g.pop()
-  end
+  -- Draw lower side walls
+  drawwalls(g, H/2+1, 1, H/2, 1)
+  drawwalls(g, H/2+1, W, H/2, 1)
+  -- Draw bottom walls
+  drawwalls(g, H, 1, 1, W)
   g.pop()
 end
 

@@ -1,6 +1,7 @@
 
 local treasure = {}
 
+local sprite = require 'resources.sprites' .chest
 local tobedeleted = false
 local pos
 
@@ -30,8 +31,9 @@ function treasure.update()
 end
 
 function treasure:draw (g)
-  g.setColor(200, 200, 200, 255)
-  g.rectangle('fill', 0, 0, 1, 1)
+  g.scale(1/64, 1/64)
+  g.setColor(COLOR(80, 20))
+  g.draw(sprite.img, sprite.quad, 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
 end
 
 return treasure

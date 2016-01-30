@@ -9,17 +9,28 @@ shop = {
 
 local tobedeleted = false
 
+local sprites = require 'resources.sprites'
+
 local cheapitempos, expensiveitempos
+
+local function makeweapon (x)
+  x = x or 0
+  local base = baseweapons[love.math.random(#baseweapons)]
+  weaponname = namegen(base, blinglevel)
+  return base, weaponname, math.floor(blinglevel+x)
+end
 
 function shop.cheapitem.load(_, W, H)
   tobedeleted = false
   shop.cheapitem.price = math.floor(money * 0.8)
   cheapitempos = vec2:new{W/3, H/2}
+  shop.cheapitem.weapon = { makeweapon() }
 end
 
 function shop.expensiveitem.load(_, W, H)
   shop.expensiveitem.price = math.floor(money * 1.5 + love.math.random(10, 500))
   expensiveitempos = vec2:new{2*W/3, H/2}
+  shop.expensiveitem.weapon = { makeweapon(2) }
 end
 
 function shop.cheapitem.oncollide()
@@ -40,9 +51,9 @@ end
 
 function shop.cheapitem.update()
   if tobedeleted then 
-    local base = baseweapons[love.math.random(#baseweapons)]
+    local base, level
+    base, weaponname, level = unpack(shop.cheapitem.weapon)
     player:setweapon(base)
-    weaponname = namegen(base, blinglevel)
     blinglevel = blinglevel * blingfactor
     money = money - shop.cheapitem.price
   end
@@ -54,20 +65,26 @@ function shop.expensiveitem.update()
 end
 
 function shop.cheapitem:draw (g)
-  g.setColor(200, 200, 200, 255)
-  g.rectangle('fill', 0, 0, 1, 1)
   g.push()
+  local wpn = shop.cheapitem.weapon
+  local sprite = sprites[wpn[1]]
+  g.setColor(WPNCOLOR(wpn[3]))
   g.scale(1/64, 1/64)
-  g.print("$ "..shop.cheapitem.price, 0, 64)
+  g.draw(sprite.img, sprite.quads[2], -16, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
+  g.setColor(255, 255, 255, 255)
+  g.printf("$ "..shop.cheapitem.price, -64, 8, 128, 'center')
   g.pop()
 end
 
 function shop.expensiveitem:draw (g)
-  g.setColor(200, 200, 250, 255)
-  g.rectangle('fill', 0, 0, 1, 1)
   g.push()
+  local wpn = shop.expensiveitem.weapon
+  local sprite = sprites[wpn[1]]
+  g.setColor(WPNCOLOR(wpn[3]))
   g.scale(1/64, 1/64)
-  g.print("$ "..shop.expensiveitem.price, 0, 64)
+  g.draw(sprite.img, sprite.quads[2], -16, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
+  g.setColor(255, 255, 255, 255)
+  g.printf("$ "..shop.expensiveitem.price, -64, 8, 128, 'center')
   g.pop()
 end
 

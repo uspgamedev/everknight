@@ -1,6 +1,7 @@
 
 local healstuff = {}
 
+local sprite = require 'resources.sprites' .chicken
 local tobedeleted = false
 local pos
 
@@ -27,8 +28,9 @@ function healstuff.update()
 end
 
 function healstuff:draw (g)
-  g.setColor(200, 200, 200, 255)
-  g.rectangle('fill', 0, 0, 1, 1)
+  g.scale(1/64, 1/64)
+  g.setColor(HSL(10, 80, 80))
+  g.draw(sprite.img, sprite.quad, 0, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
 end
 
 return healstuff

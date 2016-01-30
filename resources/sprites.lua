@@ -82,5 +82,17 @@ sprites.beetle = {
   hotspot = vec2:new{32, 56}
 }
 
+sprites.chicken = {
+  img = img,
+  quad = newQuad(7*64, 64, 64, 64, img:getDimensions()),
+  hotspot = vec2:new{32, 48}
+}
+
+sprites.chest = {
+  img = img,
+  quad = newQuad(6*64, 64, 64, 64, img:getDimensions()),
+  hotspot = vec2:new{32, 48}
+}
+
 return sprites
 

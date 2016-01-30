@@ -7,9 +7,14 @@ local W, H = 16, 10
 
 local map
 
+blinglevel = 1
+blingfactor = 1.2
+
 -- local rooms = require "rooms"
 
 -- local room = require "room"
+
+local treasure = require "treasure"
 
 local roomexits = {'E','S','W','W','N','E'}
 local roomentries = {'W','W','N','E','E','S'}
@@ -23,7 +28,7 @@ playerstartingpos['S'] = {W/2, H-1}
 roomobjects = {
   {},
   {},
-  {},
+  {treasure},
   {},
   {},
   {},
@@ -66,6 +71,9 @@ function dungeon.load ()
 end
 
 function dungeon.update ()
+
+  local todelete = {}
+
   player.update()
   do -- check collision
     local pos = player.getpos() + FRAME*player.getmove()
@@ -76,8 +84,19 @@ function dungeon.update ()
   end
   local playerpos = player.getpos()
 
-  for _,obj in ipairs(activeobjects) do
-    obj.update(FRAME)
+  ----
+  --CHECK COLLISION HERE
+  ----
+  -- e chama obj.oncollision plz
+
+  for i,obj in ipairs(activeobjects) do
+    todelete[i] = obj.update()
+  end
+
+  for i = #activeobjects,1,-1 do
+    if todelete[i] then
+      activeobjects[i] = nil
+    end
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
@@ -86,6 +105,7 @@ function dungeon.update ()
     roomnumber = roomnumber + 1
     if roomnumber > #roomexits then
       roomnumber = 1
+      blinglevel = blinglevel * blingfactor
     end
     for i = #activeobjects,1,-1 do
       activeobjects[i] = nil

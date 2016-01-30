@@ -31,10 +31,6 @@ local WPN_OFFSET = {
   right = vec2:new{.5,-.25},
 }
 
-local LEVEL_EFFECT = {
-  'sparkle', 'flame'
-}
-
 function Player:instance (obj)
 
   self:super(obj, 3)
@@ -83,7 +79,7 @@ function Player:instance (obj)
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}, {0, 255, 0}))
   end
 
-  function obj:setweapon (set, bling)
+  function obj:setweapon (set, bling, effect)
     love.audio.play(SOUNDS.get)
     weapon = set
     wpnlevel = math.floor(bling)
@@ -92,7 +88,7 @@ function Player:instance (obj)
     end
     effects = {}
     if wpnlevel >= 4 then
-      local neweffect = EFFECTS.new(LEVEL_EFFECT[love.math.random(1,#LEVEL_EFFECT)]) 
+      local neweffect = EFFECTS.new(effect) 
       if neweffect then
         table.insert(effects, neweffect)
       end
@@ -151,6 +147,7 @@ function Player:instance (obj)
         offset = offset + effectdir[movedir()]
       else
         offset = offset + WPN_OFFSET[self:facedir()]
+                        + (weapon == 'Sword' and 0 or 1)*vec2:new{0,-.2}
       end
       e.pos = self:getpos() + offset
     end

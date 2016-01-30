@@ -6,6 +6,7 @@ end
 
 function title.draw ()
     -- local x, y = love.graphics.
+  love.graphics.setFont(FONTS[4])
   love.graphics.print("PRESS ENTER", love.graphics.getWidth()/2, love.graphics.getHeight()/2)
 end
 

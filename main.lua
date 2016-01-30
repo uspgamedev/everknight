@@ -8,6 +8,11 @@ vec2 = require 'lux.geom.Vector'
 function love.load()
   curscene = scenes.title
   curscene.load()
+  FONTS = {}
+  for i=1,4 do
+    FONTS[i] = love.graphics.newFont('assets/LCD_Solid.ttf', 2^(2+i))
+  end
+
 end
 
 do

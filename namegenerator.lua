@@ -120,7 +120,32 @@ local prefixes = {
   "Master Race",
   "Probably Over-Prefixed",
   "Faster",
-  "Checkered"
+  "Checkered",
+  "Downloadable",
+  "Rampaging",
+  "Random",
+  "RNG Blessed",
+  "RNG Cursed",
+  "Mutually Exclusive",
+  "Post Graduate",
+  "Master",
+  "Upgradeable",
+  "Bulk Bought",
+  "Amazon Prime Ordered",
+  "Play Station Exclusive",
+  "Indie",
+  "Mainstream",
+  "Hipster",
+  "Warmongering",
+  "Peaceful",
+  "Rated By Most People As Having An Excessively Long Prefix",
+  "Self Destructing",
+  "Newborn",
+  "Pointlessly Epic",
+  "Parody",
+  "Sarcastic",
+  "Ironic",
+  "Kid Tested Mother Approved",
 }
 
 local suffixes = {
@@ -199,6 +224,12 @@ local suffixes = {
   "Hunger",
   "Restful Sleep",
   "Looking At A Distraction Over There",
+  "Recycling",
+  "Incineration",
+  "Communism",
+  "Capitalism",
+  "Anarchism",
+  "Gadgeteering",
 }
 
 local EXTRA_EFFECT = {

@@ -77,6 +77,7 @@ end
 function dungeon.load ()
   map = {}
   sprites = require 'resources.sprites'
+  roomnumber = 1
   updateroom()
   player = Player()
   player:setpos(vec2:new{2.5,H/2})
@@ -137,6 +138,13 @@ function dungeon.update ()
     if todelete[i] then
       table.remove(activeobjects, i)
     end
+  end
+
+  if player:isdead() then
+    for i = #activeobjects,1,-1 do
+      table.remove(activeobjects, i)
+    end
+    return "gameover"
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE

@@ -8,7 +8,9 @@ local DIRS = {
   right = vec2:new{1,0}
 }
 
-local damage = 0
+local invincible
+
+-- local damage = 0
 
 Player:inherit(require 'Character')
 
@@ -17,8 +19,12 @@ function Player:instance (obj)
   self:super(obj, 3)
 
   function obj:takedamage ()
+    -- print("yo")
     if not invincible then
-      damage = damage + 1
+      print("ouch")
+      -- print("")
+      obj.damage = obj.damage + 1
+      -- damage = damage + 1
       invincible = 3
     end
   end

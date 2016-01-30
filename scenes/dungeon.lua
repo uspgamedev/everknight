@@ -101,7 +101,17 @@ function dungeon.update ()
   ----
   --CHECK COLLISION HERE
   ----
-  -- e chama obj.oncollision plz
+  -- e chama obj.oncollide plz
+  for _,obj in ipairs(activeobjects) do
+    local j, i = playerpos:unpack()
+    local objx, objy = obj.getpos():unpack()
+    if math.floor(i) == 
+      math.floor(objy) and 
+      math.floor(j) == 
+      math.floor (objx) then
+      obj.oncollide()
+    end
+  end
 
   for i,obj in ipairs(activeobjects) do
     todelete[i] = obj.update()
@@ -126,7 +136,7 @@ function dungeon.update ()
     end
     for _,obj in ipairs(roomobjects[roomnumber]) do
       table.insert(activeobjects, obj)
-      obj.load()
+      obj.load(blingfactor, W, H)
     end
     updateroom()
     player.setpos(vec2:new(playerstartingpos[roomentries[roomnumber]]))
@@ -199,6 +209,11 @@ local function drawwalls (g, i0, j0, dh, dw)
   end
 end
 
+local function drawobject (g, color1, color2)
+  g.setColor(COLOR(color1, color2))
+  g.rectangle('fill', 0, 0, 1, 1)
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -218,6 +233,15 @@ function dungeon.draw ()
   -- Draw upper side walls
   drawwalls(g, 1, 1, H/2, 1)
   drawwalls(g, 1, W, H/2, 1)
+
+  --draw objects
+  for _,obj in ipairs(activeobjects) do
+    g.push()
+    g.translate(obj.getpos():unpack())
+      drawobject(g, unpack(obj.color))
+    g.pop()
+  end
+
   do -- draw player
     local hero = sprites.hero
     g.push()

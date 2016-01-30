@@ -12,12 +12,13 @@ local tobedeleted = false
 local cheapitempos, expensiveitempos
 
 function shop.cheapitem.load(_, W, H)
-  shop.cheapitem.price = money * 0.8
+  tobedeleted = false
+  shop.cheapitem.price = math.floor(money * 0.8)
   cheapitempos = vec2:new{W/3, H/2}
 end
 
 function shop.expensiveitem.load(_, W, H)
-  shop.expensiveitem.price = money * 1.5 + math.random(10, 500)
+  shop.expensiveitem.price = math.floor(money * 1.5 + math.random(10, 500))
   expensiveitempos = vec2:new{2*W/3, H/2}
 end
 

@@ -338,14 +338,14 @@ end
 
 local function drawfloor (g)
   local floor = sprites.floor
-  g.setColor(COLOR(10, 10, 128))
+  g.setColor(COLOR(-15, 40, 128))
   g.scale(1/64, 1/64)
   g.draw(floor.img, floor.quad, 0, 0)
 end
 
 local function drawtorch (g, i, j)
   local torch = sprites.torch
-  g.setColor(COLOR(60, -20))
+  g.setColor(COLOR(60, 30))
   g.scale(1/64, 1/64)
   g.draw(torch.img, torch.quads[love.math.random(1,2)], 0, 0, 0, 1, 1,
          torch.hotspot.x, torch.hotspot.y)
@@ -353,7 +353,7 @@ end
 
 local function drawwall (g, i, j)
   local wall = sprites.wall
-  g.setColor(COLOR(80, -5))
+  g.setColor(COLOR(20, 60))
   g.scale(1/64, 1/64)
   g.draw(wall.img, wall.quads[2], 0, 0)
   g.draw(wall.img, wall.quads[1], 0, -48)

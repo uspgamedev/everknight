@@ -156,6 +156,17 @@ local prefixes = {
   "Fanatic",
   "Stowing",
   "Part-Time Worker",
+  "Real",
+  "Anime",
+  "Spiky Haired",
+  "Dark And Edgy",
+  "Realistic",
+  "Triple A",
+  "Misplaced",
+  "Testing",
+  "Training",
+  "Terminating",
+  "Unemployed",
 }
 
 local suffixes = {
@@ -233,7 +244,7 @@ local suffixes = {
   "Indignation",
   "Hunger",
   "Restful Sleep",
-  "Looking At A Distraction Over There",
+  "Looking At A Distraction Over There -->",
   "Recycling",
   "Incineration",
   "Communism",
@@ -244,6 +255,7 @@ local suffixes = {
   "Sinergestic Management Solutions",
   "Cooking",
   "Gardening",
+  "A True Hero",
 }
 
 local EXTRA_EFFECT = {

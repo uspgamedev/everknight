@@ -24,18 +24,6 @@ function gameover.draw ()
     0, 1, 1,
     1.5*64, 0
   )
-  --[[
-  love.graphics.setFont(FONTS[2])
-  love.graphics.printf(
-    "PRESS ENTER",
-    love.graphics.getWidth()/2,
-    love.graphics.getHeight()/2 + 64,
-    3*64,
-    "center",
-    0, 1, 1,
-    1.5*64, 0
-  )
-  ]]
 end
 
 function gameover.update()

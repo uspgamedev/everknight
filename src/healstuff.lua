@@ -9,7 +9,7 @@ healstuff.color = {15, 15}
 
 function healstuff.oncollide(_, player)
   tobedeleted = true
-  print("yay")
+  --print("yay")
   player:heal()
 end
 

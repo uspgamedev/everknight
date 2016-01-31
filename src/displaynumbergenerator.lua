@@ -23,7 +23,7 @@ local function update(displaynumber)
     end
   end
   displaynumber.timetolive = displaynumber.timetolive - FRAME
-  -- print("yo", displaynumber.timetolive)
+  -- --print("yo", displaynumber.timetolive)
   return displaynumber.timetolive <= 0
 end
 
@@ -52,10 +52,10 @@ local function new(number, pos, color)
     displaynumber.backupcolor = {255,255,255}
     displaynumber.blinkdt = 0.1
   end
-  print (displaynumber.power)
+  --print (displaynumber.power)
   displaynumber.timetolive = timetolivetable[ math.min(displaynumber.power, #timetolivetable) ]
-  print (displaynumber.timetolive)
-  -- print(displaynumber.timetolive)
+  --print (displaynumber.timetolive)
+  -- --print(displaynumber.timetolive)
   displaynumber.update = update
   displaynumber.draw = draw
   displaynumber.getpos = getpos

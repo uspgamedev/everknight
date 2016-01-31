@@ -120,7 +120,7 @@ local function updateroom()
   repeat
     nextexit = directions[love.math.random(#directions)]
   until nextexit ~= lastentry
-  -- print ("lastexit, nextexit, lastentry: ", lastexit, nextexit, lastentry)
+  -- --print ("lastexit, nextexit, lastentry: ", lastexit, nextexit, lastentry)
   for i=1,H do
     map[i] = {}
     for j=1,W do
@@ -192,7 +192,7 @@ function dungeon.load ()
   roomnumber = 1
   lastexit = 'E'
   nextexit = 'E'
-  print ("YO", lastexit)
+  --print ("YO", lastexit)
   screenshake = {
     intensity = 0,
     duration = 0,
@@ -490,7 +490,7 @@ end
 
 local function drawnum(g)
   for _, num in ipairs(displaynumbers) do
-    -- print("NUM")
+    -- --print("NUM")
     g.push()
     g.translate(num:getpos():unpack())
     num:draw(g)
@@ -525,7 +525,7 @@ function dungeon.draw ()
     g.translate(screenshake.trx, screenshake.try)
     g.scale(64, 64) 
   -- else 
-    -- print ("ohnoes") 
+    -- --print ("ohnoes") 
   end
   -- Draw floor
   for i,row in ipairs(map) do

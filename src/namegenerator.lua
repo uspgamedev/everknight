@@ -454,9 +454,9 @@ function generator.generate(weaponname, blinglevel)
     blingleft = blingleft/4
   end
   local name = weaponname
-  -- print (weaponname)
+  -- --print (weaponname)
   -- local name = prefixes[love.math.random(#prefixes)].." "..weaponname.." Of "..suffixes[love.math.random(#suffixes)]
-  -- print(name)
+  -- --print(name)
   if iterations > 1 then
     for i = 1,iterations do
       if love.math.random() > 0.5 then

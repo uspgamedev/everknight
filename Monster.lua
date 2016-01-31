@@ -75,6 +75,11 @@ function Monster:instance (obj, spd, kind, color, power)
   end
 
   function obj:draw (g)
+    if echoeffect then
+      local str = math.min(.2, (.05*echoeffect)^0.5)
+      g.translate((2*love.math.random()-1)*str,
+                  (2*love.math.random()-1)*str)
+    end
     g.scale(1/64, 1/64)
     local i = (counter < .5) and 1 or 2
     local sx = (self:facedir() == 'right') and 1 or -1

@@ -1,9 +1,13 @@
 title = {}
 
+music = require "resources/music"
+
 local change
 
 function title.load ()
   change = nil
+  music[5]:setLooping(true)
+  music[5]:play()
 end
 
 function title.draw ()
@@ -20,6 +24,7 @@ end
 
 function title.update ()
   if change then
+    music[5]:stop()
     return change
   end
 end

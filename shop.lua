@@ -20,16 +20,23 @@ local function makeweapon (x)
   return base, shopweaponname, math.floor(blinglevel+x), extra
 end
 
+local LOCK_POS = 1
+local VALID_POSITIONS
+
 function shop.cheapitem.load(_, W, H)
+  VALID_POSITIONS = {
+    vec2:new{W/3 + 1, H/2}, vec2:new{2*W/3 + 1, H/2}
+  }
   tobedeleted = false
   shop.cheapitem.price = math.floor(money * 0.8)
-  cheapitempos = vec2:new{W/3 + 1, H/2}
+  LOCK_POS = love.math.random(#VALID_POSITIONS)
+  cheapitempos = VALID_POSITIONS[LOCK_POS]
   shop.cheapitem.weapon = { makeweapon() }
 end
 
 function shop.expensiveitem.load(_, W, H)
   shop.expensiveitem.price = math.floor(money * 1.5 + love.math.random(10, 500))
-  expensiveitempos = vec2:new{2*W/3 + 1, H/2}
+  expensiveitempos = VALID_POSITIONS[3 - LOCK_POS]
   shop.expensiveitem.weapon = { makeweapon(2) }
 end
 

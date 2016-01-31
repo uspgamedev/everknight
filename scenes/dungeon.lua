@@ -395,18 +395,29 @@ local function drawwalls (g, i0, j0, dh, dw)
   end
 end
 
-local function drawhud(g)
+local function drawicon (g, which, i, j)
+  local sprite = sprites[which]
   g.push()
-    g.translate(1, -1)
-    g.setColor(255, 255, 255)
-    g.scale(1/64, 1/64)
-    g.setFont(FONTS[2])
-    g.print("HP: "..math.floor(player:gethealth() * blinglevel * 15) .. "/" ..
-            math.floor(10 * blinglevel * 15), 0, 0)
-    g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
-    g.print("WEAPON: "..weaponname, 0, 32)
-    g.print("MONEY: "..money.."G", 0, 48)
+  g.translate(j-1, i-1)
+  g.scale(1/32, 1/32)
+  g.setColor(sprite.color)
+  g.draw(sprite.img, sprite.quad, 0, 0)
   g.pop()
+end
+
+local function drawhud(g)
+  drawicon(g, 'life', 1, 1)
+  --g.push()
+  --  g.translate(1, -1)
+  --  g.setColor(255, 255, 255)
+  --  g.scale(1/64, 1/64)
+  --  g.setFont(FONTS[2])
+  --  g.print("HP: "..math.floor(player:gethealth() * blinglevel * 15) .. "/" ..
+  --          math.floor(10 * blinglevel * 15), 0, 0)
+  --  g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
+  --  g.print("WEAPON: "..weaponname, 0, 32)
+  --  g.print("MONEY: "..money.."G", 0, 48)
+  --g.pop()
 end
 
 local function drawnum(g)
@@ -424,7 +435,6 @@ function dungeon.draw ()
   g.push()
   g.scale(64, 64)
   g.translate(-1, 1)
-  g.push()
   if screenshake.duration > 0  then
     g.scale(1/64, 1/64)
     g.translate(screenshake.trx, screenshake.try)
@@ -478,14 +488,13 @@ function dungeon.draw ()
 
   --draw numbers
   drawnum(g)
-
-
   g.pop()
-  --draw hud
+
+    --draw hud
+  g.push()
+  g.scale(32, 32)
   drawhud(g)
-
-
-  g.pop(g)
+  g.pop()
 end
 
 return dungeon

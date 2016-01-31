@@ -167,6 +167,16 @@ local prefixes = {
   "Training",
   "Terminating",
   "Unemployed",
+  "Rogue",
+  "Steampunk",
+  "Cyberpunk",
+  "Steam Powered",
+  "Original",
+  "Virtual",
+  "Left Handed",
+  "Politically Incorrect",
+  "Enviromentally Friendly",
+  "Electric",
 }
 
 local suffixes = {

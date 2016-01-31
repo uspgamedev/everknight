@@ -23,7 +23,6 @@ function healstuff.getpos()
 end
 
 function healstuff.update()
-  -- if tobedeleted then blinglevel = blinglevel * blingfactor end
   return tobedeleted
 end
 

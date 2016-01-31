@@ -15,6 +15,14 @@ blinglevel = 1
 blingfactor = 1.5
 miniblingfactor = 1.5 ^ 0.25
 
+function MOREBLING ()
+  blinglevel = blinglevel * blingfactor
+end
+
+function SOMEBLING ()
+  blinglevel = blinglevel * miniblingfactor
+end
+
 screenshake = {
   intensity = 0,
   duration = 0,
@@ -299,10 +307,6 @@ function dungeon.update ()
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
     EFFECTS.reset()
-    -- if #roommonsters[roomnumber] > 0 and
-    --   #activeobjects == 0 then
-    --   blinglevel = blinglevel * blingfactor
-    -- end
     roomnumber = roomnumber + 1
     if roomnumber == #roomexits then
       changemusic("boss")
@@ -310,19 +314,17 @@ function dungeon.update ()
     if roomnumber > #roomexits then
       changemusic()
       roomnumber = 1
-      -- blinglevel = blinglevel * blingfactor
     end
     for i = #activeobjects,1,-1 do
       table.remove(activeobjects, i)
     end
     updateroom()
-    -- player:setpos(vec2:new(playerstartingpos[lastentry]))
   end
 end
 
 function dungeon.keypressed (key)
   if key == 'q' then
-    blinglevel = blinglevel * blingfactor
+    MOREBLING()
   elseif key == 'w' then
     local base = baseweapons[love.math.random(#baseweapons)]
     weaponname, extra = namegen(base, blinglevel)

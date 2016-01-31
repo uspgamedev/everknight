@@ -61,7 +61,7 @@ function shop.cheapitem.update()
     local base, level
     base, weaponname, level, extra = unpack(shop.cheapitem.weapon)
     player:setweapon(base, level, extra)
-    blinglevel = blinglevel * blingfactor
+    MOREBLING()
     money = money - shop.cheapitem.price
   end
   return tobedeleted

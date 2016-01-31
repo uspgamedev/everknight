@@ -204,6 +204,11 @@ local prefixes = {
   "DLC Only",
   "Sealed",
   "Hilarious",
+  "Dull",
+  "Sharp",
+  "Shaper",
+  "Sharpest",
+  "Extra Pointy",
 }
 
 local suffixes = {
@@ -299,6 +304,12 @@ local suffixes = {
   "The Occult",
   "Illuminati",
   "Cruelty",
+  "Swimming",
+  "Water Walking",
+  "Lagging",
+  "Respawning",
+  "Debugging",
+  "Tutoring",
 }
 
 local EXTRA_EFFECT = {

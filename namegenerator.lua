@@ -2,6 +2,7 @@ generator = {}
 
 local prefixes = {
   "Greater",
+  "Fancy",
   "Flaming",
   "Shocking",
   "Petrifying",
@@ -102,6 +103,7 @@ local prefixes = {
   "Unreal",
   "Godly",
   "Mystic",
+  "Volunteer",
   "Untouchable",
   "Combo Breaker",
   "Swordbreaker",
@@ -115,12 +117,16 @@ local prefixes = {
   "Uncursed",
   "Ho Hum",
   "Average",
+  "Master Race",
+  "Faster",
+  "Checkered"
 }
 
 local suffixes = {
   "Stabbing",
   "Singing",
   "Dancing",
+  "Cards",
   "Destruction",
   "Annihilation",
   "Deliverance",
@@ -161,6 +167,8 @@ local suffixes = {
   "Orcs",
   "Dwarfs",
   "Yodeling",
+  "Weeaboo",
+  "Sealed",
   "Cakes",
   "Digging",
   "Spellslinging",
@@ -185,6 +193,7 @@ local suffixes = {
   "Zombie Smashing",
   "Forgetfulness",
   "Mojo",
+  "Indignation",
   "Hunger",
   "Restful Sleep",
   "Looking At A Distraction Over There",

@@ -250,6 +250,20 @@ local prefixes = {
   "Agile",
   "Bugfixed",
   "Heroic",
+  "Musical",
+  "Virtuoso",
+  "Shredded",
+  "Banzai",
+  "LEGO Made",
+  "Nutritious",
+  "Delicious",
+  "Lawful",
+  "Chaotic",
+  "Neutral",
+  "Good",
+  "Evil",
+  "Poorly Assembled",
+  "Stolen",
 }
 
 local suffixes = {

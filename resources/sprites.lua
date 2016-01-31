@@ -3,6 +3,7 @@ local sprites = {}
 
 local img = love.graphics.newImage "assets/sprites.png"
 local splashimg = love.graphics.newImage "assets/Logo.png"
+local splashimg_ggj = love.graphics.newImage "assets/GGJ_splash.png"
 local quads = {}
 
 local newQuad = love.graphics.newQuad
@@ -167,6 +168,10 @@ sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
 sprites.splash = {
   img = splashimg,
   hotspot = vec2:new{ splashimg:getWidth()/2, splashimg:getHeight()/2 }
+}
+sprites.splash_ggj = {
+  img = splashimg_ggj,
+  hotspot = vec2:new{ splashimg_ggj:getWidth()/2, splashimg_ggj:getHeight()/2 }
 }
 
 sprites.title = {

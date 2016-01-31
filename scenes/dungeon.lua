@@ -411,7 +411,7 @@ local function drawtext (g, i, j, w, fmt, ...)
   g.scale(1/32, 1/32)
   g.setColor(255, 255, 255, 255)
   g.setFont(FONTS[2])
-  g.printf(fmt:format(...), 0, 12, w, 'left')
+  g.printf(fmt:format(...), 8, 12, w-16, 'left')
   g.pop()
 end
 
@@ -423,13 +423,13 @@ local function drawhud(g)
   drawicon(g, 'def', 2, 24)
   drawtext(g, 1, 2, 5*64, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
-  drawtext(g, 1, 15, 10*64, "%s",
+  drawtext(g, 1, 15, 9*64, "%s",
            weaponname)
   drawtext(g, 2, 15, 5*64, "%d",
            math.floor(10 * blinglevel))
   drawtext(g, 2, 25, 5*64, "%d",
            math.floor(8 * blinglevel))
-  drawtext(g, 2, 2, 5*64, "%d G",
+  drawtext(g, 2, 2, 5*64, "$ %d",
            math.floor(money))
 end
 

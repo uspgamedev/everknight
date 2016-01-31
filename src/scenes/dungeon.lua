@@ -110,6 +110,10 @@ local activeobjects = {}
 local function updateroom()
   if roomnumber == 1 then
     NEXT_COLOR()
+  else
+    if TUTORIAL then
+      TUTORIAL = false
+    end
   end
   lastentry = opposites[nextexit]
   lastexit = nextexit
@@ -494,6 +498,23 @@ local function drawnum(g)
   end
 end
 
+function drawtutorial(g)
+  if TUTORIAL and roomnumber == 1 then
+    g.setColor(255,255,255,120)
+    g.setFont(FONTS[2])
+    g.printf(
+      "Use arrow keys to move.\nPress Z to attack.",
+      g.getWidth()/2,
+      g.getHeight()/2 + 1*64,
+      4*64,
+      "center",
+      0, 1, 1,
+      2*64, 0
+    )
+    
+  end
+end
+
 function dungeon.draw ()
   local g = love.graphics
   g.push()
@@ -560,6 +581,9 @@ function dungeon.draw ()
   g.translate(0, .5)
   drawhud(g)
   g.pop()
+
+  drawtutorial(g)
+
   g.setColor(255, 255, 255, 255)
 end
 

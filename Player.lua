@@ -93,6 +93,7 @@ function Player:instance (obj)
         table.insert(effects, neweffect)
       end
     end
+    TIMERS.newweapon = 60
   end
 
   local function movedir ()

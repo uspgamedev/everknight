@@ -11,9 +11,20 @@ local sprites
 
 local music = require "resources/music"
 
+
 blinglevel = 1
 blingfactor = 1.5
 miniblingfactor = 1.5 ^ 0.25
+
+function MOREBLING ()
+  blinglevel = blinglevel * blingfactor
+  TIMERS.bling = 60
+end
+
+function SOMEBLING ()
+  blinglevel = blinglevel * miniblingfactor
+  TIMERS.bling = 60
+end
 
 screenshake = {
   intensity = 0,
@@ -157,6 +168,7 @@ local function changemusic(nextmusic)
 end
 
 function dungeon.load ()
+  TIMERS = setmetatable({}, { __index = function () return 0 end })
   curmusic = 2
   music[curmusic]:setLooping(true)
   music[curmusic]:play()
@@ -294,15 +306,14 @@ function dungeon.update ()
   end
 
   money = math.floor(money)
+  for k,v in pairs(TIMERS) do
+    TIMERS[k] = v - 1
+  end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
   if playerpos[1] < 1 or playerpos[2] < 1 or
     playerpos[1] > W + 1 or playerpos[2] > H + 1 then
     EFFECTS.reset()
-    -- if #roommonsters[roomnumber] > 0 and
-    --   #activeobjects == 0 then
-    --   blinglevel = blinglevel * blingfactor
-    -- end
     roomnumber = roomnumber + 1
     if roomnumber == #roomexits then
       changemusic("boss")
@@ -310,19 +321,18 @@ function dungeon.update ()
     if roomnumber > #roomexits then
       changemusic()
       roomnumber = 1
-      -- blinglevel = blinglevel * blingfactor
     end
     for i = #activeobjects,1,-1 do
       table.remove(activeobjects, i)
     end
     updateroom()
-    -- player:setpos(vec2:new(playerstartingpos[lastentry]))
   end
+
 end
 
 function dungeon.keypressed (key)
   if key == 'q' then
-    blinglevel = blinglevel * blingfactor
+    MOREBLING()
   elseif key == 'w' then
     local base = baseweapons[love.math.random(#baseweapons)]
     weaponname, extra = namegen(base, blinglevel)
@@ -405,31 +415,38 @@ local function drawicon (g, which, i, j)
   g.pop()
 end
 
-local function drawtext (g, i, j, w, fmt, ...)
+local function drawtext (g, i, j, w, useup, fmt, ...)
+  local up = sprites.up
   g.push()
   g.translate(j-1, i-1)
   g.scale(1/32, 1/32)
   g.setColor(255, 255, 255, 255)
   g.setFont(FONTS[2])
-  g.printf(fmt:format(...), 8, 12, w-16, 'left')
+  local str = fmt:format(...)
+  g.printf(str, 8, 12, w-16, 'left')
+  if useup then
+    g.setColor(up.color)
+    g.draw(up.img, up.quad, 8 + FONTS[2]:getWidth(str) + 8, 8)
+  end
   g.pop()
 end
 
 local function drawhud(g)
+  local blingecho = TIMERS.bling
   drawicon(g, 'life', 1, 1)
   drawicon(g, 'coin', 2, 1)
   drawicon(g, 'swordicon', 1, 14)
   drawicon(g, 'atk', 2, 14)
   drawicon(g, 'def', 2, 24)
-  drawtext(g, 1, 2, 5*64, "%d/%d",
+  drawtext(g, 1, 2, 5*64, blingecho > 0, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
-  drawtext(g, 1, 15, 9*64, "%s",
+  drawtext(g, 1, 15, 9*64, TIMERS.newweapon > 0, "%s",
            weaponname)
-  drawtext(g, 2, 15, 5*64, "%d",
+  drawtext(g, 2, 15, 5*64, blingecho > 0, "%d",
            math.floor(10 * blinglevel))
-  drawtext(g, 2, 25, 5*64, "%d",
+  drawtext(g, 2, 25, 5*64, blingecho > 0, "%d",
            math.floor(8 * blinglevel))
-  drawtext(g, 2, 2, 5*64, "$ %d",
+  drawtext(g, 2, 2, 5*64, TIMERS.gotmoney > 0, "$ %d",
            math.floor(money))
 end
 

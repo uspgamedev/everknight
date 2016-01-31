@@ -155,6 +155,12 @@ sprites.def = {
   color = {100, 160, 20, 255}
 }
 
+sprites.up = {
+  img = img,
+  quad = newQuad(5.5*64, 2.5*64, 16, 16, img:getDimensions()),
+  color = {80, 180, 80, 255}
+}
+
 sprites.swordicon = {
   img = img,
   quad = newQuad(7*64+28, 3*64+16, 32, 32, img:getDimensions()),

@@ -41,7 +41,8 @@ function Monster:instance (obj, spd, kind, color, power)
     if self:isdead() then
       love.audio.play(SOUNDS.die)
       money = money + 10 * blinglevel
-      blinglevel = blinglevel * miniblingfactor
+      SOMEBLING()
+      TIMERS.gotmoney = 60
       return true
     end
   end

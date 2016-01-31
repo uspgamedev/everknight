@@ -505,7 +505,7 @@ function drawtutorial(g)
     g.printf(
       "Use arrow keys to move.\nPress Z to attack.",
       g.getWidth()/2,
-      g.getHeight()/2 + 1*64,
+      g.getHeight()/2 + 2*64,
       4*64,
       "center",
       0, 1, 1,

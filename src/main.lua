@@ -70,12 +70,14 @@ local BTNCHECK = 0
 function love.joystickpressed (joystick, btn)
   BTNCHECK = BTNCHECK + 1
   INPUT.confirm = true
+  return (curscene.keypressed or function () end) ('return')
 end
 
 function love.joystickreleased (joystick, btn)
   BTNCHECK = BTNCHECK - 1
   if BTNCHECK <= 0 then
     INPUT.confirm = false
+    return (curscene.keyreleased or function () end) ('return')
   end
 end
 

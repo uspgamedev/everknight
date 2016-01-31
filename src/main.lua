@@ -22,6 +22,13 @@ do
   function love.update (dt)
     lag = lag + dt
     while lag >= FRAME do
+      if ( love.keyboard.isDown("lalt") and love.keyboard.isDown("f4") ) or 
+        ( love.keyboard.isDown("lgui") and love.keyboard.isDown("f4") ) or
+        ( love.keyboard.isDown("lgui") and love.keyboard.isDown("q") ) or
+        ( love.keyboard.isDown("lctrl") and love.keyboard.isDown("q") ) or
+        ( love.keyboard.isDown("lalt") and love.keyboard.isDown("q") ) then
+        love.event.quit()
+      end
       retscene = curscene.update()
       if retscene and scenes[retscene] then
         curscene = scenes[retscene]

@@ -2,8 +2,11 @@ gameover = {}
 
 music = require "resources/music"
 
+local silence, playing
+
 function gameover.load ()
-  -- music.gameover:setLooping(true)
+  music.gameover:setLooping(true)
+  silence = 1.75
   -- music.gameover:play()
   return
 end
@@ -14,9 +17,13 @@ function gameover.draw ()
 end
 
 function gameover.update()
+  silence = silence - FRAME
   if love.keyboard.isDown("return") then
-    -- music.gameover:stop()
+    music.gameover:stop()
     return ("title")
+  end
+  if silence < 0  and not playing then
+    music.gameover:play()
   end
   return
 end

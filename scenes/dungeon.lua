@@ -435,9 +435,9 @@ local function drawhud(g)
   local blingecho = TIMERS.bling
   drawicon(g, 'life', 1, 1)
   drawicon(g, 'coin', 2, 1)
-  drawicon(g, 'swordicon', 1, 14)
   drawicon(g, 'atk', 2, 14)
   drawicon(g, 'def', 2, 24)
+  drawicon(g, player:getweapon()..'icon', 1, 14)
   drawtext(g, 1, 2, 5*64, blingecho > 0, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
   drawtext(g, 1, 15, 9*64, TIMERS.newweapon > 0, "%s",

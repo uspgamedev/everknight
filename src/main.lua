@@ -47,14 +47,6 @@ do
   end
 end
 
-for name,handler in pairs(love.handlers) do
-  if name ~= 'quit' then
-    love[name] = function (...)
-      return (curscene[name] or function () end) (...)
-    end
-  end
-end
-
 function love.keypressed (key)
   if DIR_KEYS[key] then
     INPUT[key] = true
@@ -71,6 +63,40 @@ function love.keyreleased (key)
     INPUT.confirm = false
   end
   return (curscene.keyreleased or function () end) (key)
+end
+
+local BTNCHECK = 0
+
+function love.joystickpressed (joystick, btn)
+  BTNCHECK = BTNCHECK + 1
+  INPUT.confirm = true
+end
+
+function love.joystickreleased (joystick, btn)
+  BTNCHECK = BTNCHECK - 1
+  if BTNCHECK <= 0 then
+    INPUT.confirm = false
+  end
+end
+
+function love.joystickaxis (joystick, axis, value)
+  if axis == 2 then
+    INPUT.up = false
+    INPUT.down = false
+    if value < -.5 then
+      INPUT.up = true
+    elseif value > .5 then
+      INPUT.down = true
+    end
+  elseif axis == 3 then
+    INPUT.left = false
+    INPUT.right = false
+    if value < -.5 then
+      INPUT.left = true
+    elseif value > .5 then
+      INPUT.right = true
+    end
+  end
 end
 
 function love.draw()

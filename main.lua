@@ -6,7 +6,7 @@ FRAME = 1/60
 vec2 = require 'lux.geom.Vector'
 
 function love.load()
-  curscene = scenes.title
+  curscene = scenes.splash
   curscene.load()
   SOUNDS = require 'resources.sounds'
   EFFECTS = require 'resources.effects'

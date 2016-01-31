@@ -140,7 +140,7 @@ sprites.life = {
 sprites.coin = {
   img = img,
   quad = newQuad(6*64, 2*64, 32, 32, img:getDimensions()),
-  color = {180, 180, 20, 255}
+  color = {255, 200, 40, 255}
 }
 
 sprites.atk = {
@@ -152,7 +152,7 @@ sprites.atk = {
 sprites.def = {
   img = img,
   quad = newQuad(5.5*64, 2*64, 32, 32, img:getDimensions()),
-  color = {100, 160, 20, 255}
+  color = {20, 120, 180, 255}
 }
 
 sprites.up = {

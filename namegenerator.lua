@@ -203,6 +203,7 @@ local prefixes = {
   "Pre Order Exclusive",
   "DLC Only",
   "Sealed",
+  "Hilarious",
 }
 
 local suffixes = {
@@ -292,6 +293,12 @@ local suffixes = {
   "Cooking",
   "Gardening",
   "A True Hero",
+  "Judgment",
+  "Special Effects",
+  "Aether",
+  "The Occult",
+  "Illuminati",
+  "Cruelty",
 }
 
 local EXTRA_EFFECT = {

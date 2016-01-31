@@ -6,7 +6,13 @@ require 'color'
 
 local change
 
+local second = 1/FRAME
+local timer
+local timer_limit = 1*second
+local entercolor = {255, 255, 255}
+
 function title.load ()
+  timer = 0
   change = nil
   music[5]:setLooping(true)
   music[5]:play()
@@ -23,7 +29,7 @@ function title.draw ()
     0, 1, 1,
     sprites.title.hotspot:unpack()
   )
-  love.graphics.setColor(255,255,255)
+  love.graphics.setColor(unpack(entercolor))
   love.graphics.setFont(FONTS[2])
   love.graphics.printf(
     "PRESS ENTER",
@@ -38,13 +44,30 @@ end
 
 function title.keypressed (key)
   if key == "return" then
+    love.audio.play(SOUNDS.get)
     change = "dungeon"
   end
 end
 
-function title.update ()
+function check()
   if change then
-    music[5]:stop()
+    -- JUICY THING HERE
+    timer = timer + 1
+    if math.fmod(timer,second/4) > second/8 then
+      entercolor = {255,255,255}
+    else
+      entercolor = {30,140,200}
+    end
+    -- LOAD GAME
+    if timer > timer_limit then
+      music[5]:stop()
+      return change
+    end
+  end
+end
+
+function title.update ()
+  if check() then
     return change
   end
 end

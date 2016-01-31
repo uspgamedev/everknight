@@ -2,6 +2,7 @@
 local scenes = require 'scene'
 
 FRAME = 1/60
+LOADED = false
 
 vec2 = require 'lux.geom.Vector'
 

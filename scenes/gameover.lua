@@ -5,6 +5,7 @@ music = require "resources/music"
 local silence, playing
 
 function gameover.load ()
+  LOADED = false
   music.gameover:setLooping(true)
   silence = 1.75
   -- music.gameover:play()

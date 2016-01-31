@@ -84,7 +84,10 @@ function Player:instance (obj)
   end
 
   function obj:setweapon (set, bling, effect)
-    love.audio.play(SOUNDS.get)
+    if LOADED then
+      love.audio.play(SOUNDS.get)
+      LOADED = true
+    end
     weapon = set
     wpnlevel = math.floor(bling)
     for _,e in ipairs(effects) do

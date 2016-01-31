@@ -32,7 +32,10 @@ end
 
 function splash.update()
 	if love.keyboard.isDown("return") then
-		timer = timer + 2
+		animate()
+		animate()
+		animate()
+		animate()
 	end
 	if animate() then
 		love.graphics.setColor(255,255,255,255)

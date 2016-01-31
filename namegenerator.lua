@@ -264,6 +264,14 @@ local prefixes = {
   "Evil",
   "Poorly Assembled",
   "Stolen",
+  "Tool Assisted",
+  "Fried",
+  "Hard Boiled",
+  "Tempered",
+  "Axereaving",
+  "Timed",
+  "Buggy",
+  "Lost",
 }
 
 local suffixes = {

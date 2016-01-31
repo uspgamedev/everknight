@@ -40,12 +40,12 @@ end
 
 function gameover.update()
   silence = silence - FRAME
-  if INPUT.confirm then
-    music.gameover:stop()
-    return ("title")
-  end
   if silence < 0  and not playing then
     music.gameover:play()
+    if INPUT.confirm then
+      music.gameover:stop()
+      return ("title")
+    end
   end
   return
 end

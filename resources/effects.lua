@@ -66,7 +66,24 @@ function factories.blood (p)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(.2)
   p:start()
-  -- local posx, posy = self.getpos():unpack()
+end
+
+function factories.bleeding (p)
+  p:reset()
+  p:setTexture(sprites.particle3)
+  p:setParticleLifetime(0.4)
+  p:setEmissionRate(40)
+  p:setBufferSize(64)
+  p:setSizes(1,1.5)
+  p:setSizeVariation(1)
+  p:setDirection(-math.pi)
+  p:setSpread(1.2*math.pi)
+  p:setAreaSpread('uniform', 8, 8)
+  p:setSpeed(96,96)
+  p:setLinearAcceleration(0, 600, 0, 1200)
+  p:setColors(150, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
+  p:setEmitterLifetime(-1)
+  p:start()
 end
 
 function factories.sparkle (p)

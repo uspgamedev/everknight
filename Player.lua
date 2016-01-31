@@ -79,6 +79,10 @@ function Player:instance (obj)
     table.insert(displaynumbers,newnum(lifediff, {posx, posy - 1}, {0, 255, 0}))
   end
 
+  function obj:getweapon ()
+    return weapon:lower()
+  end
+
   function obj:setweapon (set, bling, effect)
     love.audio.play(SOUNDS.get)
     weapon = set

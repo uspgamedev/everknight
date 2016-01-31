@@ -156,6 +156,22 @@ function factories.flame (p)
   p:start()
 end
 
+function factories.explo (p)
+  p:reset()
+  p:setTexture(sprites.particle3)
+  p:setParticleLifetime(1.2)
+  p:setEmissionRate(32)
+  p:setBufferSize(64)
+  p:setSizes(1+math.min(blinglevel,2), 1, .5)
+  p:setSizeVariation(.5)
+  p:setSpread(2*math.pi)
+  p:setSpeed(64, 96)
+  p:setAreaSpread('normal', 2, 2)
+  p:setColors(255, 150, 100, 150, 50, 50, 50, 255, 0, 0, 0, 0)
+  p:setEmitterLifetime(.2)
+  p:start()
+end
+
 function factories.puffs (p)
   p:reset()
   p:setTexture(sprites.particle3)

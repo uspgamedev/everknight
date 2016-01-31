@@ -10,6 +10,9 @@ function Monster:instance (obj, spd, kind, color, power)
   local sprite = require 'resources.sprites' [kind]
   local counter = 0
 
+  local echoeffect = 0
+  local echodelay = 0
+
   obj.health = power
 
   function obj:getpower ()
@@ -24,13 +27,7 @@ function Monster:instance (obj, spd, kind, color, power)
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
     love.audio.play(SOUNDS.hit)
-    for i=1,math.floor(blinglevel) do
-      local ef = EFFECTS.new 'blood'
-      if ef then
-        ef.pos = self:getpos()*3/4 + pos/4 + vec2:new{0,-1}
-                 + 1*vec2:new{love.math.random(), love.math.random()}
-      end
-    end
+    echoeffect = math.floor(blinglevel)
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 
@@ -41,6 +38,18 @@ function Monster:instance (obj, spd, kind, color, power)
   function obj:onupdate ()
     self:behaviour()
     counter = math.fmod(counter + FRAME, 1)
+    if echoeffect > 0 then
+      if echodelay > 0 then
+        echodelay = echodelay - 1
+      else
+        local ef = EFFECTS.new 'blood'
+        if ef then
+          ef.pos = self:getpos() + vec2:new{0,-.5}
+        end
+        echoeffect = echoeffect - 1
+        echodelay = 5
+      end
+    end
     if self:isdead() then
       love.audio.play(SOUNDS.die)
       money = money + 10 * blinglevel

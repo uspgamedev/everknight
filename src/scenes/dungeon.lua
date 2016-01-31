@@ -155,8 +155,10 @@ local function updateroom()
 
   for i = 2,#monster do
     local newmonster = monster[1](monster[i])
-    newmonster:setpos(vec2:new{W/2 + -4 + 8*love.math.random(),
-                               H/2 + -1 + 6*love.math.random()})
+    local center = vec2:new{W/2,H/2}
+    center = center + (center - vec2:new(playerstartingpos[lastentry])):normalized()/2
+    newmonster:setpos(center + vec2:new{8*love.math.random()-4,
+                                        4*love.math.random()-2})
     newmonster:load()
     table.insert(activeobjects, newmonster)
   end
@@ -472,7 +474,7 @@ local function drawhud(g)
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
   notredness = nil
   g.pop()
-  drawtext(g, 2, 15, 9*64, TIMERS.newweapon > 0, "%s",
+  drawtext(g, 1.65, 15, 9*64, TIMERS.newweapon > 0, "%s",
            weaponname)
   drawtext(g, 1, 15, 5*64, blingecho > 0, "%d",
            math.floor(10 * blinglevel))

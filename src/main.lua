@@ -4,10 +4,19 @@ local scenes = require 'scene'
 FRAME = 1/60
 LOADED = false
 TUTORIAL = true
-INPUT = {
+local KINPUT = {
   up = false, down = false, left = false, right = false,
   confirm = false
 }
+local JINPUT = {
+  up = false, down = false, left = false, right = false,
+  confirm = false
+}
+INPUT = setmetatable({}, {
+  __index = function (self, which)
+    return KINPUT[which] or JINPUT[which]
+  end
+})
 
 local DIR_KEYS = { up = true, down = true, left = true, right = true }
 local CONFIRM_KEYS = { ['return'] = true, z = true, x = true }
@@ -49,18 +58,18 @@ end
 
 function love.keypressed (key)
   if DIR_KEYS[key] then
-    INPUT[key] = true
+    KINPUT[key] = true
   elseif CONFIRM_KEYS[key] then
-    INPUT.confirm = true
+    KINPUT.confirm = true
   end
   return (curscene.keypressed or function () end) (key)
 end
 
 function love.keyreleased (key)
-  if DIR_KEYS[key] ~= nil then
-    INPUT[key] = false
+  if DIR_KEYS[key] then
+    KINPUT[key] = false
   elseif CONFIRM_KEYS[key] then
-    INPUT.confirm = false
+    KINPUT.confirm = false
   end
   return (curscene.keyreleased or function () end) (key)
 end
@@ -69,34 +78,34 @@ local BTNCHECK = 0
 
 function love.joystickpressed (joystick, btn)
   BTNCHECK = BTNCHECK + 1
-  INPUT.confirm = true
+  JINPUT.confirm = true
   return (curscene.keypressed or function () end) ('return')
 end
 
 function love.joystickreleased (joystick, btn)
   BTNCHECK = BTNCHECK - 1
   if BTNCHECK <= 0 then
-    INPUT.confirm = false
+    JINPUT.confirm = false
     return (curscene.keyreleased or function () end) ('return')
   end
 end
 
 function love.joystickaxis (joystick, axis, value)
   if axis == 2 then
-    INPUT.up = false
-    INPUT.down = false
+    JINPUT.up = false
+    JINPUT.down = false
     if value < -.5 then
-      INPUT.up = true
+      JINPUT.up = true
     elseif value > .5 then
-      INPUT.down = true
+      JINPUT.down = true
     end
   elseif axis == 3 then
-    INPUT.left = false
-    INPUT.right = false
+    JINPUT.left = false
+    JINPUT.right = false
     if value < -.5 then
-      INPUT.left = true
+      JINPUT.left = true
     elseif value > .5 then
-      INPUT.right = true
+      JINPUT.right = true
     end
   end
 end

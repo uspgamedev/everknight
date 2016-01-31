@@ -118,6 +118,7 @@ local prefixes = {
   "Ho Hum",
   "Average",
   "Master Race",
+  "Probably Over-Prefixed",
   "Faster",
   "Checkered"
 }
@@ -129,6 +130,7 @@ local suffixes = {
   "Cards",
   "Destruction",
   "Annihilation",
+  "ALL CAPS",
   "Deliverance",
   "Surprises",
   "Segmentation Faults",

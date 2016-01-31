@@ -94,7 +94,7 @@ function shop.expensiveitem:draw (g)
   g.ellipse("fill", 0, 0, 13, 4)
   g.setColor(WPNCOLOR(wpn[3]))
   g.draw(sprite.img, sprite.quads[2], -16, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
-  g.setColor(255, 255, 255, 255)
+  g.setColor(200, 70, 70, 255)
   g.printf("$ "..shop.expensiveitem.price, -64, 8, 128, 'center')
   g.pop()
 end

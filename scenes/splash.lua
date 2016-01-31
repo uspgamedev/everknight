@@ -1,6 +1,6 @@
 local splash = {}
 
-local SPRITES = require 'resources/sprites'
+local sprites = require 'resources/sprites'
 
 local second = 1/FRAME
 
@@ -20,11 +20,11 @@ end
 
 function splash.draw()
 	love.graphics.setColor(255,255,255,alpha)
-	love.graphics.draw( SPRITES.splash.img,
+	love.graphics.draw( sprites.splash.img,
 		love.graphics.getWidth()/2,
 		love.graphics.getHeight()/2,
 		0, 1, 1,
-		SPRITES.splash.hotspot:unpack())
+		sprites.splash.hotspot:unpack())
 	if state > 2 then
 		love.graphics.clear()
 	end

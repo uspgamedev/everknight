@@ -26,6 +26,10 @@ local prefixes = {
   "Rube Goldbergian",
   "Eldritch",
   "Cute",
+  "Socially Awkward",
+  "Extroverted",
+  "Heavy",
+  "Heavy Metal",
   "Surprisingly Cheap",
   "Unexpected",
   "Totally Balanced Guys Trust Me",
@@ -293,6 +297,7 @@ local prefixes = {
   "Quaking",
   "Surfing",
   "Flying",
+  "Supporting",
 }
 
 local suffixes = {
@@ -313,6 +318,7 @@ local suffixes = {
   "Surprises",
   "Segmentation Faults",
   "Hacking",
+  "Fallen",
   "Slashing",
   "Discredited Rogues",
   "Former Child Stars",
@@ -380,6 +386,7 @@ local suffixes = {
   "Recycling",
   "Incineration",
   "Communism",
+  "Genocide",
   "Capitalism",
   "Anarchism",
   "Gadgeteering",

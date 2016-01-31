@@ -42,6 +42,7 @@ function Monster:instance (obj, spd, kind, color, power)
       love.audio.play(SOUNDS.die)
       money = money + 10 * blinglevel
       SOMEBLING()
+      TIMERS.gotmoney = 60
       return true
     end
   end

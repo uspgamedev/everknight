@@ -44,9 +44,9 @@ function effects.new (which)
   local i, p = next(standbyparticles)
   if p then
     table.remove(standbyparticles, i)
-    factories[which] (p)
+    local blend = factories[which] (p)
     p:start()
-    local ef = {particle = p, pos = vec2:new{}}
+    local ef = {particle = p, pos = vec2:new{}, blend = blend or 'add'}
     table.insert(effects, ef)
     return ef
   end
@@ -66,7 +66,26 @@ function factories.blood (p)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(.2)
   p:start()
-  -- local posx, posy = self.getpos():unpack()
+  return 'alpha'
+end
+
+function factories.bleeding (p)
+  p:reset()
+  p:setTexture(sprites.particle3)
+  p:setParticleLifetime(0.4)
+  p:setEmissionRate(24)
+  p:setBufferSize(16)
+  p:setSizes(.9,1.1)
+  p:setSizeVariation(1)
+  p:setDirection(-math.pi)
+  p:setSpread(1.2*math.pi)
+  p:setAreaSpread('uniform', 8, 8)
+  p:setSpeed(96,96)
+  p:setLinearAcceleration(0, 600, 0, 1200)
+  p:setColors(120, 10, 10, 255, 0, 0, 0, 0) -- Fade to transparency.
+  p:setEmitterLifetime(-1)
+  p:start()
+  return 'alpha'
 end
 
 function factories.sparkle (p)
@@ -83,6 +102,23 @@ function factories.sparkle (p)
   p:setColors(255, 255, 255, 255)
   p:setEmitterLifetime(-1)
   p:start()
+end
+
+function factories.vortex (p)
+  p:reset()
+  p:setTexture(sprites.particle1)
+  p:setParticleLifetime(.8)
+  p:setBufferSize(32)
+  p:setEmissionRate(24)
+  p:setSizes(1, 1+math.min(blinglevel,2), .5)
+  p:setSizeVariation(1)
+  p:setSpread(2*math.pi)
+  p:setSpeed(16, 16)
+  p:setTangentialAcceleration(80, 150)
+  p:setColors(50, 50, 50, 250)
+  p:setEmitterLifetime(-1)
+  p:start()
+  return 'subtract'
 end
 
 function factories.shock (p)
@@ -142,7 +178,7 @@ end
 function effects.draw (g)
   for i,v in ipairs(effects) do
     g.push()
-    g.setBlendMode 'add'
+    g.setBlendMode(v.blend)
     g.translate(v.pos:unpack())
     g.setColor(255, 255, 255, 255)
     g.scale(1/64, 1/64)

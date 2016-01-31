@@ -192,7 +192,8 @@ function Player:instance (obj)
     g.setColor(HSL(20, 100, 120 + self:getinvincible()*100, 255))
     local sx = (self:facedir() == 'right') and 1 or -1
     local sprite = sprites.hero
-    g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
+    g.draw(sprite.img, sprite.quads[attacking > 0 and 3 or i], 0, 0, 0,
+           sx, 1, sprite.hotspot.x, sprite.hotspot.y)
     -- weapon
     local wpnsprite = sprites[weapon]
     if attacking > 0 then

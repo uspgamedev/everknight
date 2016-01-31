@@ -405,19 +405,32 @@ local function drawicon (g, which, i, j)
   g.pop()
 end
 
+local function drawtext (g, i, j, w, fmt, ...)
+  g.push()
+  g.translate(j-1, i-1)
+  g.scale(1/32, 1/32)
+  g.setColor(255, 255, 255, 255)
+  g.setFont(FONTS[2])
+  g.printf(fmt:format(...), 8, 12, w-16, 'left')
+  g.pop()
+end
+
 local function drawhud(g)
   drawicon(g, 'life', 1, 1)
-  --g.push()
-  --  g.translate(1, -1)
-  --  g.setColor(255, 255, 255)
-  --  g.scale(1/64, 1/64)
-  --  g.setFont(FONTS[2])
-  --  g.print("HP: "..math.floor(player:gethealth() * blinglevel * 15) .. "/" ..
-  --          math.floor(10 * blinglevel * 15), 0, 0)
-  --  g.print("ATTACK: "..math.floor(blinglevel*10).." DEFENSE: "..math.floor(blinglevel * 8), 0, 16)
-  --  g.print("WEAPON: "..weaponname, 0, 32)
-  --  g.print("MONEY: "..money.."G", 0, 48)
-  --g.pop()
+  drawicon(g, 'coin', 2, 1)
+  drawicon(g, 'swordicon', 1, 14)
+  drawicon(g, 'atk', 2, 14)
+  drawicon(g, 'def', 2, 24)
+  drawtext(g, 1, 2, 5*64, "%d/%d",
+           math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
+  drawtext(g, 1, 15, 9*64, "%s",
+           weaponname)
+  drawtext(g, 2, 15, 5*64, "%d",
+           math.floor(10 * blinglevel))
+  drawtext(g, 2, 25, 5*64, "%d",
+           math.floor(8 * blinglevel))
+  drawtext(g, 2, 2, 5*64, "$ %d",
+           math.floor(money))
 end
 
 local function drawnum(g)
@@ -493,8 +506,10 @@ function dungeon.draw ()
     --draw hud
   g.push()
   g.scale(32, 32)
+  g.translate(0, .5)
   drawhud(g)
   g.pop()
+  g.setColor(255, 255, 255, 255)
 end
 
 return dungeon

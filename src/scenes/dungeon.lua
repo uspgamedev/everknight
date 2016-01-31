@@ -155,8 +155,10 @@ local function updateroom()
 
   for i = 2,#monster do
     local newmonster = monster[1](monster[i])
-    newmonster:setpos(vec2:new{W/2 + -4 + 8*love.math.random(),
-                               H/2 + -1 + 6*love.math.random()})
+    local center = vec2:new{W/2,H/2}
+    center = center + (center - vec2:new(playerstartingpos[lastentry])):normalized()/2
+    newmonster:setpos(center + vec2:new{8*love.math.random()-4,
+                                        4*love.math.random()-2})
     newmonster:load()
     table.insert(activeobjects, newmonster)
   end

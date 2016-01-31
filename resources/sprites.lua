@@ -128,6 +128,12 @@ sprites.boss = {
   hotspot = vec2:new{64, 128}
 }
 
+sprites.life = {
+  img = img,
+  quad = newQuad(5*64, 2*64, 32, 32, img:getDimensions()),
+  color = {250, 120, 120, 255}
+}
+
 sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
 sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
 sprites.particle3 = love.graphics.newImage("assets/particle_02.png")

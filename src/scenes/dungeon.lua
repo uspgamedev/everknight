@@ -443,7 +443,11 @@ local function drawtext (g, i, j, w, useup, fmt, ...)
   g.push()
   g.translate(j-1, i-1)
   g.scale(1/32, 1/32)
-  g.setColor(255, 255, 255, 255)
+  if not notredness then
+    g.setColor(255, 255, 255, 255)
+  else
+    g.setColor(255, notredness, notredness, 255)
+  end
   g.setFont(FONTS[2])
   local str = fmt:format(...)
   g.printf(str, 8, 12, w-16, 'left')
@@ -458,16 +462,21 @@ local function drawhud(g)
   local blingecho = TIMERS.bling
   drawicon(g, 'life', 1, 1)
   drawicon(g, 'coin', 2, 1)
-  drawicon(g, 'atk', 2, 14)
-  drawicon(g, 'def', 2, 24)
-  drawicon(g, player:getweapon()..'icon', 1, 14)
+  drawicon(g, 'atk', 1, 14)
+  drawicon(g, 'def', 1, 24)
+  drawicon(g, player:getweapon()..'icon', 2, 14)
+  g.push()
+  notredness = (255/10) * player:gethealth()
+  -- g.setColor(255, notredness, notredness) 
   drawtext(g, 1, 2, 5*64, blingecho > 0, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
-  drawtext(g, 1, 15, 9*64, TIMERS.newweapon > 0, "%s",
+  notredness = nil
+  g.pop()
+  drawtext(g, 2, 15, 9*64, TIMERS.newweapon > 0, "%s",
            weaponname)
-  drawtext(g, 2, 15, 5*64, blingecho > 0, "%d",
+  drawtext(g, 1, 15, 5*64, blingecho > 0, "%d",
            math.floor(10 * blinglevel))
-  drawtext(g, 2, 25, 5*64, blingecho > 0, "%d",
+  drawtext(g, 1, 25, 5*64, blingecho > 0, "%d",
            math.floor(8 * blinglevel))
   drawtext(g, 2, 2, 5*64, TIMERS.gotmoney > 0, "$ %d",
            math.floor(money))

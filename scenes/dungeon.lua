@@ -6,6 +6,8 @@ local dungeon = {}
 
 local W, H = 16, 10
 
+local CLOSEDELAY = 40
+
 local map
 local sprites
 
@@ -156,6 +158,7 @@ local function updateroom()
     table.insert(activeobjects, newmonster)
   end
   player:setpos(vec2:new(playerstartingpos[lastentry]))
+  TIMERS.closedoor = CLOSEDELAY
 end
 
 local function changemusic(nextmusic)
@@ -169,6 +172,7 @@ end
 
 function dungeon.load ()
   TIMERS = setmetatable({}, { __index = function () return 0 end })
+  TIMERS.closedoor = CLOSEDELAY
   curmusic = 2
   music[curmusic]:setLooping(true)
   music[curmusic]:play()
@@ -307,7 +311,7 @@ function dungeon.update ()
 
   money = math.floor(money)
   for k,v in pairs(TIMERS) do
-    TIMERS[k] = v - 1
+    TIMERS[k] = math.max(1, v - 1)
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE
@@ -373,6 +377,7 @@ end
 
 local function drawhdoor (g, i, j)
   local door = sprites.hdoor
+  g.translate(0, -(TIMERS.closedoor/CLOSEDELAY)^2*2)
   g.scale(1/64, 1/64)
   g.setColor(COLOR(-15, -5))
   g.draw(door.img, door.quads[j <= W/2 and 1 or 2], 0, -64)
@@ -380,6 +385,7 @@ end
 
 local function drawdoor (g, i, j)
   local door = sprites.vdoor
+  g.translate(0, -(TIMERS.closedoor/CLOSEDELAY)^2*2)
   g.scale(1/64, 1/64)
   g.setColor(COLOR(-15, -5))
   g.draw(door.img, door.quads[i <= H/2 and 1 or 2], 0, -64)

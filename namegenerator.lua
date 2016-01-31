@@ -209,6 +209,11 @@ local prefixes = {
   "Shaper",
   "Sharpest",
   "Extra Pointy",
+  "Final Form",
+  "Atomic",
+  "Radioactive",
+  "Unpaid",
+  "Borrowed",
 }
 
 local suffixes = {
@@ -310,6 +315,12 @@ local suffixes = {
   "Respawning",
   "Debugging",
   "Tutoring",
+  "Quarter-Life",
+  "Half-Life",
+  "Full Life Consequences",
+  "Extra Suffixing",
+  "Pokémon Menuing",
+  "Pokédex Completing",
 }
 
 local EXTRA_EFFECT = {

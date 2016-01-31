@@ -13,6 +13,9 @@ local sprites
 
 local music = require "resources/music"
 
+local timer = 0
+local torchstate = 1
+
 
 blinglevel = 1
 blingfactor = 1.5
@@ -247,6 +250,9 @@ function dungeon.update ()
     moveobj(obj)
   end
 
+  -- ANIMATE THINGS --
+  updatetorch()
+
   ----
   --CHECK COLLISION HERE
   ----
@@ -334,6 +340,15 @@ function dungeon.update ()
 
 end
 
+function updatetorch()
+  timer = math.fmod( (timer + 1), 1/FRAME )
+  if timer > 30 then
+    torchstate = 1
+  else
+    torchstate = 2
+  end
+end
+
 function dungeon.keypressed (key)
   if key == 'q' then
     MOREBLING()
@@ -362,7 +377,7 @@ local function drawtorch (g, i, j)
   g.setColor(0,0,0,50)
   g.ellipse("fill", 32, 32, 10, 4)
   g.setColor(COLOR(60, 30))
-  g.draw(torch.img, torch.quads[love.math.random(1,2)], 0, 0, 0, 1, 1,
+  g.draw(torch.img, torch.quads[torchstate], 0, 0, 0, 1, 1,
          torch.hotspot.x, torch.hotspot.y)
 end
 

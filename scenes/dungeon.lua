@@ -311,7 +311,7 @@ function dungeon.update ()
 
   money = math.floor(money)
   for k,v in pairs(TIMERS) do
-    TIMERS[k] = math.max(1, v - 1)
+    TIMERS[k] = math.max(0, v - 1)
   end
 
   --REMINDER: ULTIMA COISA A ACONTECER KTHXBYE

@@ -183,7 +183,7 @@ local suffixes = {
   "Redundancy",
   "Firefighting",
   "Zombie Smashing",
-  "Fergetfulness",
+  "Forgetfulness",
   "Mojo",
   "Hunger",
   "Restful Sleep",

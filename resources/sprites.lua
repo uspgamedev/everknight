@@ -52,7 +52,8 @@ sprites.hero = {
   img = img,
   quads = {
     newQuad(0, 128, 64, 64, img:getDimensions()),
-    newQuad(64, 128, 64, 64, img:getDimensions())
+    newQuad(64, 128, 64, 64, img:getDimensions()),
+    newQuad(2*64, 128, 64, 64, img:getDimensions())
   },
   hotspot = vec2:new{32, 64}
 }

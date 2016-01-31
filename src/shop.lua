@@ -75,8 +75,10 @@ function shop.cheapitem:draw (g)
   g.push()
   local wpn = shop.cheapitem.weapon
   local sprite = sprites[wpn[1]]
-  g.setColor(WPNCOLOR(wpn[3]))
   g.scale(1/64, 1/64)
+  g.setColor(0,0,0,50)
+  g.ellipse("fill", 0, 0, 13, 4)
+  g.setColor(WPNCOLOR(wpn[3]))
   g.draw(sprite.img, sprite.quads[2], -16, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   g.setColor(255, 255, 255, 255)
   g.printf("$ "..shop.cheapitem.price, -64, 8, 128, 'center')
@@ -87,8 +89,10 @@ function shop.expensiveitem:draw (g)
   g.push()
   local wpn = shop.expensiveitem.weapon
   local sprite = sprites[wpn[1]]
-  g.setColor(WPNCOLOR(wpn[3]))
   g.scale(1/64, 1/64)
+  g.setColor(0,0,0,50)
+  g.ellipse("fill", 0, 0, 13, 4)
+  g.setColor(WPNCOLOR(wpn[3]))
   g.draw(sprite.img, sprite.quads[2], -16, 0, 0, 1, 1, sprite.hotspot.x, sprite.hotspot.y)
   g.setColor(255, 255, 255, 255)
   g.printf("$ "..shop.expensiveitem.price, -64, 8, 128, 'center')

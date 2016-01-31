@@ -113,7 +113,7 @@ local function updateroom()
   repeat
     nextexit = directions[love.math.random(#directions)]
   until nextexit ~= lastentry
-  print ("lastexit, nextexit, lastentry: ", lastexit, nextexit, lastentry)
+  -- print ("lastexit, nextexit, lastentry: ", lastexit, nextexit, lastentry)
   for i=1,H do
     map[i] = {}
     for j=1,W do

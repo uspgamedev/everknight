@@ -50,6 +50,7 @@ function Player:instance (obj)
     attacking = 0
     self:setweapon('Sword', 1)
     self:reset()
+    LOADED = true
     effects = {}
   end
 
@@ -85,6 +86,7 @@ function Player:instance (obj)
 
   function obj:setweapon (set, bling, effect)
     if LOADED then
+      -- print "aeho"
       love.audio.play(SOUNDS.get)
       LOADED = true
     end

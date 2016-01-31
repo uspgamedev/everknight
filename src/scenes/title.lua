@@ -63,6 +63,8 @@ function check()
     -- LOAD GAME
     if timer > timer_limit then
       music[5]:stop()
+      print ("get ->", SOUNDS.get)
+      -- love.audio.stop(SOUNDS.get)
       return change
     end
   end

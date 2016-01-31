@@ -3,6 +3,10 @@ local Monster = require 'lux.class' :new{}
 
 Monster:inherit(require 'Character')
 
+local ECHOS = {
+  'blood', 'explo'
+}
+
 function Monster:instance (obj, spd, kind, color, power)
 
   self:super(obj, spd)
@@ -12,6 +16,8 @@ function Monster:instance (obj, spd, kind, color, power)
 
   local echoeffect = 0
   local echodelay = 0
+
+  local dying
 
   obj.health = power
 
@@ -27,7 +33,7 @@ function Monster:instance (obj, spd, kind, color, power)
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
     love.audio.play(SOUNDS.hit)
-    echoeffect = math.floor(blinglevel)
+    echoeffect = 1+math.floor(math.log(blinglevel))
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 
@@ -42,7 +48,7 @@ function Monster:instance (obj, spd, kind, color, power)
       if echodelay > 0 then
         echodelay = echodelay - 1
       else
-        local ef = EFFECTS.new 'blood'
+        local ef = EFFECTS.new(ECHOS[love.math.random(#ECHOS)])
         if ef then
           ef.pos = self:getpos() + vec2:new{0,-.5}
         end
@@ -51,11 +57,16 @@ function Monster:instance (obj, spd, kind, color, power)
       end
     end
     if self:isdead() then
-      love.audio.play(SOUNDS.die)
-      money = money + 10 * blinglevel
-      SOMEBLING()
-      TIMERS.gotmoney = 60
-      return true
+      if dying then
+        dying = dying - 1
+        return dying <= 0
+      else
+        love.audio.play(SOUNDS.die)
+        money = money + 10 * blinglevel
+        SOMEBLING()
+        TIMERS.gotmoney = 60
+        dying = 20
+      end
     end
   end
 
@@ -69,7 +80,9 @@ function Monster:instance (obj, spd, kind, color, power)
     local sx = (self:facedir() == 'right') and 1 or -1
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 36, 9, 16)
-    g.setColor(COLOR(50, 50 + self:getinvincible()*70, color + (power-1)*70))
+    local color = { COLOR(50, 50 + self:getinvincible()*70, color + (power-1)*70) }
+    color[4] = dying and dying/20*255 or 255
+    g.setColor(color)
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 

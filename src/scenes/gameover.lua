@@ -40,7 +40,7 @@ end
 
 function gameover.update()
   silence = silence - FRAME
-  if love.keyboard.isDown("return") then
+  if INPUT.confirm then
     music.gameover:stop()
     return ("title")
   end

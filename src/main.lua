@@ -4,6 +4,13 @@ local scenes = require 'scene'
 FRAME = 1/60
 LOADED = false
 TUTORIAL = true
+INPUT = {
+  up = false, down = false, left = false, right = false,
+  confirm = false
+}
+
+local DIR_KEYS = { up = true, down = true, left = true, right = true }
+local CONFIRM_KEYS = { ['return'] = true, z = true, x = true }
 
 vec2 = require 'lux.geom.Vector'
 
@@ -46,6 +53,24 @@ for name,handler in pairs(love.handlers) do
       return (curscene[name] or function () end) (...)
     end
   end
+end
+
+function love.keypressed (key)
+  if DIR_KEYS[key] then
+    INPUT[key] = true
+  elseif CONFIRM_KEYS[key] then
+    INPUT.confirm = true
+  end
+  return (curscene.keypressed or function () end) (key)
+end
+
+function love.keyreleased (key)
+  if DIR_KEYS[key] ~= nil then
+    INPUT[key] = false
+  elseif CONFIRM_KEYS[key] then
+    INPUT.confirm = false
+  end
+  return (curscene.keyreleased or function () end) (key)
 end
 
 function love.draw()

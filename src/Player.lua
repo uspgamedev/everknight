@@ -127,7 +127,7 @@ function Player:instance (obj)
     local sum = vec2:new{}
     self:setmoving(false)
     for key,dir in pairs(DIRS) do
-      if love.keyboard.isDown(key) then
+      if INPUT[key] then
         sum = sum + dir
         self:setmoving(true)
       end
@@ -144,7 +144,7 @@ function Player:instance (obj)
       self:setangle(self:facedir() == 'right' and 0 or math.pi)
     end
     tick = math.fmod(tick + FRAME, 1)
-    if love.keyboard.isDown 'z' and atkdelay <= 0 then
+    if INPUT.confirm and atkdelay <= 0 then
       love.audio.play(SOUNDS.slash)
       attacking = 10
       atkdelay = 20

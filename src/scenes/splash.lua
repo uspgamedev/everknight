@@ -31,7 +31,7 @@ function splash.draw()
 end
 
 function splash.update()
-	if love.keyboard.isDown("return") then
+	if INPUT.confirm then
 		animate()
 		animate()
 		animate()

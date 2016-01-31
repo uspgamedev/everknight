@@ -199,6 +199,10 @@ local prefixes = {
   "Facebook Addicted",
   "Culturally Significant",
   "Unearthed",
+  "Recursive",
+  "Pre Order Exclusive",
+  "DLC Only",
+  "Sealed",
 }
 
 local suffixes = {
@@ -247,8 +251,8 @@ local suffixes = {
   "Orcs",
   "Dwarfs",
   "Yodeling",
-  "Weeaboo",
-  "Sealed",
+  "Weeaboos",
+  "Seals",
   "Cakes",
   "Digging",
   "Spellslinging",

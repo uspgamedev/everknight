@@ -169,5 +169,12 @@ sprites.splash = {
   hotspot = vec2:new{ splashimg:getWidth()/2, splashimg:getHeight()/2 }
 }
 
+sprites.title = {
+  img = img,
+  quad = newQuad(0, 6*64, 256, 64, img:getDimensions()),
+  color = {250, 120, 120, 255},
+  hotspot = vec2:new{128, 32}
+}
+
 return sprites
 

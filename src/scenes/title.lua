@@ -1,3 +1,5 @@
+-- title scene
+
 title = {}
 
 music = require "resources/music"

@@ -134,6 +134,30 @@ sprites.life = {
   color = {250, 120, 120, 255}
 }
 
+sprites.coin = {
+  img = img,
+  quad = newQuad(6*64, 2*64, 32, 32, img:getDimensions()),
+  color = {180, 180, 20, 255}
+}
+
+sprites.atk = {
+  img = img,
+  quad = newQuad(5*64, 2.5*64, 32, 32, img:getDimensions()),
+  color = {220, 100, 20, 255}
+}
+
+sprites.def = {
+  img = img,
+  quad = newQuad(5.5*64, 2*64, 32, 32, img:getDimensions()),
+  color = {100, 160, 20, 255}
+}
+
+sprites.swordicon = {
+  img = img,
+  quad = newQuad(7*64+28, 3*64+16, 32, 32, img:getDimensions()),
+  color = {180, 180, 180, 255}
+}
+
 sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
 sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
 sprites.particle3 = love.graphics.newImage("assets/particle_02.png")

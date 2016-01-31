@@ -407,6 +407,10 @@ end
 
 local function drawhud(g)
   drawicon(g, 'life', 1, 1)
+  drawicon(g, 'coin', 2, 1)
+  drawicon(g, 'swordicon', 1, 14)
+  drawicon(g, 'atk', 2, 14)
+  drawicon(g, 'def', 2, 24)
   --g.push()
   --  g.translate(1, -1)
   --  g.setColor(255, 255, 255)
@@ -493,8 +497,10 @@ function dungeon.draw ()
     --draw hud
   g.push()
   g.scale(32, 32)
+  g.translate(0, .5)
   drawhud(g)
   g.pop()
+  g.setColor(255, 255, 255, 255)
 end
 
 return dungeon

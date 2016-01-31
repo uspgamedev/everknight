@@ -23,12 +23,15 @@ function Monster:instance (obj, spd, kind, color, power)
   function obj:ondamage (power, pos)
     local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
-    local ef = EFFECTS.new 'blood'
     love.audio.play(SOUNDS.hit)
-    if ef then
-      ef.pos = self:getpos()*3/4 + pos/4
-      table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
+    for i=1,math.floor(blinglevel) do
+      local ef = EFFECTS.new 'blood'
+      if ef then
+        ef.pos = self:getpos()*3/4 + pos/4 + vec2:new{0,-1}
+                 + 1*vec2:new{love.math.random(), love.math.random()}
+      end
     end
+    table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 
   function obj:onhit(amount, pos)

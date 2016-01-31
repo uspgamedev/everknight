@@ -143,11 +143,30 @@ local prefixes = {
   "Newborn",
   "Pointlessly Epic",
   "Parody",
+  "Hatted",
+  "Guilty",
+  "Blue",
+  "Red",
+  "Purplish",
+  "Magenta",
+  "Fuchsia",
+  "Raibow Colored",
+  "Archaic",
+  "Formulaic",
+  "Well Drawn",
+  "3D Modelled",
   "Sarcastic",
   "Ironic",
   "Kid Tested Mother Approved",
   "Democrat",
+  "Underrated",
+  "Overrated",
   "Republican",
+  "Episodic",
+  "Cinematic",
+  "Roguelike",
+  "Free To Play",
+  "Pay To Win",
   "Protected By Law",
   "Unfocused",
   "Murderous",
@@ -214,6 +233,7 @@ local prefixes = {
   "Radioactive",
   "Unpaid",
   "Borrowed",
+  "Partially Eaten",
 }
 
 local suffixes = {
@@ -321,6 +341,9 @@ local suffixes = {
   "Extra Suffixing",
   "Pokémon Menuing",
   "Pokédex Completing",
+  "Dismembermert",
+  "Screen Cheating",
+  "Screen Shaking",
 }
 
 local EXTRA_EFFECT = {

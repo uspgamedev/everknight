@@ -126,7 +126,7 @@ sprites.boss = {
   img = img,
   quads = {
     newQuad(0, 256, 128, 128, img:getDimensions()),
-    newQuad(128, 256, 128, 128, img:getDimensions())
+    newQuad(2*64, 256, 128, 128, img:getDimensions())
   },
   hotspot = vec2:new{64, 128}
 }

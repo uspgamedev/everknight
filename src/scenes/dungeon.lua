@@ -358,8 +358,10 @@ end
 
 local function drawtorch (g, i, j)
   local torch = sprites.torch
-  g.setColor(COLOR(60, 30))
   g.scale(1/64, 1/64)
+  g.setColor(0,0,0,50)
+  g.ellipse("fill", 32, 32, 10, 4)
+  g.setColor(COLOR(60, 30))
   g.draw(torch.img, torch.quads[love.math.random(1,2)], 0, 0, 0, 1, 1,
          torch.hotspot.x, torch.hotspot.y)
 end

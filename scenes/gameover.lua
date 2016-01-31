@@ -1,6 +1,10 @@
 gameover = {}
 
+music = require "resources/music"
+
 function gameover.load ()
+  -- music.gameover:setLooping(true)
+  -- music.gameover:play()
   return
 end
 
@@ -11,7 +15,7 @@ end
 
 function gameover.update()
   if love.keyboard.isDown("return") then
-    -- print("asd")
+    -- music.gameover:stop()
     return ("title")
   end
   return

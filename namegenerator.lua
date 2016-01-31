@@ -177,6 +177,10 @@ local prefixes = {
   "Politically Incorrect",
   "Enviromentally Friendly",
   "Electric",
+  "Photorealistic",
+  "Cel Shaded",
+  "Cartoony",
+  "Dead",
 }
 
 local suffixes = {

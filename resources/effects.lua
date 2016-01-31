@@ -103,20 +103,21 @@ function factories.sparkle (p)
   p:start()
 end
 
-function factories.sparkle (p)
+function factories.vortex (p)
   p:reset()
   p:setTexture(sprites.particle1)
   p:setParticleLifetime(.8)
-  p:setEmissionRate(15)
+  p:setBufferSize(32)
+  p:setEmissionRate(24)
   p:setSizes(1, 1+math.min(blinglevel,2), .5)
   p:setSizeVariation(1)
-  p:setDirection(-math.pi/2)
-  p:setSpread(0)
-  p:setAreaSpread('normal', 4, 4)
-  p:setLinearAcceleration(0, -80, 0, -80)
-  p:setColors(255, 255, 255, 255)
+  p:setSpread(2*math.pi)
+  p:setSpeed(16, 16)
+  p:setTangentialAcceleration(80, 150)
+  p:setColors(50, 50, 50, 250)
   p:setEmitterLifetime(-1)
   p:start()
+  return 'subtract'
 end
 
 function factories.shock (p)

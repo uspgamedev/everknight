@@ -7,12 +7,12 @@ local second = 1/FRAME
 local timer = 0
 local timer_fade = 1*second
 
-local fadein = 0
-local stay = 1
-local fadeout = 2
+local stay = 0
+local fadeout = 1
 
-local state = fadein
-local alpha = 0
+local state = stay
+local alpha = 255
+local scale = love.graphics.getHeight()/sprites.splash_ggj.img:getHeight()
 
 function splash.load()
 
@@ -20,11 +20,11 @@ end
 
 function splash.draw()
 	love.graphics.setColor(255,255,255,alpha)
-	love.graphics.draw( sprites.splash.img,
+	love.graphics.draw( sprites.splash_ggj.img,
 		love.graphics.getWidth()/2,
 		love.graphics.getHeight()/2,
-		0, 1, 1,
-		sprites.splash.hotspot:unpack())
+		0, scale, scale,
+		sprites.splash_ggj.hotspot:unpack())
 	if state > 2 then
 		love.graphics.clear()
 	end
@@ -36,7 +36,7 @@ function splash.update()
 	end
 	if animate() then
 		love.graphics.setColor(255,255,255,255)
-		return "title"
+		return "splash"
 	end
 end
 
@@ -49,9 +49,7 @@ function animate()
 		state = state + 1
 		timer = 0
 	end
-	if state == fadein then
-		alpha = alpha + 255/timer_fade
-	elseif state == fadeout then
+	if state == fadeout then
 		alpha = alpha - 255/timer_fade
 	end
 end

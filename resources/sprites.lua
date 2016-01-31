@@ -163,7 +163,19 @@ sprites.up = {
 
 sprites.swordicon = {
   img = img,
-  quad = newQuad(7*64+28, 3*64+16, 32, 32, img:getDimensions()),
+  quad = newQuad(7*64, 2*64+32, 32, 32, img:getDimensions()),
+  color = {180, 180, 180, 255}
+}
+
+sprites.maceicon = {
+  img = img,
+  quad = newQuad(6*64+32, 2*64+32, 32, 32, img:getDimensions()),
+  color = {180, 180, 180, 255}
+}
+
+sprites.axeicon = {
+  img = img,
+  quad = newQuad(6*64, 2*64+32, 32, 32, img:getDimensions()),
   color = {180, 180, 180, 255}
 }
 

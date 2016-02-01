@@ -171,14 +171,15 @@ function Player:instance (obj)
     local diff = other:getpos() - self:getpos()
     local dist = diff:size()
     local angle = math.atan2(diff.y, diff.x)
-    if dist < 1.5 then
-      if math.abs(self:getangle()) < math.pi/4 then
+    if dist < 1.6 then
+      local dir = movedir()
+      if dir == 'right' then
         return math.abs(angle) < math.pi/4
-      elseif math.abs(self:getangle()) > 3*math.pi/4 then
+      elseif dir == 'left' then
         return math.abs(angle) > 3*math.pi/4
-      elseif self:getangle() > 0 then
+      elseif dir == 'down' then
         return angle > math.pi/4 and angle < 3*math.pi/4
-      else
+      elseif dir == 'up' then
         return angle < -math.pi/4 and angle > -3*math.pi/4
       end
     else

@@ -90,10 +90,10 @@ function factories.blood (p, dir)
   p:setSizes(.5,math.log(blinglevel)/10)
   p:setSizeVariation(1)
   p:setDirection(math.atan2(dir.y, dir.x))
-  p:setSpread(math.pi/4)
-  p:setSpeed(256,256)
+  p:setSpread(2*math.pi)
+  p:setSpeed(128,128)
   p:setRadialAcceleration(0, 0)
-  p:setLinearAcceleration(0, 0, 0, 0)
+  p:setLinearAcceleration(0, 400, 0, 400)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(.5)
   return 'alpha'

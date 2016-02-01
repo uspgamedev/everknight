@@ -52,7 +52,7 @@ function Monster:instance (obj, spd, kind, color, power)
         echodelay = echodelay - 1
       else
         local range = math.min(#ECHOS, 1+math.floor(blinglevel/10))
-        local ef = EFFECTS.new(ECHOS[love.math.random(range)], -1*echodir)
+        local ef = EFFECTS.new(ECHOS[love.math.random(range)], echodir)
         if ef then
           ef.pos = self:getpos() + vec2:new{0,-.5}
         end

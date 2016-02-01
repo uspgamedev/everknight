@@ -30,7 +30,7 @@ function Monster:instance (obj, spd, kind, color, power)
   end
 
   function obj:ondamage (power, pos)
-    local dmg = (10 + love.math.random(5,10)) * blinglevel * 15
+    local dmg = (love.math.random(5,10)) * blinglevel * 15
     local posx, posy = self.getpos():unpack()
     love.audio.play(SOUNDS.hit)
     echoeffect = 1+math.floor(math.log(blinglevel))

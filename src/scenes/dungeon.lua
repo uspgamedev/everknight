@@ -19,7 +19,7 @@ local torchstate = 1
 
 blinglevel = 1
 blingfactor = 1.5
-miniblingfactor = 1.5 ^ 0.25
+miniblingfactor = blingfactor ^ 0.25
 
 function MOREBLING ()
   blinglevel = blinglevel * blingfactor

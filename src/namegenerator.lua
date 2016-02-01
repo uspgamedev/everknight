@@ -445,7 +445,7 @@ local EXTRA_EFFECT = {
 }
 
 function generator.generate(weaponname, blinglevel)
-  local iterations = 1
+  local iterations = 0
   -- local numpref = 0
   local numsuf = 0
   local blingleft = blinglevel/4
@@ -457,19 +457,17 @@ function generator.generate(weaponname, blinglevel)
   -- --print (weaponname)
   -- local name = prefixes[love.math.random(#prefixes)].." "..weaponname.." Of "..suffixes[love.math.random(#suffixes)]
   -- --print(name)
-  if iterations > 1 then
-    for i = 1,iterations do
-      if love.math.random() > 0.5 then
-        --prefix
-        name = prefixes[love.math.random(#prefixes)].." "..name
-      elseif numsuf == 0 then
-        name = name.." Of "..suffixes[love.math.random(#suffixes)]
-        numsuf = 1
-      else 
-        name = name.." And "..suffixes[love.math.random(#suffixes)]
-      end
-      -- name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
+  for i = 1,iterations do
+    if love.math.random() > 0.5 then
+      --prefix
+      name = prefixes[love.math.random(#prefixes)].." "..name
+    elseif numsuf == 0 then
+      name = name.." Of "..suffixes[love.math.random(#suffixes)]
+      numsuf = 1
+    else 
+      name = name.." And "..suffixes[love.math.random(#suffixes)]
     end
+    -- name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
   end
   return name, EXTRA_EFFECT[love.math.random(#EXTRA_EFFECT)]
 

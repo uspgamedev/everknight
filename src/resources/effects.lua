@@ -4,6 +4,7 @@ local sprites = require 'resources.sprites'
 local numparticles = 32
 local effects = {}
 local standbyparticles = {}
+local min = math.min
 
 function effects.reset()
   if numparticles then
@@ -107,18 +108,21 @@ end
 function factories.vortex (p)
   p:reset()
   p:setTexture(sprites.particle1)
-  p:setParticleLifetime(.8)
-  p:setBufferSize(32)
-  p:setEmissionRate(24)
-  p:setSizes(1, 1+math.min(blinglevel,2), .5)
+  p:setParticleLifetime(.3)
+  p:setBufferSize(64)
+  p:setEmissionRate(16 + 16*min(blinglevel,3))
+  p:setSizes(1, 1+min(blinglevel,3), .5)
   p:setSizeVariation(1)
   p:setSpread(2*math.pi)
-  p:setSpeed(16, 16)
-  p:setTangentialAcceleration(80, 150)
-  p:setColors(50, 50, 50, 250)
+  p:setAreaSpread('normal', 2*min(blinglevel,3), 2*min(blinglevel,3))
+  p:setSpeed(0, 0)
+  p:setLinearAcceleration(0, 0, 0, 0)
+  p:setRadialAcceleration(-600, -600)
+  p:setTangentialAcceleration(800, 800)
+  p:setColors(0, 0, 0, 200)
   p:setEmitterLifetime(-1)
   p:start()
-  return 'subtract'
+  return 'alpha'
 end
 
 function factories.shock (p)

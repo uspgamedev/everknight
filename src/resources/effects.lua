@@ -83,17 +83,17 @@ end
 
 function factories.blood (p)
   p:reset()
-  p:setTexture(sprites.particle3)
-  p:setParticleLifetime(0.6, math.min(1.0, blinglevel))
-  p:setEmissionRate(40)
-  p:setBufferSize(16)
-  p:setSizes(1,1.5)
+  p:setTexture(sphere)
+  p:setParticleLifetime(math.min(1.0, blinglevel), 2)
+  p:setEmissionRate(64)
+  p:setBufferSize(8)
+  p:setSizes(.5,math.log(blinglevel)/10)
   p:setSizeVariation(1)
   p:setSpread(2*math.pi)
-  p:setSpeed(128,128)
-  p:setLinearAcceleration(0, 400, 0, 400)
+  p:setSpeed(64,64)
+  p:setLinearAcceleration(0, 1000, 0, 1000)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
-  p:setEmitterLifetime(.2)
+  p:setEmitterLifetime(.3)
   return 'alpha'
 end
 
@@ -204,16 +204,16 @@ end
 function factories.explo (p)
   p:reset()
   p:setTexture(sprites.particle3)
-  p:setParticleLifetime(1.2)
-  p:setEmissionRate(32)
-  p:setBufferSize(64)
-  p:setSizes(1+math.min(blinglevel,2), 1, .5)
+  p:setParticleLifetime(1)
+  p:setEmissionRate(64)
+  p:setBufferSize(16)
+  p:setSizes(2, blinglevel^.5)
   p:setSizeVariation(.5)
   p:setSpread(2*math.pi)
-  p:setSpeed(64, 96)
+  p:setSpeed(32, 64)
   p:setAreaSpread('normal', 2, 2)
   p:setColors(255, 150, 100, 150, 50, 50, 50, 255, 0, 0, 0, 0)
-  p:setEmitterLifetime(.2)
+  p:setEmitterLifetime(1)
 end
 
 function factories.puffs (p)

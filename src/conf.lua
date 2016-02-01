@@ -5,7 +5,7 @@ function love.conf (t)
   t.window.icon = "assets/icon.png"
   t.window.width = 1024
   t.window.height = 768
-  t.window.fullscreen = true
+  t.window.fullscreen = false
   t.window.fullscreentype = 'exclusive'
 end
 

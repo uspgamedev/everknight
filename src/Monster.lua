@@ -85,9 +85,9 @@ function Monster:instance (obj, spd, kind, color, power)
     local sx = (self:facedir() == 'right') and 1 or -1
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 36, 9, 16)
-    local color = { COLOR(50, 50 + self:getinvincible()*70, color + (power-1)*70) }
-    color[4] = dying and dying/20*255 or 255
-    g.setColor(color)
+    local xcolor = { COLOR(50, 50 + self:getinvincible()*70, color + (power-1)*35) }
+    xcolor[4] = dying and dying/20*255 or 255
+    g.setColor(xcolor)
     g.draw(sprite.img, sprite.quads[i], 0, 0, 0, sx, 1, sprite.hotspot.x, sprite.hotspot.y)
   end
 

@@ -6,6 +6,8 @@ local effects = {}
 local standbyparticles = {}
 local min = math.min
 
+local sphere
+
 function effects.reset()
   if numparticles then
     --DO STUFF
@@ -21,6 +23,17 @@ function effects.reset()
         particle:stop()
       end
     end
+  end
+  if not sphere then
+    local data = love.image.newImageData(16,16)
+    local center = vec2:new{8,8}
+    data:mapPixel(function (x, y)
+      local d = vec2:new{x,y} - center
+      d = (d*d)/64
+      d = math.max(0, 1-d)
+      return 255, 255, 255, d*255
+    end)
+    sphere = love.graphics.newImage(data)
   end
 end
 
@@ -123,6 +136,26 @@ function factories.vortex (p)
   p:setEmitterLifetime(-1)
   p:start()
   return 'alpha'
+end
+
+function factories.wisps (p)
+  p:reset()
+  p:setTexture(sphere)
+  p:setParticleLifetime(1)
+  p:setBufferSize(16)
+  p:setEmissionRate(8)
+  p:setSizes(.5)
+  p:setSizeVariation(0)
+  p:setSpread(2*math.pi)
+  p:setAreaSpread('uniform', 16*min(blinglevel,2), 16*min(blinglevel,2))
+  p:setSpeed(0, 0)
+  p:setRelativeRotation(true)
+  p:setLinearAcceleration(0, 0, 0, 0)
+  p:setRadialAcceleration(-8000)
+  p:setTangentialAcceleration(500)
+  p:setColors(100, 255, 255, 200)
+  p:setEmitterLifetime(-1)
+  p:start()
 end
 
 function factories.shock (p)

@@ -84,9 +84,8 @@ function Player:instance (obj)
     return weapon:lower()
   end
 
-  function obj:setweapon (set, bling, effect)
+  function obj:setweapon (set, bling, extras)
     if LOADED then
-      -- --print "aeho"
       love.audio.play(SOUNDS.get)
       LOADED = true
     end
@@ -95,8 +94,9 @@ function Player:instance (obj)
     for _,e in ipairs(effects) do
       e.particle:stop()
     end
+    extras = extras or {}
     effects = {}
-    if wpnlevel >= 4 then
+    for i,effect in ipairs(extras) do
       local neweffect = EFFECTS.new(effect) 
       if neweffect then
         table.insert(effects, neweffect)

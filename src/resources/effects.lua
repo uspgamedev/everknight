@@ -58,6 +58,21 @@ function effects.new (which)
   local i, p = next(standbyparticles)
   if p then
     table.remove(standbyparticles, i)
+    p:reset()
+    p:setParticleLifetime(1)
+    p:setBufferSize(16)
+    p:setEmissionRate(8)
+    p:setSizes(1)
+    p:setSizeVariation(0)
+    p:setSpread(2*math.pi)
+    p:setAreaSpread('none')
+    p:setSpeed(0, 0)
+    p:setRelativeRotation(false)
+    p:setLinearAcceleration(0, 0, 0, 0)
+    p:setRadialAcceleration(0, 0)
+    p:setTangentialAcceleration(0, 0)
+    p:setColors(255, 255, 255, 255)
+    p:setEmitterLifetime(1)
     local blend = factories[which] (p)
     p:start()
     local ef = {particle = p, pos = vec2:new{}, blend = blend or 'add'}
@@ -79,7 +94,6 @@ function factories.blood (p)
   p:setLinearAcceleration(0, 400, 0, 400)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(.2)
-  p:start()
   return 'alpha'
 end
 
@@ -98,7 +112,6 @@ function factories.bleeding (p)
   p:setLinearAcceleration(0, 600, 0, 1200)
   p:setColors(120, 10, 10, 255, 0, 0, 0, 0) -- Fade to transparency.
   p:setEmitterLifetime(-1)
-  p:start()
   return 'alpha'
 end
 
@@ -115,7 +128,6 @@ function factories.sparkle (p)
   p:setLinearAcceleration(0, -80, 0, -80)
   p:setColors(255, 255, 255, 255)
   p:setEmitterLifetime(-1)
-  p:start()
 end
 
 function factories.vortex (p)
@@ -134,7 +146,6 @@ function factories.vortex (p)
   p:setTangentialAcceleration(800, 800)
   p:setColors(0, 0, 0, 200)
   p:setEmitterLifetime(-1)
-  p:start()
   return 'alpha'
 end
 
@@ -155,7 +166,6 @@ function factories.wisps (p)
   p:setTangentialAcceleration(500)
   p:setColors(100, 255, 255, 200)
   p:setEmitterLifetime(-1)
-  p:start()
 end
 
 function factories.shock (p)
@@ -172,7 +182,6 @@ function factories.shock (p)
   p:setLinearAcceleration(0, 0, 0, 0)
   p:setColors(100, 100, 255, 200, 255, 255, 255, 0)
   p:setEmitterLifetime(-1)
-  p:start()
 end
 
 function factories.flame (p)
@@ -190,7 +199,6 @@ function factories.flame (p)
   p:setLinearAcceleration(0, -80, 0, -150)
   p:setColors(255, 150, 100, 150, 50, 50, 50, 255, 0, 0, 0, 0)
   p:setEmitterLifetime(-1)
-  p:start()
 end
 
 function factories.explo (p)
@@ -206,7 +214,6 @@ function factories.explo (p)
   p:setAreaSpread('normal', 2, 2)
   p:setColors(255, 150, 100, 150, 50, 50, 50, 255, 0, 0, 0, 0)
   p:setEmitterLifetime(.2)
-  p:start()
 end
 
 function factories.puffs (p)
@@ -225,7 +232,6 @@ function factories.puffs (p)
   p:setLinearAcceleration(0, 80, 0, 100)
   p:setColors(100, 150, 240, 100, 255, 255, 255, 0)
   p:setEmitterLifetime(-1)
-  p:start()
 end
 
 function effects.draw (g)

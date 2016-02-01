@@ -16,6 +16,7 @@ function Monster:instance (obj, spd, kind, color, power)
 
   local echoeffect = 0
   local echodelay = 0
+  local echodir
 
   local dying
 
@@ -34,6 +35,8 @@ function Monster:instance (obj, spd, kind, color, power)
     local posx, posy = self.getpos():unpack()
     love.audio.play(SOUNDS.hit)
     echoeffect = 1+math.floor(math.log(blinglevel)/10)
+    echodir = pos - self:getpos()
+    echodir = echodir:normalized()
     table.insert(displaynumbers,newnum(dmg, {posx, posy - 1}))
   end
 
@@ -49,7 +52,7 @@ function Monster:instance (obj, spd, kind, color, power)
         echodelay = echodelay - 1
       else
         local range = math.min(#ECHOS, 1+math.floor(blinglevel/10))
-        local ef = EFFECTS.new(ECHOS[love.math.random(range)])
+        local ef = EFFECTS.new(ECHOS[love.math.random(range)], -1*echodir)
         if ef then
           ef.pos = self:getpos() + vec2:new{0,-.5}
         end

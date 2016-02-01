@@ -54,7 +54,7 @@ end
 
 local factories = {}
 
-function effects.new (which)
+function effects.new (which, ...)
   local i, p = next(standbyparticles)
   if p then
     table.remove(standbyparticles, i)
@@ -73,7 +73,7 @@ function effects.new (which)
     p:setTangentialAcceleration(0, 0)
     p:setColors(255, 255, 255, 255)
     p:setEmitterLifetime(1)
-    local blend = factories[which] (p)
+    local blend = factories[which] (p, ...)
     p:start()
     local ef = {particle = p, pos = vec2:new{}, blend = blend or 'add'}
     table.insert(effects, ef)
@@ -81,7 +81,7 @@ function effects.new (which)
   end
 end
 
-function factories.blood (p)
+function factories.blood (p, dir)
   p:reset()
   p:setTexture(sphere)
   p:setParticleLifetime(math.min(1.0, blinglevel), 2)
@@ -89,11 +89,13 @@ function factories.blood (p)
   p:setBufferSize(8)
   p:setSizes(.5,math.log(blinglevel)/10)
   p:setSizeVariation(1)
-  p:setSpread(2*math.pi)
-  p:setSpeed(64,64)
-  p:setLinearAcceleration(0, 1000, 0, 1000)
+  p:setDirection(math.atan2(dir.y, dir.x))
+  p:setSpread(math.pi/4)
+  p:setSpeed(256,256)
+  p:setRadialAcceleration(0, 0)
+  p:setLinearAcceleration(0, 0, 0, 0)
   p:setColors(120, 0, 0, 255, 0, 0, 0, 0) -- Fade to transparency.
-  p:setEmitterLifetime(.3)
+  p:setEmitterLifetime(.5)
   return 'alpha'
 end
 

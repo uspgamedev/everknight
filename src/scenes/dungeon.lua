@@ -479,7 +479,7 @@ local function drawhud(g)
   notredness = (255/10) * player:gethealth()
   -- g.setColor(255, notredness, notredness) 
   drawtext(g, 1, 2, 5*64, blingecho > 0, "%d/%d",
-           math.floor(player:gethealth() * blinglevel * 15), blinglevel*15*10)
+           math.floor(player:gethealth() * blinglevel * 1.5), blinglevel*1.5*10)
   notredness = nil
   g.pop()
   drawtext(g, 1.65, 15, 9*64, TIMERS.newweapon > 0, "%s",

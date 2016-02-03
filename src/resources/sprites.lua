@@ -182,6 +182,7 @@ sprites.axeicon = {
 sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
 sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
 sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
+sprites.particle4 = love.graphics.newImage("assets/particle_03.png")
 
 sprites.splash = {
   img = splashimg,

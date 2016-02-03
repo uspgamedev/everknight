@@ -512,7 +512,7 @@ function generator.generate(weaponname, blinglevel)
     -- name = prefixes[love.math.random(#prefixes)].." "..name.." And "..suffixes[love.math.random(#suffixes)]
   end
   local extras = {}
-  for i=1,math.floor(blinglevel/16) do
+  for i=1,math.floor(math.log(blinglevel)/2.5) do
     table.insert(extras, EXTRA_EFFECT[love.math.random(#EXTRA_EFFECT)])
   end
   return name, extras

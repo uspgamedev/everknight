@@ -162,10 +162,11 @@ local function updateroom()
     local playerpos = vec2:new(playerstartingpos[lastentry])
     local spawnpos
     repeat
-      spawnpos = vec2:new{1.5,1.5} + vec2:new{love.math.random(W-2),
+      spawnpos = vec2:new{1,1} + vec2:new{love.math.random(W-2),
                                               love.math.random(H-2)}
-    until (playerpos - spawnpos):size() > 4
-    newmonster:setpos(spawnpos)
+    until (playerpos - spawnpos):size() > 4 and
+          map[spawnpos.y][spawnpos.x] == 'FLOOR'
+    newmonster:setpos(spawnpos + vec2:new{.5,.5})
     newmonster:load()
     table.insert(activeobjects, newmonster)
   end

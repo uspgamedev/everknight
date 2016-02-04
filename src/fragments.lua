@@ -4,42 +4,34 @@ local fragments = {}
 
 local yield = coroutine.yield
 local rand = love.math.random
+local shader
 
-local function fragment_routine (self, pos, level)
-  self.frags = {}
-  for i = 1,math.max(3,level) do
+local function fragment_routine (self, pos, move, level)
+  -- Personal delay
+  for i=1,self.delay do yield() end
+  do -- init
+    self.pos = pos:clone()
     local dir = rand()*math.pi*2
-    self.frags[i] = {
-      pos = pos:clone(),
-      target = pos + (.7+.5*rand())*vec2:new{math.cos(dir), math.sin(dir)},
-      phase = rand()*math.pi*2,
-      delay1 = rand(1,10),
-      delay2 = rand(1,15),
-      t1 = 0, t2 = 0
-    }
+    self.target = pos + vec2:new{math.cos(dir), math.sin(dir)}
+    dir = dir + math.pi/3
+    move = move:normalized()/10
+    self.spd = move + .05*vec2:new{math.cos(dir), math.sin(dir)}
   end
-  yield()
-  for i=20,1,-1 do
-    for j,frag in ipairs(self.frags) do
-      if frag.t1 < frag.delay1 then
-        frag.t1 = frag.t1 + 1
-      else
-        local diff = frag.target - frag.pos
-        frag.pos = frag.pos + diff/15
-      end
+  -- Follow target
+  for i=(60+rand(math.log(level))),1,-1 do
+    if i < 40 then
+      self.target = self.target + (player:getpos() - self.target)/i
     end
+    local dist = (self.target - self.pos)
+    local len = dist:size()
+    self.spd = self.spd + .02*dist/math.max(.01,len)
+    self.pos = self.pos + self.spd
     yield()
   end
   for i=30,1,-1 do
-    for j,frag in ipairs(self.frags) do
-      if frag.t2 < frag.delay2 then
-        frag.t2 = frag.t2 + 1
-      else
-        local target = player:getpos()
-        local diff = (target - frag.pos)
-        frag.pos = frag.pos + diff/i
-      end
-    end
+    local accel = (player:getpos() - self.pos - self.spd*i)/i^2
+    self.spd = self.spd + accel
+    self.pos = self.pos + self.spd
     yield()
   end
   return true
@@ -47,14 +39,36 @@ end
 
 function fragments.load ()
   sprites = require 'resources.sprites'
+  if not shader then
+    shader = love.graphics.newShader [[
+      vec4 effect(vec4 color, Image tex, vec2 vtx, vec2 pos) {
+        float dist = distance(vtx, vec2(.5, .5));
+        float alpha = step(.5, 1.f-dist)*.5f;
+        float flag = step(.6, 1.f-dist);
+        float value = flag*(.7f - dist) + (1.f-flag)*1.f;
+        return color*vec4(value, value, value, alpha);
+      }
+    ]]
+  end
 end
 
-function fragments.new (pos, level)
-  local fragment = {
-    routine = coroutine.wrap(fragment_routine),
-  }
-  fragment:routine(pos, math.floor(level))
-  table.insert(fragments, fragment)
+function fragments.new (pos, move, level)
+  level = math.max(3, math.floor(level))
+  local power = 1
+  while level > 0 do
+    local n = level%10
+    for i=1,n do
+      local fragment = {
+        routine = coroutine.wrap(fragment_routine),
+        power = power,
+        delay = rand(15)
+      }
+      fragment:routine(pos, move, power)
+      table.insert(fragments, fragment)
+    end
+    power = power + 1
+    level = math.floor(level/10)
+  end
 end
 
 function fragments.update ()
@@ -67,16 +81,20 @@ end
 
 function fragments.draw (g)
   local sphere = sprites.sphere
-  g.setColor(255, 255, 255, 255)
+  g.setShader(shader)
   for _,fragment in ipairs(fragments) do
-    for _,frag in ipairs(fragment.frags) do
+    if fragment.pos then
       g.push()
-      g.translate(frag.pos:unpack())
+      g.translate(fragment.pos:unpack())
       g.scale(1/64, 1/64)
-      g.draw(sphere.img, 0, 0, 0, 1, 1, sphere.hotspot.x, sphere.hotspot.y)
+      g.setColor(HSL(50 + fragment.power*80, 200, 200))
+      g.draw(sphere.img, 0, 0, 0, fragment.power, fragment.power,
+                                  sphere.hotspot.x, sphere.hotspot.y)
       g.pop()
     end
   end
+  g.setShader()
+  g.setColor(255, 255, 255, 255)
 end
 
 return fragments

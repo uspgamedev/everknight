@@ -27,7 +27,8 @@ function Character:instance (obj, spd)
   end
   
   function obj:getmove ()
-    local move = push + (moving and spd or 0)*vec2:new{ math.cos(angle), math.sin(angle) }
+    local move = push + (moving and spd or 0)*vec2:new{ math.cos(angle),
+                                                        math.sin(angle) }
     push = push*0.8
     if math.abs(push.x) < .1 or math.abs(push.y) < .1 then
       push = vec2:new{}

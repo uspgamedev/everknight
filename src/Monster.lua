@@ -66,10 +66,11 @@ function Monster:instance (obj, spd, kind, color, power)
     if self:isdead() then
       if dying then
         dying = dying - 1
-        if dying <= 0 then
+        if dying <= 8 then
           fragments.new(self:getpos():clone(), blinglevel)
           return true
         end
+        return dying <= 0
       else
         love.audio.play(SOUNDS.die)
         money = money + 10 * blinglevel

@@ -12,7 +12,7 @@ local function fragment_routine (self, pos, move, level)
   do -- init
     self.pos = pos:clone()
     local dir = rand()*math.pi*2
-    self.target = pos + vec2:new{math.cos(dir), math.sin(dir)}
+    self.target = pos + (1+self.power/3)*vec2:new{math.cos(dir), math.sin(dir)}
     dir = dir + math.pi/3
     move = move:normalized()/10
     self.spd = move + .05*vec2:new{math.cos(dir), math.sin(dir)}
@@ -44,7 +44,7 @@ function fragments.load ()
       vec4 effect(vec4 color, Image tex, vec2 vtx, vec2 pos) {
         float dist = distance(vtx, vec2(.5, .5));
         float alpha = step(.5, 1.f-dist)*.5f;
-        float flag = step(.6, 1.f-dist);
+        float flag = smoothstep(.55, .5, 1.f-dist);
         float value = flag*(.7f - dist) + (1.f-flag)*1.f;
         return color*vec4(value, value, value, alpha);
       }
@@ -87,8 +87,9 @@ function fragments.draw (g)
       g.push()
       g.translate(fragment.pos:unpack())
       g.scale(1/64, 1/64)
+      local scale = math.sqrt(fragment.power)
       g.setColor(HSL(50 + fragment.power*80, 200, 200))
-      g.draw(sphere.img, 0, 0, 0, fragment.power, fragment.power,
+      g.draw(sphere.img, 0, 0, 0, scale, scale,
                                   sphere.hotspot.x, sphere.hotspot.y)
       g.pop()
     end

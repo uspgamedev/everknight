@@ -1,6 +1,7 @@
 
 require 'color'
 local Player = require 'Player'
+local fragments = require 'fragments'
 
 local dungeon = {}
 
@@ -214,6 +215,7 @@ function dungeon.load ()
   player:setpos(vec2:new{2.5,H/2})
   updateroom()
   weaponname = "Sord"
+  fragments.load()
 end
 
 local function validpos (pos)
@@ -282,6 +284,7 @@ function dungeon.update ()
 
 
   EFFECTS.update()
+  fragments.update()
 
   ---objects
   todelete = {}
@@ -360,15 +363,15 @@ function updatetorch()
 end
 
 -- Uncomment for MOAR BLING
---function dungeon.keypressed (key)
---  if key == 'q' then
---    MOREBLING()
---  elseif key == 'w' then
---    local base = baseweapons[love.math.random(#baseweapons)]
---    weaponname, extra = namegen(base, blinglevel)
---    player:setweapon(base, blinglevel, extra)
---  end
---end
+function dungeon.keypressed (key)
+  if key == 'q' then
+    MOREBLING()
+  elseif key == 'w' then
+    local base = baseweapons[love.math.random(#baseweapons)]
+    weaponname, extra = namegen(base, blinglevel)
+    player:setweapon(base, blinglevel, extra)
+  end
+end
 
 
 ----
@@ -576,11 +579,14 @@ function dungeon.draw ()
   drawwalls(g, H-1, W-1, 1, 1)
   drawwalls(g, H, 1, 1, W)
 
+  -- draw fragments
+  fragments.draw(g)
+
   --draw numbers
   drawnum(g)
   g.pop()
 
-    --draw hud
+  --draw hud
   g.push()
   g.scale(32, 32)
   g.translate(0, .5)

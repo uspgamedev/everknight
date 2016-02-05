@@ -9,6 +9,7 @@ local function poliphonic (path, num, vol)
   end
   local nextidx = 1
   function sound:play ()
+    sound[nextidx]:stop()
     sound[nextidx]:play()
     nextidx = (nextidx % num) + 1
   end

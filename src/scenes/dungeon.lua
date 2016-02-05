@@ -32,6 +32,11 @@ function SOMEBLING ()
   TIMERS.bling = 60
 end
 
+function BLINGFRAG (frag)
+  blinglevel = blinglevel * (miniblingfactor^frag)
+  TIMERS.bling = 60
+end
+
 screenshake = {
   intensity = 0,
   duration = 0,

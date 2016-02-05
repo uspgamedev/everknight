@@ -34,6 +34,7 @@ local function fragment_routine (self, pos, move, level)
     self.pos = self.pos + self.spd
     yield()
   end
+  BLINGFRAG(self.bling)
   return true
 end
 
@@ -61,6 +62,7 @@ function fragments.new (pos, move, level)
       local fragment = {
         routine = coroutine.wrap(fragment_routine),
         power = power,
+        bling = power/level,
         delay = rand(15)
       }
       fragment:routine(pos, move, power)

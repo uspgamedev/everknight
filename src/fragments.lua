@@ -93,7 +93,7 @@ function fragments.draw (g)
       g.translate(fragment.pos:unpack())
       g.scale(1/64, 1/64)
       local scale = math.sqrt(fragment.power)
-      g.setColor(HSL(50 + fragment.power*80, 200, 200))
+      g.setColor(HSL(90 + fragment.power*40, 200 + fragment.power*5, 200))
       g.draw(sphere.img, 0, 0, 0, scale, scale,
                                   sphere.hotspot.x, sphere.hotspot.y)
       g.pop()

@@ -35,6 +35,6 @@ end
 
 
 function WPNCOLOR (wpnlevel)
-  return HSL(wpnlevel*40, 40+wpnlevel*10, 100+wpnlevel*10)
+  return HSL(wpnlevel*40, 40+math.log(wpnlevel)^2, 100+math.log(wpnlevel))
 end
 

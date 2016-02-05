@@ -462,18 +462,19 @@ local function drawtext (g, i, j, w, useup, fmt, ...)
   g.push()
   g.translate(j-1, i-1)
   g.scale(1/32, 1/32)
-  if not notredness then
-    g.setColor(255, 255, 255, 255)
-  else
+  if useup > 0 then
+    g.setColor(HSL(useup/60*255, 255, 150))
+  elseif notredness then
     g.setColor(255, notredness, notredness, 255)
+  else
+    g.setColor(255, 255, 255, 255)
   end
   g.setFont(FONTS[2])
   local str = fmt:format(...)
   g.printf(str, 8, 12, w-16, 'left')
   if useup > 0 then
     local scale = 1 - math.min(1,((60-useup)/20)^2)
-    local color = vec2:new(up.color):clone()
-    g.setColor((color):unpack())
+    g.setColor(up.color)
     g.draw(up.img, up.quad, 8 + FONTS[2]:getWidth(str) + 16, 16, 0,
            1+2*scale, 1+2*scale, up.hotspot.x, up.hotspot.y)
   end

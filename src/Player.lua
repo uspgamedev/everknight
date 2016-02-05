@@ -200,7 +200,11 @@ function Player:instance (obj)
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 16, 4, 16)
     -- avatar
-    g.setColor(HSL(20, 100, 120 + self:getinvincible()*100, 255))
+    if TIMERS.fragcollect > 0 then
+      g.setColor(HSL(love.math.random()*255, 255, 150))
+    else
+      g.setColor(HSL(20, 100, 120 + self:getinvincible()*100, 255))
+    end
     local sx = (self:facedir() == 'right') and 1 or -1
     local sprite = sprites.hero
     g.draw(sprite.img, sprite.quads[attacking > 0 and 3 or i], 0, 0, 0,

@@ -37,6 +37,7 @@ local function fragment_routine (self, pos, move, level)
   end
   BLINGFRAG(self.bling)
   SOUNDS.grow:play()
+  TIMERS.fragcollect = 10
   return true
 end
 

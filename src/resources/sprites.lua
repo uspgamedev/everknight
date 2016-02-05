@@ -158,7 +158,8 @@ sprites.def = {
 sprites.up = {
   img = img,
   quad = newQuad(5.5*64, 2.5*64, 16, 16, img:getDimensions()),
-  color = {80, 180, 80, 255}
+  color = {80, 180, 80, 255},
+  hotspot = vec2:new{8,8}
 }
 
 sprites.swordicon = {
@@ -183,6 +184,21 @@ sprites.particle1 = love.graphics.newImage("assets/particle_00.png")
 sprites.particle2 = love.graphics.newImage("assets/particle_01.png")
 sprites.particle3 = love.graphics.newImage("assets/particle_02.png")
 sprites.particle4 = love.graphics.newImage("assets/particle_03.png")
+
+sprites.sphere = {
+  img = (function ()
+    local data = love.image.newImageData(16,16)
+    local center = vec2:new{8,8}
+    data:mapPixel(function (x, y)
+      local d = vec2:new{x,y} - center
+      d = (d*d)/64
+      d = math.max(0, 1-d)
+      return 255, 255, 255, d*255
+    end)
+    return love.graphics.newImage(data)
+  end) (),
+  hotspot = vec2:new{8,8}
+}
 
 sprites.splash = {
   img = splashimg,

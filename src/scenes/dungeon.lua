@@ -1,6 +1,7 @@
 
 require 'color'
 local Player = require 'Player'
+local fragments = require 'fragments'
 
 local dungeon = {}
 
@@ -28,6 +29,11 @@ end
 
 function SOMEBLING ()
   blinglevel = blinglevel * miniblingfactor
+  TIMERS.bling = 60
+end
+
+function BLINGFRAG (frag)
+  blinglevel = blinglevel * (miniblingfactor^frag)
   TIMERS.bling = 60
 end
 
@@ -214,6 +220,7 @@ function dungeon.load ()
   player:setpos(vec2:new{2.5,H/2})
   updateroom()
   weaponname = "Sord"
+  fragments.load()
 end
 
 local function validpos (pos)
@@ -282,6 +289,7 @@ function dungeon.update ()
 
 
   EFFECTS.update()
+  fragments.update()
 
   ---objects
   todelete = {}
@@ -454,17 +462,21 @@ local function drawtext (g, i, j, w, useup, fmt, ...)
   g.push()
   g.translate(j-1, i-1)
   g.scale(1/32, 1/32)
-  if not notredness then
-    g.setColor(255, 255, 255, 255)
-  else
+  if useup > 0 then
+    g.setColor(HSL(useup/60*255, 255, 150))
+  elseif notredness then
     g.setColor(255, notredness, notredness, 255)
+  else
+    g.setColor(255, 255, 255, 255)
   end
   g.setFont(FONTS[2])
   local str = fmt:format(...)
   g.printf(str, 8, 12, w-16, 'left')
-  if useup then
+  if useup > 0 then
+    local scale = 1 - math.min(1,((60-useup)/20)^2)
     g.setColor(up.color)
-    g.draw(up.img, up.quad, 8 + FONTS[2]:getWidth(str) + 8, 8)
+    g.draw(up.img, up.quad, 8 + FONTS[2]:getWidth(str) + 16, 16, 0,
+           1+2*scale, 1+2*scale, up.hotspot.x, up.hotspot.y)
   end
   g.pop()
 end
@@ -479,17 +491,17 @@ local function drawhud(g)
   g.push()
   notredness = (255/10) * player:gethealth()
   -- g.setColor(255, notredness, notredness) 
-  drawtext(g, 1, 2, 5*64, blingecho > 0, "%d/%d",
+  drawtext(g, 1, 2, 5*64, blingecho, "%d/%d",
            math.floor(player:gethealth() * blinglevel * 1.5), blinglevel*1.5*10)
   notredness = nil
   g.pop()
-  drawtext(g, 1.65, 15, 9*64, TIMERS.newweapon > 0, "%s",
+  drawtext(g, 1.65, 15, 9*64, TIMERS.newweapon, "%s",
            weaponname)
-  drawtext(g, 1, 15, 5*64, blingecho > 0, "%d",
+  drawtext(g, 1, 15, 5*64, blingecho, "%d",
            math.floor(10 * blinglevel))
-  drawtext(g, 1, 25, 5*64, blingecho > 0, "%d",
+  drawtext(g, 1, 25, 5*64, blingecho, "%d",
            math.floor(8 * blinglevel))
-  drawtext(g, 2, 2, 5*64, TIMERS.gotmoney > 0, "$ %d",
+  drawtext(g, 2, 2, 5*64, TIMERS.gotmoney, "$ %d",
            math.floor(money))
 end
 
@@ -576,11 +588,14 @@ function dungeon.draw ()
   drawwalls(g, H-1, W-1, 1, 1)
   drawwalls(g, H, 1, 1, W)
 
+  -- draw fragments
+  fragments.draw(g)
+
   --draw numbers
   drawnum(g)
   g.pop()
 
-    --draw hud
+  --draw hud
   g.push()
   g.scale(32, 32)
   g.translate(0, .5)

@@ -368,15 +368,15 @@ function updatetorch()
 end
 
 -- Uncomment for MOAR BLING
-function dungeon.keypressed (key)
-  if key == 'q' then
-    MOREBLING()
-  elseif key == 'w' then
-    local base = baseweapons[love.math.random(#baseweapons)]
-    weaponname, extra = namegen(base, blinglevel)
-    player:setweapon(base, blinglevel, extra)
-  end
-end
+--function dungeon.keypressed (key)
+--  if key == 'q' then
+--    MOREBLING()
+--  elseif key == 'w' then
+--    local base = baseweapons[love.math.random(#baseweapons)]
+--    weaponname, extra = namegen(base, blinglevel)
+--    player:setweapon(base, blinglevel, extra)
+--  end
+--end
 
 
 ----

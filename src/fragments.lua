@@ -9,6 +9,7 @@ local shader
 local function fragment_routine (self, pos, move, level)
   -- Personal delay
   for i=1,self.delay do yield() end
+  SOUNDS.shoot:play()
   do -- init
     self.pos = pos:clone()
     local dir = rand()*math.pi*2

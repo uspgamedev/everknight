@@ -35,6 +35,7 @@ local function fragment_routine (self, pos, move, level)
     yield()
   end
   BLINGFRAG(self.bling)
+  SOUNDS.grow:play()
   return true
 end
 

@@ -158,7 +158,8 @@ sprites.def = {
 sprites.up = {
   img = img,
   quad = newQuad(5.5*64, 2.5*64, 16, 16, img:getDimensions()),
-  color = {80, 180, 80, 255}
+  color = {80, 180, 80, 255},
+  hotspot = vec2:new{8,8}
 }
 
 sprites.swordicon = {

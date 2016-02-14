@@ -215,10 +215,12 @@ function Player:instance (obj)
     -- avatar direction
     local sx = (self:facedir() == 'right') and 1 or -1
 
+
+    if attacking > 0 then print(attacking, math.floor( -attacking/2.5 + 4 )) end
     -- avatar render
     local sprite = sprites.hero
     g.draw(
-      sprite.img, sprite.quads[attacking > 0 and 8 or i],
+      sprite.img, sprite.quads[attacking > 0 and 8 + math.floor( -attacking/2.5 + 4 ) or i],
       0, 0, 0,
       sx, 1,
       sprite.hotspot.x, sprite.hotspot.y)

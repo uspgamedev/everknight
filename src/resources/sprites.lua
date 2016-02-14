@@ -18,9 +18,12 @@ sprites.floor = {
 sprites.wall = {
   img = img,
   quads = {
-    newQuad(0, 0, 64, 64, img:getDimensions()),
-    newQuad(64, 0, 64, 64, img:getDimensions()),
-    newQuad(64, 64, 64+16, 64, img:getDimensions()),
+    newQuad(0*64, 0, 64, 64, img:getDimensions()), -- ceiling
+    newQuad(1*64, 0, 64, 64, img:getDimensions()), -- walls
+    newQuad(2*64, 0, 64, 64, img:getDimensions()),
+    newQuad(3*64, 0, 64, 64, img:getDimensions()),
+    newQuad(4*64, 0, 64, 64, img:getDimensions()), -- /walls
+    newQuad(1*64, 1*64, 64+16, 64, img:getDimensions()) -- wall thingy
   }
 }
 
@@ -96,8 +99,8 @@ sprites.Mace = {
 
 sprites.slash = {
   img = img,
-  quad = newQuad(2*64, 0, 128, 128, img:getDimensions()),
-  hotspot = vec2:new{84, 100}
+  quad = newQuad(2*64, 64, 128, 64, img:getDimensions()),
+  hotspot = vec2:new{84, 36}
 }
 
 sprites.slime = {

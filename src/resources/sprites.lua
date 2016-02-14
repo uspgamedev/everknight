@@ -2,6 +2,7 @@
 local sprites = {}
 
 local img = love.graphics.newImage "assets/sprites.png"
+local hero_walk = love.graphics.newImage "assets/sprites_chara.png"
 local splashimg = love.graphics.newImage "assets/Logo.png"
 local splashimg_ggj = love.graphics.newImage "assets/GGJ_splash.png"
 local quads = {}
@@ -52,9 +53,14 @@ sprites.torch = {
 sprites.hero = {
   img = img,
   quads = {
-    newQuad(0, 128, 64, 64, img:getDimensions()),
-    newQuad(64, 128, 64, 64, img:getDimensions()),
-    newQuad(2*64, 128, 64, 64, img:getDimensions())
+    newQuad(0*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(1*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(2*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(3*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(4*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(5*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(6*64, 7*64, 64, 64, img:getDimensions()),
+    newQuad(7*64, 7*64, 64, 64, img:getDimensions())
   },
   hotspot = vec2:new{32, 64}
 }

@@ -195,20 +195,34 @@ function Player:instance (obj)
   end
 
   function obj:draw (g)
-    local i = (not self:getmoving() or counter > .3) and 1 or 2
+    local i = not self:getmoving() and 1 or 2+math.floor(counter*10)
     -- shadow
     g.setColor(0, 0, 0, 50)
     g.ellipse('fill', 0, 0, 16, 4, 16)
-    -- avatar
+    
+
+    -- avatar sprite --
+
+    -- avatar color
     if TIMERS.fragcollect > 0 then
+      -- collecting fragments
       g.setColor(HSL(love.math.random()*255, 255, 150))
     else
+      -- normal color or invincible
       g.setColor(HSL(20, 100, 120 + self:getinvincible()*100, 255))
     end
+
+    -- avatar direction
     local sx = (self:facedir() == 'right') and 1 or -1
+
+    -- avatar render
     local sprite = sprites.hero
-    g.draw(sprite.img, sprite.quads[attacking > 0 and 3 or i], 0, 0, 0,
-           sx, 1, sprite.hotspot.x, sprite.hotspot.y)
+    g.draw(
+      sprite.img, sprite.quads[attacking > 0 and 8 or i],
+      0, 0, 0,
+      sx, 1,
+      sprite.hotspot.x, sprite.hotspot.y)
+
     -- weapon
     local wpnsprite = sprites[weapon]
     if attacking > 0 then

@@ -41,6 +41,8 @@ function Player:instance (obj)
   local tick = 0
   local atkdelay = 0
   local attacking = 0
+  local ATTACKTIME = 12
+  local ATTACKDELAYTIME = 24
   local effects = {}
 
   function obj:load ()
@@ -146,8 +148,8 @@ function Player:instance (obj)
     tick = math.fmod(tick + FRAME, 1)
     if INPUT.confirm and atkdelay <= 0 then
       love.audio.play(SOUNDS.slash)
-      attacking = 10
-      atkdelay = 20
+      attacking = ATTACKTIME
+      atkdelay = ATTACKDELAYTIME
     end
     atkdelay = math.max(atkdelay - 1, 0)
     attacking = math.max(attacking - 1, 0)
@@ -209,7 +211,7 @@ function Player:instance (obj)
       g.setColor(HSL(love.math.random()*255, 255, 150))
     else
       -- normal color or invincible
-      g.setColor(HSL(20, 100, 120 + self:getinvincible()*100, 255))
+      g.setColor(HSL(0, 0, 120 + self:getinvincible()*100, 255))
     end
 
     -- avatar direction
@@ -218,7 +220,7 @@ function Player:instance (obj)
     -- avatar render
     local sprite = sprites.hero
     g.draw(
-      sprite.img, sprite.quads[attacking > 0 and 8 + math.floor( -attacking/2.5 + 4 ) or i],
+      sprite.img, sprite.quads[attacking > 0 and 8 + math.floor( -attacking/(ATTACKTIME/4) + 4 ) or i],
       0, 0, 0,
       sx, 1,
       sprite.hotspot.x, sprite.hotspot.y)
